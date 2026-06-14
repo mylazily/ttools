@@ -8,10 +8,13 @@ const tools = [
   { id: 'text-reverse', name: '文本反转', icon: '🔄', cat: '文本' },
   { id: 'html-escape', name: 'HTML转义', icon: '📝', cat: '文本' },
   { id: 'html-unescape', name: 'HTML反转义', icon: '📝', cat: '文本' },
+  { id: 'html-strip', name: '去除HTML标签', icon: '🧹', cat: '文本' },
   { id: 'lorem', name: 'Lorem生成', icon: '📄', cat: '文本' },
   { id: 'ascii', name: 'ASCII码表', icon: '🔣', cat: '文本' },
   { id: 'binary', name: '二进制转换', icon: '💻', cat: '文本' },
   { id: 'morse', name: '摩尔斯电码', icon: '📻', cat: '文本' },
+  { id: 'rot13', name: 'ROT13加密', icon: '🔄', cat: '文本' },
+  { id: 'caesar', name: '凯撒密码', icon: '🔐', cat: '文本' },
   { id: 'trim', name: '空格清理', icon: '🧹', cat: '文本' },
   { id: 'sort', name: '文本排序', icon: '📊', cat: '文本' },
   { id: 'shuffle', name: '随机打乱', icon: '🎲', cat: '文本' },
@@ -19,12 +22,17 @@ const tools = [
   { id: 'tradition', name: '简繁转换', icon: '📜', cat: '文本' },
   { id: 'slug', name: 'URL Slug', icon: '🔗', cat: '文本' },
   { id: 'js-escape', name: 'JS转义', icon: '📝', cat: '文本' },
+  { id: 'regex-escape', name: '正则转义', icon: '🔍', cat: '文本' },
+  { id: 'punycode', name: 'Punycode编码', icon: '🌐', cat: '文本' },
   { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
   { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
+  { id: 'base64-url', name: 'URL安全Base64', icon: '🔗', cat: '编码' },
   { id: 'url-encode', name: 'URL编码', icon: '🔗', cat: '编码' },
   { id: 'url-decode', name: 'URL解码', icon: '🔓', cat: '编码' },
   { id: 'md5', name: 'MD5加密', icon: '🔍', cat: '编码' },
+  { id: 'sha1', name: 'SHA1加密', icon: '🔒', cat: '编码' },
   { id: 'sha256', name: 'SHA256加密', icon: '🔒', cat: '编码' },
+  { id: 'sha512', name: 'SHA512加密', icon: '🔒', cat: '编码' },
   { id: 'crc32', name: 'CRC32校验', icon: '🧮', cat: '编码' },
   { id: 'uuid', name: 'UUID生成', icon: '🆔', cat: '编码' },
   { id: 'uuid4', name: 'UUID v4', icon: '🆔', cat: '编码' },
@@ -33,18 +41,28 @@ const tools = [
   { id: 'password', name: '密码生成器', icon: '🔐', cat: '编码' },
   { id: 'base32', name: 'Base32编码', icon: '🔐', cat: '编码' },
   { id: 'base58', name: 'Base58编码', icon: '🔐', cat: '编码' },
+  { id: 'base85', name: 'Base85编码', icon: '🔐', cat: '编码' },
   { id: 'unicode', name: 'Unicode转换', icon: '🔣', cat: '编码' },
+  { id: 'hex-dump', name: 'Hex转储', icon: '💾', cat: '编码' },
   { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
   { id: 'json-minify', name: 'JSON压缩', icon: '📦', cat: '转换' },
+  { id: 'xml-format', name: 'XML格式化', icon: '📄', cat: '转换' },
+  { id: 'sql-format', name: 'SQL格式化', icon: '🗄️', cat: '转换' },
+  { id: 'css-beautify', name: 'CSS格式化', icon: '🎨', cat: '转换' },
+  { id: 'js-beautify', name: 'JS格式化', icon: '📜', cat: '转换' },
   { id: 'base-convert', name: '进制转换', icon: '📊', cat: '转换' },
   { id: 'timestamp', name: '时间戳转换', icon: '⏰', cat: '转换' },
   { id: 'timestamp-now', name: '当前时间戳', icon: '⏰', cat: '转换' },
   { id: 'timefmt', name: '时间格式化', icon: '⏰', cat: '转换' },
   { id: 'urldiff', name: 'URL参数解析', icon: '🔗', cat: '转换' },
+  { id: 'url-parse', name: 'URL完整解析', icon: '🔗', cat: '转换' },
+  { id: 'query-string', name: '查询字符串', icon: '🔍', cat: '转换' },
   { id: 'pixel', name: '像素转换', icon: '📐', cat: '转换' },
   { id: 'rem-px', name: 'REM转PX', icon: '📐', cat: '转换' },
   { id: 'hexrgb', name: 'HEX/RGB转换', icon: '🎨', cat: '转换' },
   { id: 'rgb-hex', name: 'RGB转HEX', icon: '🎨', cat: '转换' },
+  { id: 'hsl-rgb', name: 'HSL转RGB', icon: '🎨', cat: '转换' },
+  { id: 'cmyk-rgb', name: 'CMYK转RGB', icon: '🎨', cat: '转换' },
   { id: 'csv-json', name: 'CSV转JSON', icon: '📋', cat: '转换' },
   { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄', cat: '转换' },
   { id: 'yaml-json', name: 'YAML转JSON', icon: '⚙️', cat: '转换' },
@@ -84,10 +102,10 @@ const tools = [
 ];
 ---
 
-<Layout title="在线工具箱 - 95个免费在线工具" description="95个免费在线工具，无需安装，即开即用">
+<Layout title="在线工具箱 - 125个免费在线工具" description="125个免费在线工具，无需安装，即开即用">
     <div class="text-center mb-10">
         <h1 class="text-4xl font-bold text-gray-800 mb-4">🛠️ 在线工具箱</h1>
-        <p class="text-gray-600 text-lg">95个免费在线工具，无需安装，即开即用</p>
+        <p class="text-gray-600 text-lg">125个免费在线工具，无需安装，即开即用</p>
     </div>
     
     {(['文本','编码','转换','计算','趣味','其他'] as const).map(cat => (
