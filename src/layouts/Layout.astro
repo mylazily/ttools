@@ -1,9 +1,8 @@
 ---
-export interface Props {
+interface Props {
   title: string;
   description: string;
 }
-
 const { title, description } = Astro.props;
 ---
 
@@ -12,77 +11,99 @@ const { title, description } = Astro.props;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content={description || "200个免费在线工具，无需安装，即开即用。包含文本处理、编码加密、格式转换、计算器、趣味工具等"}>
+    <meta name="keywords" content="在线工具,工具箱,Base64,MD5,JSON格式化,时间戳,UUID,密码生成,二维码">
+    <meta name="author" content="在线工具箱">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ziyuanzu.com">
     <title>{title}</title>
-    <meta name="description" content={description}>
-    <meta name="keywords" content="在线工具,免费工具,工具网站,资源组">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <style is:inline>
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4828591893992093" crossorigin="anonymous"></script>
+    
+    <style is:global>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #f9fafb; font-family: system-ui, -apple-system, sans-serif; padding-bottom: 70px; }
+        body { background: #f9fafb; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding-bottom: 80px; }
         .card { background: white; border-radius: 0.75rem; padding: 1.25rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s; }
         .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #f472b6; transform: translateY(-2px); }
-        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-        @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(3, 1fr); } }
-        @media (min-width: 1024px) { .grid-container { grid-template-columns: repeat(4, 1fr); } }
-        a { text-decoration: none; color: inherit; }
-        .btn-primary { background: #db2777; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 500; }
-        .btn-primary:hover { background: #be185d; }
-        .btn-secondary { border: 1px solid #db2777; color: #db2777; padding: 0.75rem 1.5rem; border-radius: 0.5rem; background: white; cursor: pointer; font-weight: 500; }
+        .tool-card { display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; border-radius: 0.75rem; padding: 1.25rem 0.75rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s; text-align: center; text-decoration: none; }
+        .tool-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #f472b6; transform: translateY(-2px); text-decoration: none; }
+        .btn-primary { background: #db2777; color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 500; transition: all 0.2s; }
+        .btn-primary:hover { background: #be185d; transform: translateY(-1px); }
+        .btn-secondary { border: 1px solid #db2777; color: #db2777; padding: 0.75rem 1.5rem; border-radius: 0.5rem; background: white; cursor: pointer; font-weight: 500; transition: all 0.2s; }
         .btn-secondary:hover { background: #fdf2f8; }
-        textarea, input { width: 100%; padding: 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-family: monospace; font-size: 0.875rem; }
-        textarea:focus, input:focus { outline: none; border-color: #db2777; box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1); }
-        .result-box { background: #f9fafb; padding: 1rem; border-radius: 0.5rem; font-family: monospace; font-size: 0.875rem; white-space: pre-wrap; word-break: break-all; min-height: 60px; border: 1px solid #e5e7eb; }
-        .tool-card { display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; border-radius: 0.75rem; padding: 1.25rem 0.75rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s; text-align: center; }
-        .tool-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #f472b6; transform: translateY(-2px); }
+        textarea, input { width: 100%; padding: 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.875rem; outline: none; transition: border-color 0.2s; }
+        textarea:focus, input:focus { border-color: #db2777; box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1); }
+        .result-box { background: #f9fafb; padding: 1rem; border-radius: 0.5rem; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.875rem; white-space: pre-wrap; word-break: break-all; min-height: 60px; border: 1px solid #e5e7eb; }
+        .top-banner { background: linear-gradient(135deg, #db2777 0%, #ec4899 50%, #f472b6 100%); color: white; padding: 0.5rem; text-align: center; font-size: 0.875rem; }
+        .top-banner a { color: white; text-decoration: underline; font-weight: 500; }
+        .nav-bar { background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 0; position: sticky; top: 0; z-index: 50; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 0.75rem 0; z-index: 50; }
+        .bottom-nav a { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #6b7280; font-size: 0.75rem; transition: color 0.2s; }
+        .bottom-nav a:hover, .bottom-nav a.active { color: #db2777; }
     </style>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4828591893992093" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- 顶部横幅 -->
-    <div class="bg-gradient-to-r from-pink-500 to-pink-600 text-white py-3 px-4 text-center text-sm">
-        🎁 海量资源、软件、教程、素材 → <a href="https://www.ziyuanzu.com" class="font-bold underline hover:text-pink-100">访问资源主站 www.ziyuanzu.com</a>
+    <!-- 顶部引流横幅 -->
+    <div class="top-banner">
+        🎁 海量精品资源，尽在 <a href="https://www.ziyuanzu.com" target="_blank">资源主站 www.ziyuanzu.com</a> →
     </div>
-
+    
     <!-- 导航栏 -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-xl font-bold text-pink-600">🛠️ 在线工具箱</a>
-            <a href="https://www.ziyuanzu.com" class="text-gray-600 hover:text-pink-600 text-sm font-medium">→ 资源主站</a>
+    <div class="nav-bar">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <a href="/" class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                🛠️ 在线工具箱
+            </a>
+            <a href="https://www.ziyuanzu.com" target="_blank" class="text-pink-600 hover:underline text-sm font-medium">
+                → 访问资源主站
+            </a>
         </div>
-    </nav>
-
+    </div>
+    
     <!-- 主内容 -->
-    <main class="max-w-4xl mx-auto px-4 py-8">
+    <main class="max-w-6xl mx-auto px-4 py-8">
         <slot />
     </main>
-
+    
     <!-- 底部导航栏 -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-50">
-        <div class="max-w-md mx-auto flex justify-around py-2 px-2">
-            <a href="/" class="flex flex-col items-center py-1 px-3 text-gray-600 hover:text-pink-600">
+    <div class="bottom-nav">
+        <div class="max-w-md mx-auto grid grid-cols-5 gap-1 px-4">
+            <a href="/" class="active">
                 <span class="text-lg">🏠</span>
-                <span class="text-xs mt-1">首页</span>
+                <span>首页</span>
             </a>
-            <a href="/#text" class="flex flex-col items-center py-1 px-3 text-gray-600 hover:text-pink-600">
+            <a href="/#文本">
                 <span class="text-lg">📝</span>
-                <span class="text-xs mt-1">文本</span>
+                <span>文本</span>
             </a>
-            <a href="/#encode" class="flex flex-col items-center py-1 px-3 text-gray-600 hover:text-pink-600">
+            <a href="/#编码">
                 <span class="text-lg">🔐</span>
-                <span class="text-xs mt-1">编码</span>
+                <span>编码</span>
             </a>
-            <a href="/#calc" class="flex flex-col items-center py-1 px-3 text-gray-600 hover:text-pink-600">
-                <span class="text-lg">🔢</span>
-                <span class="text-xs mt-1">计算</span>
+            <a href="/#计算">
+                <span class="text-lg">🧮</span>
+                <span>计算</span>
             </a>
-            <a href="https://www.ziyuanzu.com" class="flex flex-col items-center py-1 px-3 text-gray-600 hover:text-pink-600">
+            <a href="https://www.ziyuanzu.com" target="_blank">
                 <span class="text-lg">📦</span>
-                <span class="text-xs mt-1">资源</span>
+                <span>资源</span>
             </a>
         </div>
-    </nav>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer class="text-center py-8 text-gray-500 text-sm">
+        <p>🛠️ 在线工具箱 - 200个免费在线工具</p>
+        <p class="mt-2">
+            <a href="https://www.ziyuanzu.com" class="text-pink-600 hover:underline">资源主站</a>
+            ·
+            <a href="/" class="text-pink-600 hover:underline">在线工具箱</a>
+        </p>
+    </footer>
 </body>
 </html>
