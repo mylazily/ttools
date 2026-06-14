@@ -16,80 +16,65 @@ const { title, description } = Astro.props;
     <meta name="description" content={description}>
     <meta name="keywords" content="在线工具,免费工具,工具网站,资源组">
     
-    <!-- Tailwind CSS -->
+    <!-- 强制提前加载 Tailwind -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        pink: {
-                            50: '#fdf2f8',
-                            100: '#fce7f3',
-                            200: '#fbcfe8',
-                            300: '#f9a8d4',
-                            400: '#f472b6',
-                            500: '#ec4899',
-                            600: '#db2777',
-                            700: '#be185d',
-                            800: '#9d174d',
-                            900: '#831843',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    
+    <!-- 内联关键样式，确保立即生效 -->
+    <style is:inline>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #f9fafb; font-family: system-ui, -apple-system, sans-serif; }
+        .card { background: white; border-radius: 0.75rem; padding: 1.25rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .card:hover { box-shadow: 0 4px 6px rgba(0,0,0,0.07); border-color: #f9a8d4; }
+        .grid-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 1024px) { .grid-container { grid-template-columns: repeat(4, 1fr); } }
+        a { text-decoration: none; color: inherit; display: block; }
+        .text-pink { color: #db2777; }
+        .bg-pink { background: linear-gradient(to right, #ec4899, #db2777); }
+    </style>
     
     <!-- Google Adsense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4828591893992093" crossorigin="anonymous"></script>
-    
-    <style is:global>
-        body {
-            background-color: #f9fafb;
-        }
-    </style>
 </head>
-<body class="min-h-screen">
+<body>
     <!-- 顶部横幅 -->
-    <div class="bg-gradient-to-r from-pink-500 to-pink-600 text-white py-3 px-4 text-center text-sm">
-        🎁 海量资源、软件、教程、素材 → <a href="https://www.ziyuanzu.com" class="font-bold underline hover:text-pink-100">访问资源主站 www.ziyuanzu.com</a>
+    <div class="bg-pink text-white py-3 px-4 text-center text-sm">
+        🎁 海量资源、软件、教程、素材 → <a href="https://www.ziyuanzu.com" style="font-weight: bold; text-decoration: underline; display: inline;">访问资源主站 www.ziyuanzu.com</a>
     </div>
 
     <!-- 导航栏 -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-xl font-bold text-pink-600">🛠️ 在线工具箱</a>
-            <a href="https://www.ziyuanzu.com" class="text-gray-600 hover:text-pink-600 text-sm">→ 访问资源主站</a>
+    <nav style="background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 50;">
+        <div style="max-width: 1280px; margin: 0 auto; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+            <a href="/" style="font-size: 1.25rem; font-weight: bold; color: #db2777;">🛠️ 在线工具箱</a>
+            <a href="https://www.ziyuanzu.com" style="color: #4b5563; font-size: 0.875rem;">→ 访问资源主站</a>
         </div>
     </nav>
 
     <!-- 主内容 -->
-    <main class="max-w-7xl mx-auto px-4 py-8 pb-24">
+    <main style="max-width: 1280px; margin: 0 auto; padding: 2rem 1rem 6rem;">
         <slot />
     </main>
 
     <!-- 底部导航栏（移动端） -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-50 md:hidden">
-        <div class="flex justify-around py-3">
-            <a href="https://www.ziyuanzu.com" class="text-xs text-gray-600 hover:text-pink-600">首页</a>
-            <a href="https://www.ziyuanzu.com" class="text-xs text-gray-600 hover:text-pink-600">资源</a>
-            <a href="https://www.ziyuanzu.com" class="text-xs text-gray-600 hover:text-pink-600">软件</a>
-            <a href="https://www.ziyuanzu.com" class="text-xs text-gray-600 hover:text-pink-600">教程</a>
-            <a href="https://www.ziyuanzu.com" class="text-xs text-gray-600 hover:text-pink-600">更多</a>
+    <nav style="position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 50; display: block;">
+        <div style="display: flex; justify-content: space-around; padding: 0.75rem;">
+            <a href="https://www.ziyuanzu.com" style="font-size: 0.75rem; color: #4b5563;">首页</a>
+            <a href="https://www.ziyuanzu.com" style="font-size: 0.75rem; color: #4b5563;">资源</a>
+            <a href="https://www.ziyuanzu.com" style="font-size: 0.75rem; color: #4b5563;">软件</a>
+            <a href="https://www.ziyuanzu.com" style="font-size: 0.75rem; color: #4b5563;">教程</a>
+            <a href="https://www.ziyuanzu.com" style="font-size: 0.75rem; color: #4b5563;">更多</a>
         </div>
     </nav>
 
     <!-- 页脚 -->
-    <footer class="bg-white border-t py-8 hidden md:block">
-        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-            <p>
-                <a href="https://www.ziyuanzu.com" class="hover:text-pink-600">资源主站</a>
-                <span class="mx-2">|</span>
-                <a href="/" class="hover:text-pink-600">在线工具</a>
-            </p>
-            <p class="mt-2">© 2025 ziyuanzu.com - 资源组</p>
-        </div>
+    <footer style="background: white; border-top: 1px solid #e5e7eb; padding: 2rem 1rem; text-align: center; color: #6b7280; font-size: 0.875rem; display: none;">
+        <p>
+            <a href="https://www.ziyuanzu.com">资源主站</a>
+            <span style="margin: 0 0.5rem;">|</span>
+            <a href="/">在线工具</a>
+        </p>
+        <p style="margin-top: 0.5rem;">© 2025 ziyuanzu.com - 资源组</p>
     </footer>
 </body>
 </html>

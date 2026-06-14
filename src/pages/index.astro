@@ -76,17 +76,17 @@ const tools = [
 ---
 
 <Layout title="70+免费在线工具集合" description="70+免费实用在线工具，文本处理、编码转换、计算设计、趣味工具，全部免费无需注册">
-    <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">🛠️ 70+ 免费在线工具</h1>
-        <p class="text-gray-600 text-lg">文本处理 · 编码转换 · 计算设计 · 趣味工具 · 全部免费</p>
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="font-size: 2.25rem; font-weight: bold; color: #1f2937; margin-bottom: 1rem;">🛠️ 70+ 免费在线工具</h1>
+        <p style="color: #4b5563; font-size: 1.125rem;">文本处理 · 编码转换 · 计算设计 · 趣味工具 · 全部免费</p>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="grid-container">
         {tools.map(tool => (
-            <a href={`/tools/${tool.id}`} class="bg-white rounded-xl p-5 block border shadow-sm hover:shadow-md hover:border-pink-300 transition-all">
-                <div class="text-4xl mb-3">{tool.icon}</div>
-                <h3 class="text-lg font-bold mb-1 text-gray-800">{tool.name}</h3>
-                <p class="text-gray-500 text-sm">{tool.desc}</p>
+            <a href={`/tools/${tool.id}`} class="card">
+                <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">{tool.icon}</div>
+                <h3 style="font-size: 1.125rem; font-weight: bold; margin-bottom: 0.25rem; color: #1f2937;">{tool.name}</h3>
+                <p style="color: #6b7280; font-size: 0.875rem;">{tool.desc}</p>
             </a>
         ))}
     </div>
