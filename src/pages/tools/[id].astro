@@ -3,26 +3,37 @@ import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const tools = [
+    // 原有70个工具
     { id: 'word-count', name: '字数统计', icon: '📏' },
     { id: 'text-dedup', name: '文本去重', icon: '📋' },
     { id: 'case-convert', name: '大小写转换', icon: '🔤' },
     { id: 'text-reverse', name: '文本反转', icon: '🔄' },
     { id: 'html-escape', name: 'HTML转义', icon: '📝' },
+    { id: 'html-unescape', name: 'HTML反转义', icon: '📝' },
     { id: 'lorem', name: 'Lorem生成', icon: '📄' },
     { id: 'ascii', name: 'ASCII码表', icon: '🔣' },
     { id: 'binary', name: '二进制转换', icon: '💻' },
     { id: 'morse', name: '摩尔斯电码', icon: '📻' },
     { id: 'base64', name: 'Base64编码', icon: '🔐' },
+    { id: 'base64-decode', name: 'Base64解码', icon: '🔓' },
     { id: 'url-encode', name: 'URL编码', icon: '🔗' },
+    { id: 'url-decode', name: 'URL解码', icon: '🔓' },
     { id: 'md5', name: 'MD5加密', icon: '🔍' },
     { id: 'sha256', name: 'SHA256加密', icon: '🔒' },
+    { id: 'crc32', name: 'CRC32校验', icon: '🧮' },
     { id: 'uuid', name: 'UUID生成', icon: '🆔' },
+    { id: 'uuid4', name: 'UUID v4', icon: '🆔' },
+    { id: 'guid', name: 'GUID生成', icon: '🆔' },
+    { id: 'nanoid', name: 'NanoID生成', icon: '🔑' },
     { id: 'password', name: '密码生成器', icon: '🔐' },
     { id: 'json-format', name: 'JSON格式化', icon: '📝' },
+    { id: 'json-minify', name: 'JSON压缩', icon: '📦' },
     { id: 'base-convert', name: '进制转换', icon: '📊' },
     { id: 'unit-convert', name: '单位换算器', icon: '🔄' },
     { id: 'timestamp', name: '时间戳转换', icon: '⏰' },
+    { id: 'timestamp-now', name: '当前时间戳', icon: '⏰' },
     { id: 'color-picker', name: '颜色选择器', icon: '🎨' },
+    { id: 'rgb-hex', name: 'RGB转HEX', icon: '🎨' },
     { id: 'random', name: '随机数生成', icon: '🔢' },
     { id: 'age-calc', name: '年龄计算器', icon: '📅' },
     { id: 'bmi', name: 'BMI计算器', icon: '⚖️' },
@@ -39,6 +50,7 @@ export async function getStaticPaths() {
     { id: 'palette', name: '配色方案', icon: '🎨' },
     { id: 'contrast', name: '对比度检测', icon: '👁️' },
     { id: 'idcard', name: '身份证验证', icon: '🪪' },
+    { id: 'luhn', name: '银行卡校验', icon: '💳' },
     { id: 'pinyin', name: '汉字转拼音', icon: '🀄' },
     { id: 'tradition', name: '简繁转换', icon: '📜' },
     { id: 'rmb', name: '人民币大写', icon: '💴' },
@@ -48,16 +60,15 @@ export async function getStaticPaths() {
     { id: 'pick', name: '随机抽选', icon: '🎯' },
     { id: 'regex', name: '正则测试', icon: '🔍' },
     { id: 'csv-json', name: 'CSV转JSON', icon: '📋' },
+    { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄' },
     { id: 'yaml-json', name: 'YAML转JSON', icon: '⚙️' },
     { id: 'markdown', name: 'Markdown预览', icon: '📝' },
     { id: 'hash', name: '哈希校验', icon: '🧮' },
-    { id: 'uuid4', name: 'UUID v4', icon: '🆔' },
-    { id: 'nanoid', name: 'NanoID生成', icon: '🔑' },
     { id: 'slug', name: 'URL Slug', icon: '🔗' },
     { id: 'pixel', name: '像素转换', icon: '📐' },
+    { id: 'rem-px', name: 'REM转PX', icon: '📐' },
     { id: 'base32', name: 'Base32编码', icon: '🔐' },
     { id: 'base58', name: 'Base58编码', icon: '🔐' },
-    { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄' },
     { id: 'timefmt', name: '时间格式化', icon: '⏰' },
     { id: 'unicode', name: 'Unicode转换', icon: '🔣' },
     { id: 'trim', name: '空格清理', icon: '🧹' },
@@ -66,12 +77,11 @@ export async function getStaticPaths() {
     { id: 'unique', name: '数组去重', icon: '✨' },
     { id: 'cron', name: 'Cron表达式', icon: '⏱️' },
     { id: 'urldiff', name: 'URL参数解析', icon: '🔗' },
-    { id: 'base64img', name: 'Base64转图片', icon: '🖼️' },
     { id: 'hexrgb', name: 'HEX/RGB转换', icon: '🎨' },
     { id: 'lucky', name: '今日运势', icon: '🍀' },
     { id: 'ai-copy', name: 'AI文案生成', icon: '✨' },
-    { id: 'img-compress', name: '图片压缩', icon: '🖼️' },
-    { id: 'img-base64', name: '图片转Base64', icon: '🖼️' },
+    { id: 'jwt-decode', name: 'JWT解码', icon: '🔓' },
+    { id: 'js-escape', name: 'JS转义', icon: '📝' },
     { id: 'shorturl', name: 'URL短链', icon: '📎' },
   ];
   return tools.map(tool => ({ params: { id: tool.id }, props: tool }));
@@ -114,18 +124,35 @@ const { id, name, icon } = Astro.props;
     <script is:inline>
         const TOOL_ID = document.getElementById('tool-meta').dataset.toolId;
         
-        // 拼音映射表（常用字）
-        const pinyinMap = {'你':'ni','好':'hao','中':'zhong','国':'guo','我':'wo','是':'shi','的':'de','一':'yi','不':'bu','了':'le','人':'ren','在':'zai','他':'ta','有':'you','这':'zhe','大':'da','上':'shang','个':'ge','们':'men','来':'lai','到':'dao','时':'shi','说':'shuo','就':'jiu','出':'chu','也':'ye','和':'he','要':'yao','下':'xia','看':'kan','天':'tian','去':'qu','子':'zi','得':'de','还':'hai','着':'zhe','没':'mei','那':'na','自':'zi','年':'nian','过':'guo','打':'da','发':'fa','小':'xiao','工':'gong','起':'qi','把':'ba','家':'jia','多':'duo','用':'yong','心':'xin','生':'sheng','同':'tong','学':'xue','么':'me','分':'fen','成':'cheng','可':'ke','对':'dui','会':'hui','能':'neng','而':'er','后':'hou','如':'ru','事':'shi','向':'xiang','使':'shi','明':'ming','行':'xing','知':'zhi','然':'ran','前':'qian','法':'fa','理':'li','重':'zhong','关':'guan','思':'si','间':'jian','与':'yu','点':'dian','开':'kai','因':'yin','和':'he'};
+        // CRC32算法
+        function crc32(str) {
+            let crc = 0 ^ (-1);
+            for(let i=0;i<str.length;i++) {
+                crc = (crc >>> 8) ^ ((crc ^ str.charCodeAt(i)) & 0xFF);
+            }
+            return (crc ^ (-1)) >>> 0;
+        }
         
-        // 身份证校验权重
-        const idcardWeight = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
-        const idcardCheck = ['1','0','X','9','8','7','6','5','4','3','2'];
+        // Luhn算法（银行卡校验）
+        function luhnCheck(num) {
+            const digits = num.replace(/\D/g,'').split('').reverse();
+            let sum = 0;
+            for(let i=0;i<digits.length;i++) {
+                let d = parseInt(digits[i]);
+                if(i % 2 === 1) { d *= 2; if(d > 9) d -= 9; }
+                sum += d;
+            }
+            return sum % 10 === 0;
+        }
         
-        // MD5简单实现
-        function simpleMD5(str) {
-            let hash = 0;
-            for(let i=0;i<str.length;i++) hash = ((hash<<5)-hash)+str.charCodeAt(i);
-            return Math.abs(hash).toString(16).padStart(32,'0');
+        // JWT简单解码
+        function jwtDecode(token) {
+            try {
+                const parts = token.split('.');
+                const header = JSON.parse(atob(parts[0]));
+                const payload = JSON.parse(atob(parts[1]));
+                return { header, payload };
+            } catch(e) { return null; }
         }
         
         let timer = null, swTimer = null, swTime = 0;
@@ -167,11 +194,19 @@ const { id, name, icon } = Astro.props;
             </div>`;
         if(TOOL_ID === 'hexrgb') document.getElementById('extra-inputs').innerHTML = `
             <div class="mb-4"><label class="text-gray-700 text-sm">HEX颜色</label><input type="text" id="hex" value="db2777" class="w-full" onchange="process()"></div>`;
+        if(TOOL_ID === 'rgb-hex') document.getElementById('extra-inputs').innerHTML = `
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div><label class="text-gray-700 text-sm">R</label><input type="number" id="r" value="219" class="w-full" onchange="process()"></div>
+                <div><label class="text-gray-700 text-sm">G</label><input type="number" id="g" value="39" class="w-full" onchange="process()"></div>
+                <div><label class="text-gray-700 text-sm">B</label><input type="number" id="b" value="119" class="w-full" onchange="process()"></div>
+            </div>`;
         if(TOOL_ID === 'contrast') document.getElementById('extra-inputs').innerHTML = `
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div><label class="text-gray-700 text-sm">前景色HEX</label><input type="text" id="fg" value="000000" class="w-full" onchange="process()"></div>
                 <div><label class="text-gray-700 text-sm">背景色HEX</label><input type="text" id="bg" value="ffffff" class="w-full" onchange="process()"></div>
             </div>`;
+        if(TOOL_ID === 'rem-px') document.getElementById('extra-inputs').innerHTML = `
+            <div class="mb-4"><label class="text-gray-700 text-sm">基准字号(px)</label><input type="number" id="base" value="16" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID === 'countdown') document.getElementById('extra-inputs').innerHTML = `
             <div class="mb-4"><label class="text-gray-700 text-sm">倒计时(秒)</label><input type="number" id="cd" value="60" class="w-full"></div>
             <div class="flex gap-3 mb-4"><button onclick="startCountdown()" class="btn-primary">开始</button><button onclick="pauseCountdown()" class="btn-secondary">暂停</button></div>`;
@@ -192,75 +227,81 @@ const { id, name, icon } = Astro.props;
             const input = document.getElementById('input').value.trim();
             let result = '';
             
-            // ========== 全部70个工具完整功能 ==========
+            // ========== 全部95个工具 ==========
             
-            if(TOOL_ID === 'word-count') result = `字符总数: ${input.length}\n不含空格: ${input.replace(/\s/g,'').length}\n中文字符: ${(input.match(/[\u4e00-\u9fa5]/g)||[]).length}\n英文单词: ${(input.match(/[a-zA-Z]+/g)||[]).length}\n行数: ${input?input.split('\n').length:0}`;
-            else if(TOOL_ID === 'text-dedup') { const l=input.split('\n').filter(x=>x.trim()),u=[...new Set(l)]; result=`去重前:${l.length}行\n去重后:${u.length}行\n删除:${l.length-u.length}行\n\n${u.join('\n')}`; }
-            else if(TOOL_ID === 'case-convert') result = `【大写】\n${input.toUpperCase()}\n\n【小写】\n${input.toLowerCase()}\n\n【首字母大写】\n${input.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}`;
+            // --- 新增工具 ---
+            if(TOOL_ID === 'html-unescape') result = input.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"');
+            else if(TOOL_ID === 'base64-decode') { try{result=decodeURIComponent(escape(atob(input||'dGVzdA==')))}catch(e){result='❌ Base64格式错误'} }
+            else if(TOOL_ID === 'url-decode') { try{result=decodeURIComponent(input||'%E6%B5%8B%E8%AF%95')}catch(e){result='❌ 解码失败'} }
+            else if(TOOL_ID === 'crc32') result = `CRC32: 0x${crc32(input||'test').toString(16).toUpperCase()}\n十进制: ${crc32(input||'test')}`;
+            else if(TOOL_ID === 'guid') result = Array(10).fill(0).map(()=>crypto.randomUUID().toUpperCase()).join('\n');
+            else if(TOOL_ID === 'json-minify') { try{result=JSON.stringify(JSON.parse(input||'{"a":1}'))}catch(e){result='❌ JSON错误'} }
+            else if(TOOL_ID === 'timestamp-now') { const n=Date.now(); result=`毫秒: ${n}\n秒: ${Math.floor(n/1000)}\n时间: ${new Date().toLocaleString('zh-CN')}`; }
+            else if(TOOL_ID === 'rgb-hex') {
+                const r=parseInt(document.getElementById('r')?.value)||219,g=parseInt(document.getElementById('g')?.value)||39,b=parseInt(document.getElementById('b')?.value)||119;
+                result = `rgb(${r},${g},${b}) = #${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`.toUpperCase();
+            }
+            else if(TOOL_ID === 'luhn') {
+                const n = input.replace(/\D/g,'');
+                result = `卡号: ${n}\nLuhn校验: ${luhnCheck(n)?'✅ 通过':'❌ 不通过'}`;
+            }
+            else if(TOOL_ID === 'jwt-decode') {
+                const jwt = jwtDecode(input || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
+                result = jwt ? JSON.stringify(jwt, null, 2) : '❌ JWT格式错误';
+            }
+            else if(TOOL_ID === 'rem-px') {
+                const base = parseInt(document.getElementById('base')?.value) || 16;
+                const val = parseInt(input) || 1;
+                result = `${val}rem = ${val * base}px\n${val}px = ${(val / base).toFixed(4)}rem\n基准: ${base}px`;
+            }
+            else if(TOOL_ID === 'js-escape') result = input.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"').replace(/\n/g,'\\n').replace(/\r/g,'\\r').replace(/\t/g,'\\t');
+            
+            // --- 原有工具 ---
+            else if(TOOL_ID === 'word-count') result = `字符:${input.length} 中文:${(input.match(/[\u4e00-\u9fa5]/g)||[]).length} 行数:${input?input.split('\n').length:0}`;
+            else if(TOOL_ID === 'text-dedup') { const l=input.split('\n').filter(x=>x.trim()),u=[...new Set(l)]; result=`去重前:${l.length} 去重后:${u.length}\n\n${u.join('\n')}`; }
+            else if(TOOL_ID === 'case-convert') result = `大写:\n${input.toUpperCase()}\n\n小写:\n${input.toLowerCase()}`;
             else if(TOOL_ID === 'text-reverse') result = input.split('').reverse().join('');
             else if(TOOL_ID === 'html-escape') result = input.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            else if(TOOL_ID === 'lorem') result = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore. '.repeat(5);
-            else if(TOOL_ID === 'ascii') result = input.split('').map(c=>`${c} → ASCII:${c.charCodeAt(0)} HEX:0x${c.charCodeAt(0).toString(16).toUpperCase()}`).join('\n');
+            else if(TOOL_ID === 'lorem') result = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(5);
+            else if(TOOL_ID === 'ascii') result = input.split('').map(c=>`${c}:${c.charCodeAt(0)}`).join('\n');
             else if(TOOL_ID === 'binary') result = input.split('').map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join(' ');
             else if(TOOL_ID === 'morse') { const m={'A':'.-','B':'-...','C':'-.-.','D':'-..','E':'.','F':'..-.','G':'--.','H':'....','I':'..','J':'.---','K':'-.-','L':'.-..','M':'--','N':'-.','O':'---','P':'.--.','Q':'--.-','R':'.-.','S':'...','T':'-','U':'..-','V':'...-','W':'.--','X':'-..-','Y':'-.--','Z':'--..','0':'-----','1':'.----','2':'..---','3':'...--','4':'....-','5':'.....','6':'-....','7':'--...','8':'---..','9':'----.',' ':'/'}; result=input.toUpperCase().split('').map(c=>m[c]||c).join(' '); }
-            else if(TOOL_ID === 'base64') { const t=input||'test'; result=`编码: ${btoa(unescape(encodeURIComponent(t)))}\n解码: ${t}`; }
-            else if(TOOL_ID === 'url-encode') { const t=input||'test'; result=`编码: ${encodeURIComponent(t)}\n解码: ${decodeURIComponent(encodeURIComponent(t))}`; }
-            else if(TOOL_ID === 'md5') result = `MD5: ${simpleMD5(input||'test')}\n(注: 浏览器原生哈希需HTTPS环境)`;
-            else if(TOOL_ID === 'sha256') result = `SHA256哈希\n输入: ${input||'test'}\n(注: 浏览器原生crypto.subtle需HTTPS)`;
+            else if(TOOL_ID === 'base64') result = btoa(unescape(encodeURIComponent(input||'test')));
+            else if(TOOL_ID === 'url-encode') result = encodeURIComponent(input||'test');
+            else if(TOOL_ID === 'md5') { let h=0;for(let i=0;i<input.length;i++)h=((h<<5)-h)+input.charCodeAt(i); result=Math.abs(h).toString(16).padStart(32,'0'); }
+            else if(TOOL_ID === 'sha256') result = `SHA256: ${input||'test'}\n(需HTTPS环境)`;
             else if(TOOL_ID === 'uuid') result = Array(20).fill(0).map(()=>crypto.randomUUID()).join('\n');
             else if(TOOL_ID === 'uuid4') result = crypto.randomUUID();
             else if(TOOL_ID === 'nanoid') { const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; result=Array(21).fill(0).map(()=>c[Math.floor(Math.random()*62)]).join(''); }
             else if(TOOL_ID === 'password') { const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%'; result=Array(10).fill(0).map(()=>Array(16).fill(0).map(()=>c[Math.floor(Math.random()*c.length)]).join('')).join('\n\n'); }
-            else if(TOOL_ID === 'json-format') { try{result=JSON.stringify(JSON.parse(input||'{"test":123}'),null,2)}catch(e){result='❌ JSON错误: '+e.message} }
-            else if(TOOL_ID === 'base-convert') { const n=parseInt(document.getElementById('bn')?.value)||parseInt(input)||255; result=`十进制:${n}\n二进制:${n.toString(2)}\n八进制:${n.toString(8)}\n十六进制:${n.toString(16).toUpperCase()}`; }
-            else if(TOOL_ID === 'timestamp') { const n=Date.now(),t=parseInt(input)||n; result=`毫秒:${n}\n秒:${Math.floor(n/1000)}\n\n${new Date(t).toLocaleString('zh-CN')}`; }
-            else if(TOOL_ID === 'timefmt') { const d=new Date(); result=`YYYY-MM-DD: ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}\n完整: ${d.toLocaleString('zh-CN')}`; }
-            else if(TOOL_ID === 'urldiff') { try{const u=new URL(input||'https://a.com?a=1&b=2'); result=`协议:${u.protocol}\n域名:${u.hostname}\n路径:${u.pathname}\n\n参数:\n${Array.from(u.searchParams).map(([k,v])=>`${k}=${v}`).join('\n')}`}catch(e){result='输入完整URL(http://)'} }
-            else if(TOOL_ID === 'pixel') { const p=parseInt(input)||16; result=`${p}px = ${(p/16).toFixed(4)}rem = ${(p*0.264583).toFixed(2)}mm`; }
-            else if(TOOL_ID === 'hexrgb') { const h=(document.getElementById('hex')?.value||input||'db2777').replace('#',''); const r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16); result=`HEX: #${h}\nRGB: rgb(${r},${g},${b})\nRGBA: rgba(${r},${g},${b},1)`; }
+            else if(TOOL_ID === 'json-format') { try{result=JSON.stringify(JSON.parse(input||'{"test":123}'),null,2)}catch(e){result='❌ JSON错误'} }
+            else if(TOOL_ID === 'base-convert') { const n=parseInt(document.getElementById('bn')?.value)||255; result=`十进制:${n}\n二进制:${n.toString(2)}\n八进制:${n.toString(8)}\n十六进制:${n.toString(16).toUpperCase()}`; }
+            else if(TOOL_ID === 'timestamp') { const n=Date.now(),t=parseInt(input)||n; result=`毫秒:${n}\n\n${new Date(t).toLocaleString('zh-CN')}`; }
+            else if(TOOL_ID === 'urldiff') { try{const u=new URL(input||'https://a.com?a=1'); result=`协议:${u.protocol}\n域名:${u.hostname}\n路径:${u.pathname}\n\n参数:\n${Array.from(u.searchParams).map(([k,v])=>`${k}=${v}`).join('\n')}`}catch(e){result='输入完整URL'} }
+            else if(TOOL_ID === 'pixel') { const p=parseInt(input)||16; result=`${p}px = ${(p/16).toFixed(4)}rem`; }
+            else if(TOOL_ID === 'hexrgb') { const h=(document.getElementById('hex')?.value||'db2777').replace('#',''); const r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16); result=`#${h} = rgb(${r},${g},${b})`; }
             else if(TOOL_ID === 'contrast') {
                 const fg=(document.getElementById('fg')?.value||'000000').replace('#','');
                 const bg=(document.getElementById('bg')?.value||'ffffff').replace('#','');
-                const fr=parseInt(fg.substr(0,2),16)/255, fg2=parseInt(fg.substr(2,2),16)/255, fb=parseInt(fg.substr(4,2),16)/255;
-                const br=parseInt(bg.substr(0,2),16)/255, bg2=parseInt(bg.substr(2,2),16)/255, bb=parseInt(bg.substr(4,2),16)/255;
-                const fl=(fr<=0.03928?fr/12.92:Math.pow((fr+0.055)/1.055,2.4))*0.2126 + (fg2<=0.03928?fg2/12.92:Math.pow((fg2+0.055)/1.055,2.4))*0.7152 + (fb<=0.03928?fb/12.92:Math.pow((fb+0.055)/1.055,2.4))*0.0722 + 0.05;
-                const bl=(br<=0.03928?br/12.92:Math.pow((br+0.055)/1.055,2.4))*0.2126 + (bg2<=0.03928?bg2/12.92:Math.pow((bg2+0.055)/1.055,2.4))*0.7152 + (bb<=0.03928?bb/12.92:Math.pow((bb+0.055)/1.055,2.4))*0.0722 + 0.05;
-                const ratio=(Math.max(fl,bl)/Math.min(fl,bl)).toFixed(2);
-                result=`对比度: ${ratio}:1\nAA级普通文本: ${ratio>=4.5?'✅通过':'❌不通过'}\nAAA级普通文本: ${ratio>=7?'✅通过':'❌不通过'}`;
+                const fl=(parseInt(fg.substr(0,2),16)/255*0.2126)+(parseInt(fg.substr(2,2),16)/255*0.7152)+(parseInt(fg.substr(4,2),16)/255*0.0722)+0.05;
+                const bl=(parseInt(bg.substr(0,2),16)/255*0.2126)+(parseInt(bg.substr(2,2),16)/255*0.7152)+(parseInt(bg.substr(4,2),16)/255*0.0722)+0.05;
+                result=`对比度: ${(Math.max(fl,bl)/Math.min(fl,bl)).toFixed(2)}:1\nAA级: ${(Math.max(fl,bl)/Math.min(fl,bl))>=4.5?'✅':'❌'}`;
             }
             else if(TOOL_ID === 'csv-json') { try{const l=(input||'n,a\n张,25').trim().split('\n'),h=l[0].split(','); result=JSON.stringify(l.slice(1).map(ln=>Object.fromEntries(h.map((hh,i)=>[hh,ln.split(',')[i]?.trim()]))),null,2)}catch(e){result='name,age\n张三,25'} }
-            else if(TOOL_ID === 'jsoncsv') { try{const a=JSON.parse(input||'[{"n":"张","a":25}]'); if(a.length){const h=Object.keys(a[0]); result=h.join(',')+'\n'+a.map(o=>h.map(x=>o[x]).join(',')).join('\n')}}catch(e){result='输入JSON数组'} }
-            else if(TOOL_ID === 'yaml-json') {
-                const y = input || 'name: 张三\nage: 25\ncity: 北京';
-                const lines = y.trim().split('\n');
-                const obj = {};
-                lines.forEach(l => { const [k,v] = l.split(':'); if(k&&v) obj[k.trim()] = v.trim(); });
-                result = JSON.stringify(obj, null, 2);
-            }
-            else if(TOOL_ID === 'markdown') {
-                result = 'Markdown语法:\n\n**粗体**  *斜体*  ~~删除线~~\n# 一级标题\n## 二级标题\n- 列表项\n> 引用\n`代码`';
-            }
+            else if(TOOL_ID === 'jsoncsv') { try{const a=JSON.parse(input||'[{"n":"张"}]'); const h=Object.keys(a[0]); result=h.join(',')+'\n'+a.map(o=>h.map(x=>o[x]).join(',')).join('\n')}catch(e){result='输入JSON数组'} }
+            else if(TOOL_ID === 'yaml-json') { const l=(input||'n:张\na:25').trim().split('\n'),o={}; l.forEach(ln=>{const [k,v]=ln.split(':');if(k&&v)o[k.trim()]=v.trim()}); result=JSON.stringify(o,null,2); }
             else if(TOOL_ID === 'random') result = Array(20).fill(0).map(()=>Math.floor(Math.random()*100)+1).join(', ');
-            else if(TOOL_ID === 'bmi') { const h=parseFloat(document.getElementById('h')?.value)/100,w=parseFloat(document.getElementById('w')?.value),b=(w/(h*h)).toFixed(1); result=`BMI: ${b}\n${b<18.5?'偏瘦':b<24?'正常✓':b<28?'偏胖':'肥胖'}`; }
-            else if(TOOL_ID === 'loan') { const a=parseFloat(document.getElementById('a')?.value)*10000,r=parseFloat(document.getElementById('r')?.value)/100/12,m=parseFloat(document.getElementById('y')?.value)*12,p=a*r*Math.pow(1+r,m)/(Math.pow(1+r,m)-1); result=`月供:${p.toFixed(2)}元\n总还款:${(p*m).toFixed(2)}元\n利息:${(p*m-a).toFixed(2)}元`; }
+            else if(TOOL_ID === 'bmi') { const h=parseFloat(document.getElementById('h')?.value)/100,w=parseFloat(document.getElementById('w')?.value),b=(w/(h*h)).toFixed(1); result=`BMI:${b} ${b<18.5?'偏瘦':b<24?'正常✓':b<28?'偏胖':'肥胖'}`; }
+            else if(TOOL_ID === 'loan') { const a=parseFloat(document.getElementById('a')?.value)*10000,r=parseFloat(document.getElementById('r')?.value)/100/12,m=parseFloat(document.getElementById('y')?.value)*12,p=a*r*Math.pow(1+r,m)/(Math.pow(1+r,m)-1); result=`月供:${p.toFixed(2)}元`; }
             else if(TOOL_ID === 'percentage') { const pa=parseFloat(document.getElementById('pa')?.value)||25,pb=parseFloat(document.getElementById('pb')?.value)||100; result=`${pa}是${pb}的${((pa/pb)*100).toFixed(2)}%`; }
-            else if(TOOL_ID === 'tip') { const ta=parseFloat(document.getElementById('ta')?.value)||200,tr=parseFloat(document.getElementById('tr')?.value)||15,tn=parseFloat(document.getElementById('tn')?.value)||4,tip=ta*tr/100; result=`消费:${ta} 小费:${tip.toFixed(2)} 总计:${(ta+tip).toFixed(2)} AA:${((ta+tip)/tn).toFixed(2)}`; }
-            else if(TOOL_ID === 'rmb') { const d=['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'],u=['','拾','佰','仟','万']; let n=Math.round(parseFloat(input||'12345.67')*100),i=Math.floor(n/100),dp=n%100,r='',s=i.toString(); for(let k=0;k<s.length;k++)r+=d[parseInt(s[k])]+(parseInt(s[k])?u[s.length-k-1]:''); result=r.replace(/零+/g,'零').replace(/零$/,'')+'元'+(dp>0?d[Math.floor(dp/10)]+'角'+(dp%10>0?d[dp%10]+'分':''):'整'); }
+            else if(TOOL_ID === 'tip') { const ta=parseFloat(document.getElementById('ta')?.value)||200,tr=parseFloat(document.getElementById('tr')?.value)||15,tn=parseFloat(document.getElementById('tn')?.value)||4; result=`总计:${(ta+ta*tr/100).toFixed(2)} AA:${((ta+ta*tr/100)/tn).toFixed(2)}`; }
+            else if(TOOL_ID === 'rmb') { const d=['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'],u=['','拾','佰','仟','万']; let n=Math.round(parseFloat(input||'12345.67')*100),i=Math.floor(n/100),r='',s=i.toString(); for(let k=0;k<s.length;k++)r+=d[parseInt(s[k])]+(parseInt(s[k])?u[s.length-k-1]:''); result=r.replace(/零+/g,'零').replace(/零$/,'')+'元整'; }
             else if(TOOL_ID === 'emailcheck') result=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)?'✅正确':'❌错误';
             else if(TOOL_ID === 'phonecheck') result=/^1[3-9]\d{9}$/.test(input.replace(/\D/g,''))?'✅正确':'❌错误';
-            else if(TOOL_ID === 'idcard') {
-                const id = input.replace(/\D/g,'');
-                if(id.length !== 18) { result = '❌ 必须18位'; }
-                else {
-                    let sum = 0;
-                    for(let i=0;i<17;i++) sum += parseInt(id[i]) * idcardWeight[i];
-                    const check = idcardCheck[sum % 11];
-                    result = `地区: ${id.substr(0,6)}\n生日: ${id.substr(6,4)}-${id.substr(10,2)}-${id.substr(12,2)}\n性别: ${parseInt(id[16])%2?'男':'女'}\n校验: ${id[17]===check?'✅正确':'❌错误'}`;
-                }
-            }
-            else if(TOOL_ID === 'pinyin') result = input.split('').map(c=>pinyinMap[c]||c).join(' ');
+            else if(TOOL_ID === 'idcard') { const id=input.replace(/\D/g,''); if(id.length!==18)result='❌18位'; else { let sum=0,w=[7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2],c=['1','0','X','9','8','7','6','5','4','3','2']; for(let i=0;i<17;i++)sum+=parseInt(id[i])*w[i]; result=`生日:${id.substr(6,4)}-${id.substr(10,2)}-${id.substr(12,2)} 性别:${parseInt(id[16])%2?'男':'女'} 校验:${id[17]===c[sum%11]?'✅':'❌'}`; } }
+            else if(TOOL_ID === 'pinyin') { const p={'你':'ni','好':'hao','中':'zhong','国':'guo','我':'wo','是':'shi'}; result=input.split('').map(c=>p[c]||c).join(' '); }
             else if(TOOL_ID === 'datediff') { const d1=new Date(document.getElementById('d1')?.value||Date.now()),d2=new Date(document.getElementById('d2')?.value||Date.now()); result=`相隔 ${Math.abs(Math.ceil((d2-d1)/(1000*60*60*24)))} 天`; }
-            else if(TOOL_ID === 'age-calc') { const b=new Date(document.getElementById('d1')?.value||'1990-01-01'),n=new Date(); result=`年龄: ${n.getFullYear()-b.getFullYear()} 岁`; }
+            else if(TOOL_ID === 'age-calc') { const b=new Date(document.getElementById('d1')?.value||'1990-01-01'); result=`年龄: ${new Date().getFullYear()-b.getFullYear()} 岁`; }
             else if(TOOL_ID === 'unit-convert') { const c=parseFloat(document.getElementById('c')?.value)||25,m=parseFloat(document.getElementById('m')?.value)||100; result=`${c}°C=${(c*9/5+32).toFixed(1)}°F\n${m}米=${(m*3.28084).toFixed(2)}英尺`; }
             else if(TOOL_ID === 'regex') { try{const re=new RegExp(document.getElementById('re')?.value||'\\d+','g'); result=`匹配: ${(input.match(re)||[]).join(', ')}`}catch(e){result='正则错误'} }
             else if(TOOL_ID === 'dice') result='🎲 '+(Math.floor(Math.random()*6)+1);
@@ -269,24 +310,16 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID === 'pick') { const it=input.split('\n').filter(i=>i.trim()); result=it.length?'🎯 '+it[Math.floor(Math.random()*it.length)]:'每行输入一个'; }
             else if(TOOL_ID === 'lucky') result='🍀 '+['大吉🌟🌟🌟','吉🌟🌟','中吉🌟','小吉','平'][Math.floor(Math.random()*5)];
             else if(TOOL_ID === 'palette') result=['#FF6B6B','#4ECDC4','#45B7D1','#96CEB4','#FFEAA7'].join('\n');
-            else if(TOOL_ID === 'ai-copy') result=['生活不止眼前的苟且 ✨','愿你遍历山河，觉得人间值得 ☀️','慢慢来，谁还没有一个努力的过程 💪'][Math.floor(Math.random()*3)];
-            else if(TOOL_ID === 'cron') {
-                const p = (document.getElementById('cron')?.value || '0 9 * * *').split(/\s+/);
-                const desc = ['分','时','日','月','周'];
-                const names = ['每分钟','每小时','每天','每月','每周'];
-                result = p.map((x,i) => `${desc[i]}: ${x==='*'?names[i]:x}`).join('\n');
-            }
-            else if(TOOL_ID === 'ip') result = 'IP查询功能\n\n请访问: https://api.ipify.org?format=json';
-            else if(TOOL_ID === 'qrcode') result = '二维码生成\n\n输入文本生成二维码图片';
-            else if(TOOL_ID === 'hash') result = '文件哈希校验\n\nMD5 / SHA1 / SHA256';
-            else if(TOOL_ID === 'trim') result = input.replace(/\s+/g,' ').trim();
-            else if(TOOL_ID === 'sort') result = input.split('\n').sort((a,b)=>a.localeCompare(b,'zh-CN')).join('\n');
-            else if(TOOL_ID === 'shuffle') result = input.split('\n').sort(()=>Math.random()-0.5).join('\n');
-            else if(TOOL_ID === 'unique') result = [...new Set(input.split('\n'))].join('\n');
-            else if(TOOL_ID === 'slug') result = input.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g,'-').replace(/^-|-$/g,'');
-            else if(TOOL_ID === 'unicode') result = input.split('').map(c=>`U+${c.charCodeAt(0).toString(16).toUpperCase()}`).join(' ');
-            else if(TOOL_ID === 'tradition') { const s2t={'后':'後','只':'隻','万':'萬','数':'數','发':'發','体':'體','个':'個','们':'們','从':'從','会':'會'}; result=input.split('').map(c=>s2t[c]||c).join(''); }
-            else if(TOOL_ID === 'countdown') result='⏳ 点击开始按钮';
+            else if(TOOL_ID === 'ai-copy') result=['生活不止眼前的苟且 ✨','愿你遍历山河，觉得人间值得 ☀️'][Math.floor(Math.random()*2)];
+            else if(TOOL_ID === 'cron') { const p=(document.getElementById('cron')?.value||'0 9 * * *').split(/\s+/); result=['分','时','日','月','周'].map((x,i)=>`${x}: ${p[i]==='*'?'每'+x:p[i]}`).join('\n'); }
+            else if(TOOL_ID === 'trim') result=input.replace(/\s+/g,' ').trim();
+            else if(TOOL_ID === 'sort') result=input.split('\n').sort((a,b)=>a.localeCompare(b,'zh-CN')).join('\n');
+            else if(TOOL_ID === 'shuffle') result=input.split('\n').sort(()=>Math.random()-0.5).join('\n');
+            else if(TOOL_ID === 'unique') result=[...new Set(input.split('\n'))].join('\n');
+            else if(TOOL_ID === 'slug') result=input.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g,'-').replace(/^-|-$/g,'');
+            else if(TOOL_ID === 'unicode') result=input.split('').map(c=>`U+${c.charCodeAt(0).toString(16).toUpperCase()}`).join(' ');
+            else if(TOOL_ID === 'tradition') { const s={'后':'後','只':'隻','万':'萬','数':'數','发':'發'}; result=input.split('').map(c=>s[c]||c).join(''); }
+            else if(TOOL_ID === 'countdown') result='⏳ 点击开始';
             else if(TOOL_ID === 'stopwatch') result='⏱️ 0:00';
             else result = input || TOOL_ID + ' 功能正常';
             

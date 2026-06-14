@@ -2,92 +2,105 @@
 import Layout from '../layouts/Layout.astro';
 
 const tools = [
-  { id: 'word-count', name: '字数统计', icon: '📏', desc: '字符/字数/行数' },
-  { id: 'text-dedup', name: '文本去重', icon: '📋', desc: '去空行、去重复' },
-  { id: 'case-convert', name: '大小写转换', icon: '🔤', desc: '大写/小写/首字母' },
-  { id: 'text-reverse', name: '文本反转', icon: '🔄', desc: '倒序排列' },
-  { id: 'html-escape', name: 'HTML转义', icon: '📝', desc: '转义/还原' },
-  { id: 'lorem', name: 'Lorem生成', icon: '📄', desc: '占位文本生成' },
-  { id: 'ascii', name: 'ASCII码表', icon: '🔣', desc: '字符编码' },
-  { id: 'binary', name: '二进制转换', icon: '💻', desc: '文本互转' },
-  { id: 'morse', name: '摩尔斯电码', icon: '📻', desc: '编码/解码' },
-  { id: 'base64', name: 'Base64编码', icon: '🔐', desc: '编码/解码' },
-  { id: 'url-encode', name: 'URL编码', icon: '🔗', desc: '编码/解码' },
-  { id: 'md5', name: 'MD5加密', icon: '🔍', desc: '字符串哈希' },
-  { id: 'sha256', name: 'SHA256加密', icon: '🔒', desc: '安全哈希' },
-  { id: 'uuid', name: 'UUID生成', icon: '🆔', desc: '批量生成GUID' },
-  { id: 'password', name: '密码生成器', icon: '🔐', desc: '自定义强度' },
-  { id: 'json-format', name: 'JSON格式化', icon: '📝', desc: '美化、压缩、验证' },
-  { id: 'base-convert', name: '进制转换', icon: '📊', desc: '2/8/10/16进制' },
-  { id: 'unit-convert', name: '单位换算器', icon: '🔄', desc: '温度/长度/重量' },
-  { id: 'timestamp', name: '时间戳转换', icon: '⏰', desc: 'Unix时间互转' },
-  { id: 'color-picker', name: '颜色选择器', icon: '🎨', desc: 'RGB/HEX转换' },
-  { id: 'random', name: '随机数生成', icon: '🔢', desc: '指定范围随机' },
-  { id: 'age-calc', name: '年龄计算器', icon: '📅', desc: '精确年龄计算' },
-  { id: 'bmi', name: 'BMI计算器', icon: '⚖️', desc: '身体质量' },
-  { id: 'percentage', name: '百分比计算', icon: '📊', desc: '快速计算' },
-  { id: 'loan', name: '贷款计算器', icon: '💰', desc: '月供计算' },
-  { id: 'tip', name: '小费计算', icon: '💵', desc: 'AA分账' },
-  { id: 'ip', name: 'IP查询', icon: '🌐', desc: '查看本机IP' },
-  { id: 'qrcode', name: '二维码生成', icon: '📱', desc: '自定义尺寸' },
-  { id: 'stopwatch', name: '秒表计时', icon: '⏱️', desc: '精确计时' },
-  { id: 'countdown', name: '倒计时', icon: '⏳', desc: '定时提醒' },
-  { id: 'dice', name: '掷骰子', icon: '🎲', desc: '随机点数' },
-  { id: 'coin', name: '抛硬币', icon: '🪙', desc: '正反面' },
-  { id: 'lotto', name: '彩票号码', icon: '🎫', desc: '随机选号' },
-  { id: 'palette', name: '配色方案', icon: '🎨', desc: '渐变色' },
-  { id: 'contrast', name: '对比度检测', icon: '👁️', desc: 'WCAG标准' },
-  { id: 'idcard', name: '身份证验证', icon: '🪪', desc: '校验真伪' },
-  { id: 'pinyin', name: '汉字转拼音', icon: '🀄', desc: '带声调' },
-  { id: 'tradition', name: '简繁转换', icon: '📜', desc: '简体繁体互转' },
-  { id: 'rmb', name: '人民币大写', icon: '💴', desc: '金额转换' },
-  { id: 'datediff', name: '日期差计算', icon: '📆', desc: '相隔天数' },
-  { id: 'emailcheck', name: '邮箱验证', icon: '📧', desc: '格式校验' },
-  { id: 'phonecheck', name: '手机号验证', icon: '📱', desc: '格式校验' },
-  { id: 'pick', name: '随机抽选', icon: '🎯', desc: '抽签选择' },
-  { id: 'regex', name: '正则测试', icon: '🔍', desc: '实时匹配' },
-  { id: 'csv-json', name: 'CSV转JSON', icon: '📋', desc: '格式转换' },
-  { id: 'yaml-json', name: 'YAML转JSON', icon: '⚙️', desc: '配置转换' },
-  { id: 'markdown', name: 'Markdown预览', icon: '📝', desc: '实时渲染' },
-  { id: 'hash', name: '哈希校验', icon: '🧮', desc: 'MD5/SHA' },
-  { id: 'uuid4', name: 'UUID v4', icon: '🆔', desc: '标准格式' },
-  { id: 'nanoid', name: 'NanoID生成', icon: '🔑', desc: '短ID' },
-  { id: 'slug', name: 'URL Slug', icon: '🔗', desc: '友好链接' },
-  { id: 'pixel', name: '像素转换', icon: '📐', desc: 'px/rem/em' },
-  { id: 'base32', name: 'Base32编码', icon: '🔐', desc: '编码/解码' },
-  { id: 'base58', name: 'Base58编码', icon: '🔐', desc: '比特币风格' },
-  { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄', desc: '格式转换' },
-  { id: 'timefmt', name: '时间格式化', icon: '⏰', desc: '多种格式' },
-  { id: 'unicode', name: 'Unicode转换', icon: '🔣', desc: '编码解码' },
-  { id: 'trim', name: '空格清理', icon: '🧹', desc: '去多余空格' },
-  { id: 'sort', name: '文本排序', icon: '📊', desc: '升序降序' },
-  { id: 'shuffle', name: '随机打乱', icon: '🎲', desc: '乱序排列' },
-  { id: 'unique', name: '数组去重', icon: '✨', desc: '去除重复' },
-  { id: 'cron', name: 'Cron表达式', icon: '⏱️', desc: '解析说明' },
-  { id: 'urldiff', name: 'URL参数解析', icon: '🔗', desc: '提取参数' },
-  { id: 'base64img', name: 'Base64转图片', icon: '🖼️', desc: '解码还原' },
-  { id: 'hexrgb', name: 'HEX/RGB转换', icon: '🎨', desc: '互转' },
-  { id: 'lucky', name: '今日运势', icon: '🍀', desc: '随机抽取' },
-  { id: 'ai-copy', name: 'AI文案生成', icon: '✨', desc: '朋友圈/小红书' },
-  { id: 'img-compress', name: '图片压缩', icon: '🖼️', desc: '本地上传处理' },
-  { id: 'img-base64', name: '图片转Base64', icon: '🖼️', desc: '本地图片编码' },
-  { id: 'shorturl', name: 'URL短链', icon: '📎', desc: '长链接缩短' },
+  { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
+  { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
+  { id: 'case-convert', name: '大小写转换', icon: '🔤', cat: '文本' },
+  { id: 'text-reverse', name: '文本反转', icon: '🔄', cat: '文本' },
+  { id: 'html-escape', name: 'HTML转义', icon: '📝', cat: '文本' },
+  { id: 'html-unescape', name: 'HTML反转义', icon: '📝', cat: '文本' },
+  { id: 'lorem', name: 'Lorem生成', icon: '📄', cat: '文本' },
+  { id: 'ascii', name: 'ASCII码表', icon: '🔣', cat: '文本' },
+  { id: 'binary', name: '二进制转换', icon: '💻', cat: '文本' },
+  { id: 'morse', name: '摩尔斯电码', icon: '📻', cat: '文本' },
+  { id: 'trim', name: '空格清理', icon: '🧹', cat: '文本' },
+  { id: 'sort', name: '文本排序', icon: '📊', cat: '文本' },
+  { id: 'shuffle', name: '随机打乱', icon: '🎲', cat: '文本' },
+  { id: 'unique', name: '数组去重', icon: '✨', cat: '文本' },
+  { id: 'tradition', name: '简繁转换', icon: '📜', cat: '文本' },
+  { id: 'slug', name: 'URL Slug', icon: '🔗', cat: '文本' },
+  { id: 'js-escape', name: 'JS转义', icon: '📝', cat: '文本' },
+  { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
+  { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
+  { id: 'url-encode', name: 'URL编码', icon: '🔗', cat: '编码' },
+  { id: 'url-decode', name: 'URL解码', icon: '🔓', cat: '编码' },
+  { id: 'md5', name: 'MD5加密', icon: '🔍', cat: '编码' },
+  { id: 'sha256', name: 'SHA256加密', icon: '🔒', cat: '编码' },
+  { id: 'crc32', name: 'CRC32校验', icon: '🧮', cat: '编码' },
+  { id: 'uuid', name: 'UUID生成', icon: '🆔', cat: '编码' },
+  { id: 'uuid4', name: 'UUID v4', icon: '🆔', cat: '编码' },
+  { id: 'guid', name: 'GUID生成', icon: '🆔', cat: '编码' },
+  { id: 'nanoid', name: 'NanoID生成', icon: '🔑', cat: '编码' },
+  { id: 'password', name: '密码生成器', icon: '🔐', cat: '编码' },
+  { id: 'base32', name: 'Base32编码', icon: '🔐', cat: '编码' },
+  { id: 'base58', name: 'Base58编码', icon: '🔐', cat: '编码' },
+  { id: 'unicode', name: 'Unicode转换', icon: '🔣', cat: '编码' },
+  { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
+  { id: 'json-minify', name: 'JSON压缩', icon: '📦', cat: '转换' },
+  { id: 'base-convert', name: '进制转换', icon: '📊', cat: '转换' },
+  { id: 'timestamp', name: '时间戳转换', icon: '⏰', cat: '转换' },
+  { id: 'timestamp-now', name: '当前时间戳', icon: '⏰', cat: '转换' },
+  { id: 'timefmt', name: '时间格式化', icon: '⏰', cat: '转换' },
+  { id: 'urldiff', name: 'URL参数解析', icon: '🔗', cat: '转换' },
+  { id: 'pixel', name: '像素转换', icon: '📐', cat: '转换' },
+  { id: 'rem-px', name: 'REM转PX', icon: '📐', cat: '转换' },
+  { id: 'hexrgb', name: 'HEX/RGB转换', icon: '🎨', cat: '转换' },
+  { id: 'rgb-hex', name: 'RGB转HEX', icon: '🎨', cat: '转换' },
+  { id: 'csv-json', name: 'CSV转JSON', icon: '📋', cat: '转换' },
+  { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄', cat: '转换' },
+  { id: 'yaml-json', name: 'YAML转JSON', icon: '⚙️', cat: '转换' },
+  { id: 'jwt-decode', name: 'JWT解码', icon: '🔓', cat: '转换' },
+  { id: 'random', name: '随机数生成', icon: '🔢', cat: '计算' },
+  { id: 'bmi', name: 'BMI计算器', icon: '⚖️', cat: '计算' },
+  { id: 'loan', name: '贷款计算器', icon: '💰', cat: '计算' },
+  { id: 'datediff', name: '日期差计算', icon: '📆', cat: '计算' },
+  { id: 'age-calc', name: '年龄计算器', icon: '📅', cat: '计算' },
+  { id: 'unit-convert', name: '单位换算器', icon: '🔄', cat: '计算' },
+  { id: 'percentage', name: '百分比计算', icon: '📊', cat: '计算' },
+  { id: 'rmb', name: '人民币大写', icon: '💴', cat: '计算' },
+  { id: 'emailcheck', name: '邮箱验证', icon: '📧', cat: '计算' },
+  { id: 'phonecheck', name: '手机号验证', icon: '📱', cat: '计算' },
+  { id: 'idcard', name: '身份证验证', icon: '🪪', cat: '计算' },
+  { id: 'luhn', name: '银行卡校验', icon: '💳', cat: '计算' },
+  { id: 'tip', name: '小费计算', icon: '💵', cat: '计算' },
+  { id: 'cron', name: 'Cron表达式', icon: '⏱️', cat: '计算' },
+  { id: 'regex', name: '正则测试', icon: '🔍', cat: '计算' },
+  { id: 'contrast', name: '对比度检测', icon: '👁️', cat: '计算' },
+  { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
+  { id: 'coin', name: '抛硬币', icon: '🪙', cat: '趣味' },
+  { id: 'lotto', name: '彩票号码', icon: '🎫', cat: '趣味' },
+  { id: 'pick', name: '随机抽选', icon: '🎯', cat: '趣味' },
+  { id: 'lucky', name: '今日运势', icon: '🍀', cat: '趣味' },
+  { id: 'palette', name: '配色方案', icon: '🎨', cat: '趣味' },
+  { id: 'ai-copy', name: 'AI文案生成', icon: '✨', cat: '趣味' },
+  { id: 'stopwatch', name: '秒表计时', icon: '⏱️', cat: '趣味' },
+  { id: 'countdown', name: '倒计时', icon: '⏳', cat: '趣味' },
+  { id: 'color-picker', name: '颜色选择器', icon: '🎨', cat: '趣味' },
+  { id: 'ip', name: 'IP查询', icon: '🌐', cat: '其他' },
+  { id: 'qrcode', name: '二维码生成', icon: '📱', cat: '其他' },
+  { id: 'markdown', name: 'Markdown预览', icon: '📝', cat: '其他' },
+  { id: 'hash', name: '哈希校验', icon: '🧮', cat: '其他' },
+  { id: 'pinyin', name: '汉字转拼音', icon: '🀄', cat: '其他' },
+  { id: 'shorturl', name: 'URL短链', icon: '📎', cat: '其他' },
 ];
 ---
 
-<Layout title="70+免费在线工具集合" description="70+免费实用在线工具，文本处理、编码转换、计算设计、趣味工具，全部免费无需注册">
-    <div style="text-align: center; margin-bottom: 3rem;">
-        <h1 style="font-size: 2.25rem; font-weight: bold; color: #1f2937; margin-bottom: 1rem;">🛠️ 70+ 免费在线工具</h1>
-        <p style="color: #4b5563; font-size: 1.125rem;">文本处理 · 编码转换 · 计算设计 · 趣味工具 · 全部免费</p>
+<Layout title="在线工具箱 - 95个免费在线工具" description="95个免费在线工具，无需安装，即开即用">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">🛠️ 在线工具箱</h1>
+        <p class="text-gray-600 text-lg">95个免费在线工具，无需安装，即开即用</p>
     </div>
-
-    <div class="grid-container">
-        {tools.map(tool => (
-            <a href={`/tools/${tool.id}`} class="card">
-                <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">{tool.icon}</div>
-                <h3 style="font-size: 1.125rem; font-weight: bold; margin-bottom: 0.25rem; color: #1f2937;">{tool.name}</h3>
-                <p style="color: #6b7280; font-size: 0.875rem;">{tool.desc}</p>
-            </a>
-        ))}
-    </div>
+    
+    {(['文本','编码','转换','计算','趣味','其他'] as const).map(cat => (
+        <div class="mb-10">
+            <h2 class="text-xl font-bold text-gray-700 mb-4 pb-2 border-b border-gray-200">{cat}工具</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {tools.filter(t => t.cat === cat).map(tool => (
+                    <a href={`/tools/${tool.id}`} class="tool-card">
+                        <div class="text-2xl mb-2">{tool.icon}</div>
+                        <div class="text-sm font-medium text-gray-700">{tool.name}</div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    ))}
 </Layout>
