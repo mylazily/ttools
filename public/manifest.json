@@ -1,0 +1,9 @@
+{
+  "name": "在线工具箱",
+  "short_name": "工具箱",
+  "description": "200个免费在线工具",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#db2777"
+}
