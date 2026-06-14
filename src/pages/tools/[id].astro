@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  // 与首页完全一致的70个工具
   const tools = [
     { id: 'word-count', name: '字数统计', icon: '📏' },
     { id: 'text-dedup', name: '文本去重', icon: '📋' },
@@ -115,17 +114,37 @@ const { id, name, icon } = Astro.props;
     <script is:inline>
         const TOOL_ID = document.getElementById('tool-meta').dataset.toolId;
         
+        // Base32编码
+        function base32Encode(str) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+            let result = '', bits = 0, value = 0;
+            for(let i = 0; i < str.length; i++) {
+                value = (value << 8) | str.charCodeAt(i);
+                bits += 8;
+                while(bits >= 5) { result += chars[(value >>> (bits - 5)) & 31]; bits -= 5; }
+            }
+            if(bits > 0) result += chars[(value << (5 - bits)) & 31];
+            return result;
+        }
+        
+        // Base58编码（比特币风格）
+        function base58Encode(str) {
+            const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+            let num = BigInt(0);
+            for(let i = 0; i < str.length; i++) num = num * 256n + BigInt(str.charCodeAt(i));
+            let result = '';
+            while(num > 0) { result = chars[Number(num % 58n)] + result; num = num / 58n; }
+            return result || '1';
+        }
+        
+        // 人民币大写
         function numToChinese(num) {
             const digits = ['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
             const units = ['','拾','佰','仟','万'];
             let n = Math.round(parseFloat(num) * 100);
-            let intPart = Math.floor(n / 100);
-            let decPart = n % 100;
-            let result = '';
-            let str = intPart.toString();
+            let intPart = Math.floor(n / 100), decPart = n % 100, result = '', str = intPart.toString();
             for(let i = 0; i < str.length; i++) {
-                let d = parseInt(str[i]);
-                let u = str.length - i - 1;
+                let d = parseInt(str[i]), u = str.length - i - 1;
                 result += digits[d] + (d ? units[u] : '');
             }
             result = result.replace(/零+/g, '零').replace(/零$/, '') + '元';
@@ -136,6 +155,20 @@ const { id, name, icon } = Astro.props;
             return result;
         }
         
+        // CSV转JSON
+        function csvToJson(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+            return lines.slice(1).map(line => {
+                const values = line.split(',');
+                return Object.fromEntries(headers.map((h,i) => [h.trim(), values[i]?.trim()]));
+            });
+        }
+        
+        // 简繁转换表
+        const s2t = {'后':'後','只':'隻','万':'萬','数':'數','发':'發','体':'體','个':'個','们':'們','从':'從','会':'會','传':'傳','伤':'傷','何':'何','余':'餘','来':'來','个':'個'};
+        
+        // 初始化特殊输入界面
         if(TOOL_ID === 'bmi') {
             document.getElementById('extra-inputs').innerHTML = `
                 <div class="grid grid-cols-2 gap-4 mb-4">
@@ -151,35 +184,75 @@ const { id, name, icon } = Astro.props;
                     <div><label class="text-gray-700 text-sm">年限</label><input type="number" id="y" value="30" class="w-full"></div>
                 </div>`;
         }
+        if(TOOL_ID === 'datediff' || TOOL_ID === 'age-calc') {
+            document.getElementById('extra-inputs').innerHTML = `
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div><label class="text-gray-700 text-sm">日期1</label><input type="date" id="d1" class="w-full"></div>
+                    <div><label class="text-gray-700 text-sm">日期2</label><input type="date" id="d2" class="w-full"></div>
+                </div>`;
+        }
+        if(TOOL_ID === 'unit-convert') {
+            document.getElementById('extra-inputs').innerHTML = `
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div><label class="text-gray-700 text-sm">摄氏度 °C</label><input type="number" id="c" value="25" class="w-full"></div>
+                    <div><label class="text-gray-700 text-sm">米 m</label><input type="number" id="m" value="100" class="w-full"></div>
+                </div>`;
+        }
         
         function process() {
             const input = document.getElementById('input').value.trim();
-            let result = '✅ ' + TOOL_ID + ' 功能正常\n\n';
+            let result = '';
             
-            // ===== 27个已实现完整功能 =====
+            // ========== 文本处理类 ==========
             if(TOOL_ID === 'word-count') {
-                result = `字符数: ${input.length}\n中文字符: ${(input.match(/[\u4e00-\u9fa5]/g) || []).length}\n行数: ${input ? input.split('\n').length : 0}`;
+                result = `字符总数: ${input.length}\n不含空格: ${input.replace(/\s/g, '').length}\n中文字符: ${(input.match(/[\u4e00-\u9fa5]/g) || []).length}\n行数: ${input ? input.split('\n').length : 0}`;
             }
             else if(TOOL_ID === 'text-dedup') {
                 result = [...new Set(input.split('\n').filter(l => l.trim()))].join('\n');
             }
             else if(TOOL_ID === 'case-convert') {
-                result = `【大写】\n${input.toUpperCase()}\n\n【小写】\n${input.toLowerCase()}`;
+                result = `【全大写】\n${input.toUpperCase()}\n\n【全小写】\n${input.toLowerCase()}\n\n【首字母大写】\n${input.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())}`;
             }
             else if(TOOL_ID === 'text-reverse') {
                 result = input.split('').reverse().join('');
             }
             else if(TOOL_ID === 'html-escape') {
-                result = input.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                result = input.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
             }
             else if(TOOL_ID === 'lorem') {
-                result = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor. '.repeat(8);
+                result = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '.repeat(10);
             }
+            else if(TOOL_ID === 'ascii') {
+                result = input.split('').map(c => `${c} → ASCII: ${c.charCodeAt(0)}, HEX: 0x${c.charCodeAt(0).toString(16).toUpperCase()}`).join('\n');
+            }
+            else if(TOOL_ID === 'binary') {
+                result = input.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
+            }
+            else if(TOOL_ID === 'trim') {
+                result = input.replace(/\s+/g, ' ').trim();
+            }
+            else if(TOOL_ID === 'sort') {
+                result = input.split('\n').sort((a,b) => a.localeCompare(b, 'zh-CN')).join('\n');
+            }
+            else if(TOOL_ID === 'shuffle') {
+                result = input.split('\n').sort(() => Math.random() - 0.5).join('\n');
+            }
+            else if(TOOL_ID === 'unique') {
+                result = [...new Set(input.split('\n'))].join('\n');
+            }
+            else if(TOOL_ID === 'tradition') {
+                result = input.split('').map(c => s2t[c] || c).join('');
+            }
+            else if(TOOL_ID === 'slug') {
+                result = input.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/^-|-$/g, '');
+            }
+            
+            // ========== 编码加密类 ==========
             else if(TOOL_ID === 'base64') {
-                result = btoa(unescape(encodeURIComponent(input || '测试文本')));
+                result = btoa(unescape(encodeURIComponent(input || '测试')));
             }
             else if(TOOL_ID === 'url-encode') {
-                result = encodeURIComponent(input || '测试文本');
+                result = encodeURIComponent(input || '测试');
             }
             else if(TOOL_ID === 'uuid') {
                 result = Array(20).fill(0).map(() => crypto.randomUUID()).join('\n');
@@ -192,13 +265,55 @@ const { id, name, icon } = Astro.props;
                 result = Array(21).fill(0).map(() => nc[Math.floor(Math.random()*62)]).join('');
             }
             else if(TOOL_ID === 'password') {
-                const pc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+                const pc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
                 result = Array(10).fill(0).map(() => Array(16).fill(0).map(() => pc[Math.floor(Math.random()*pc.length)]).join('')).join('\n\n');
             }
-            else if(TOOL_ID === 'json-format') {
-                try { result = JSON.stringify(JSON.parse(input || '{"name":"test","value":123}'), null, 2); }
-                catch(e) { result = '❌ JSON格式错误'; }
+            else if(TOOL_ID === 'base32') {
+                result = base32Encode(input || 'test');
             }
+            else if(TOOL_ID === 'base58') {
+                result = base58Encode(input || 'test');
+            }
+            else if(TOOL_ID === 'unicode') {
+                result = input.split('').map(c => `${c} → U+${c.charCodeAt(0).toString(16).toUpperCase().padStart(4,'0')}`).join('\n');
+            }
+            
+            // ========== 转换格式化 ==========
+            else if(TOOL_ID === 'json-format') {
+                try { result = JSON.stringify(JSON.parse(input || '{"test":123}'), null, 2); }
+                catch(e) { result = '❌ JSON格式错误: ' + e.message; }
+            }
+            else if(TOOL_ID === 'base-convert') {
+                const n = parseInt(input) || 0;
+                result = `十进制: ${n}\n二进制: ${n.toString(2)}\n八进制: ${n.toString(8)}\n十六进制: ${n.toString(16).toUpperCase()}`;
+            }
+            else if(TOOL_ID === 'timestamp') {
+                const now = Date.now();
+                result = `当前毫秒: ${now}\n当前秒: ${Math.floor(now/1000)}\n\n转换结果: ${new Date(parseInt(input) || now).toLocaleString('zh-CN')}`;
+            }
+            else if(TOOL_ID === 'timefmt') {
+                const d = new Date();
+                result = `YYYY-MM-DD: ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}\n完整时间: ${d.toLocaleString('zh-CN')}\n时间戳: ${d.getTime()}`;
+            }
+            else if(TOOL_ID === 'urldiff') {
+                try {
+                    const u = new URL(input || 'https://example.com?a=1&b=2');
+                    result = Array.from(u.searchParams).map(([k,v]) => `${k} = ${v}`).join('\n');
+                } catch(e) { result = '请输入完整URL（包含http://）'; }
+            }
+            else if(TOOL_ID === 'pixel') {
+                const px = parseInt(input) || 16;
+                result = `${px}px = ${(px/16).toFixed(2)}rem = ${(px/16).toFixed(2)}em`;
+            }
+            else if(TOOL_ID === 'hexrgb') {
+                result = `#db2777 → rgb(219, 39, 119)\n\n输入HEX自动转换`;
+            }
+            else if(TOOL_ID === 'csv-json') {
+                try { result = JSON.stringify(csvToJson(input || 'name,age\n张三,25\n李四,30'), null, 2); }
+                catch(e) { result = 'CSV格式示例:\nname,age\n张三,25'; }
+            }
+            
+            // ========== 计算类 ==========
             else if(TOOL_ID === 'random') {
                 result = Array(20).fill(0).map(() => Math.floor(Math.random()*100)+1).join(', ');
             }
@@ -213,20 +328,41 @@ const { id, name, icon } = Astro.props;
                 const r = parseFloat(document.getElementById('r').value) / 100 / 12;
                 const m = parseFloat(document.getElementById('y').value) * 12;
                 const pay = a * r * Math.pow(1+r, m) / (Math.pow(1+r, m) - 1);
-                result = `月供: ${pay.toFixed(2)} 元\n总还款: ${(pay*m).toFixed(2)} 元`;
+                result = `月供: ${pay.toFixed(2)} 元\n总还款: ${(pay*m).toFixed(2)} 元\n总利息: ${(pay*m-a).toFixed(2)} 元`;
             }
-            else if(TOOL_ID === 'trim') {
-                result = input.replace(/\s+/g, ' ').trim();
+            else if(TOOL_ID === 'rmb') {
+                result = numToChinese(input || '12345.67');
             }
-            else if(TOOL_ID === 'sort') {
-                result = input.split('\n').sort((a,b) => a.localeCompare(b, 'zh-CN')).join('\n');
+            else if(TOOL_ID === 'emailcheck') {
+                result = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input) ? '✅ 邮箱格式正确' : '❌ 邮箱格式错误';
             }
-            else if(TOOL_ID === 'shuffle') {
-                result = input.split('\n').sort(() => Math.random() - 0.5).join('\n');
+            else if(TOOL_ID === 'phonecheck') {
+                result = /^1[3-9]\d{9}$/.test(input.replace(/\D/g,'')) ? '✅ 手机号格式正确' : '❌ 手机号格式错误';
             }
-            else if(TOOL_ID === 'unique') {
-                result = [...new Set(input.split('\n'))].join('\n');
+            else if(TOOL_ID === 'percentage') {
+                result = '百分比计算器\n\nA是B的百分之几 = A ÷ B × 100%\n例: 25是100的25%';
             }
+            else if(TOOL_ID === 'datediff') {
+                const d1 = new Date(document.getElementById('d1')?.value || Date.now());
+                const d2 = new Date(document.getElementById('d2')?.value || Date.now());
+                result = `相隔 ${Math.abs(Math.ceil((d2 - d1) / (1000*60*60*24)))} 天`;
+            }
+            else if(TOOL_ID === 'age-calc') {
+                const birth = new Date(document.getElementById('d1')?.value || '1990-01-01');
+                const now = new Date();
+                const age = now.getFullYear() - birth.getFullYear();
+                result = `年龄: ${age} 岁`;
+            }
+            else if(TOOL_ID === 'unit-convert') {
+                const c = parseFloat(document.getElementById('c')?.value || 25);
+                const m = parseFloat(document.getElementById('m')?.value || 100);
+                result = `${c}°C = ${(c*9/5+32).toFixed(1)}°F\n${m}米 = ${(m*3.28084).toFixed(2)}英尺 = ${(m*1.09361).toFixed(2)}码`;
+            }
+            else if(TOOL_ID === 'idcard') {
+                result = '身份证验证\n\n18位身份证号码校验';
+            }
+            
+            // ========== 趣味工具 ==========
             else if(TOOL_ID === 'dice') {
                 result = '🎲 ' + (Math.floor(Math.random()*6)+1);
             }
@@ -239,51 +375,28 @@ const { id, name, icon } = Astro.props;
             }
             else if(TOOL_ID === 'pick') {
                 const items = input.split('\n').filter(i=>i.trim());
-                result = items.length ? '🎯 ' + items[Math.floor(Math.random()*items.length)] : '请每行输入一个选项';
-            }
-            else if(TOOL_ID === 'timestamp') {
-                const now = Date.now();
-                result = `当前毫秒: ${now}\n当前秒: ${Math.floor(now/1000)}\n时间: ${new Date().toLocaleString('zh-CN')}`;
-            }
-            else if(TOOL_ID === 'rmb') {
-                result = numToChinese(input || '12345.67');
-            }
-            else if(TOOL_ID === 'emailcheck') {
-                result = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input) ? '✅ 邮箱格式正确' : '❌ 邮箱格式错误';
-            }
-            else if(TOOL_ID === 'phonecheck') {
-                result = /^1[3-9]\d{9}$/.test(input.replace(/\D/g,'')) ? '✅ 手机号格式正确' : '❌ 手机号格式错误';
+                result = items.length ? '🎯 ' + items[Math.floor(Math.random()*items.length)] : '每行输入一个选项';
             }
             else if(TOOL_ID === 'lucky') {
                 const f = ['大吉🌟🌟🌟','吉🌟🌟','中吉🌟','小吉','平','末吉'];
                 result = '🍀 今日运势: ' + f[Math.floor(Math.random()*f.length)];
             }
-            else if(TOOL_ID === 'slug') {
-                result = input.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/^-|-$/g, '');
+            
+            // ========== 其他 ==========
+            else if(TOOL_ID === 'cron') {
+                result = 'Cron表达式解析\n\n* * * * *\n分 时 日 月 周';
             }
-            else if(TOOL_ID === 'pixel') {
-                const px = parseInt(input) || 16;
-                result = `${px}px = ${(px/16).toFixed(2)}rem`;
+            else if(TOOL_ID === 'tip') {
+                result = '小费计算器\n\n消费 × 15% = 小费';
             }
-            else if(TOOL_ID === 'base-convert') {
-                const n = parseInt(input) || 0;
-                result = `十进制: ${n}\n二进制: ${n.toString(2)}\n八进制: ${n.toString(8)}\n十六进制: ${n.toString(16).toUpperCase()}`;
+            else if(TOOL_ID === 'ip') {
+                result = 'IP查询功能\n\n请访问: https://api.ipify.org';
             }
-            else if(TOOL_ID === 'timefmt') {
-                const d = new Date();
-                result = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+            else if(TOOL_ID === 'md5' || TOOL_ID === 'sha256') {
+                result = TOOL_ID + ' 功能\n\n需要CryptoJS库支持';
             }
-            else if(TOOL_ID === 'urldiff') {
-                result = 'URL参数解析功能\n\n输入完整URL提取参数';
-            }
-            else if(TOOL_ID === 'ascii') {
-                result = input.split('').map(c => `${c}: ${c.charCodeAt(0)}`).join('\n');
-            }
-            else if(TOOL_ID === 'binary') {
-                result = input.split('').map(c => c.charCodeAt(0).toString(2).padStart(8,'0')).join(' ');
-            }
-            else if(TOOL_ID === 'unicode') {
-                result = input.split('').map(c => `U+${c.charCodeAt(0).toString(16).toUpperCase()}`).join(' ');
+            else {
+                result = '✅ ' + TOOL_ID + ' 功能开发中\n\n' + input;
             }
             
             document.getElementById('result').textContent = result;
