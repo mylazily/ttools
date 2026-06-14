@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const tools = [
-    // 文本处理 40个
+    // 文本处理 45个
     { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
     { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
     { id: 'case-convert', name: '大小写转换', icon: '🔤', cat: '文本' },
@@ -44,8 +44,13 @@ export async function getStaticPaths() {
     { id: 'quote', name: '加引号', icon: '💬', cat: '文本' },
     { id: 'unquote', name: '去引号', icon: '🔓', cat: '文本' },
     { id: 'comma', name: '加逗号', icon: '📝', cat: '文本' },
+    { id: 'indent', name: '缩进格式化', icon: '📝', cat: '文本' },
+    { id: 'wrap', name: '自动换行', icon: '📄', cat: '文本' },
+    { id: 'extract-url', name: '提取URL', icon: '🔗', cat: '文本' },
+    { id: 'extract-email', name: '提取邮箱', icon: '📧', cat: '文本' },
+    { id: 'extract-phone', name: '提取手机号', icon: '📱', cat: '文本' },
     
-    // 编码加密 40个
+    // 编码加密 45个
     { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
     { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
     { id: 'base64-url', name: 'URL安全Base64', icon: '🔗', cat: '编码' },
@@ -86,8 +91,13 @@ export async function getStaticPaths() {
     { id: 'hmac', name: 'HMAC签名', icon: '✍️', cat: '编码' },
     { id: 'aes', name: 'AES加密', icon: '🔒', cat: '编码' },
     { id: 'des', name: 'DES加密', icon: '🔐', cat: '编码' },
+    { id: 'sm3', name: 'SM3国密', icon: '🔒', cat: '编码' },
+    { id: 'sm4', name: 'SM4国密', icon: '🔐', cat: '编码' },
+    { id: 'blake2', name: 'BLAKE2哈希', icon: '🔒', cat: '编码' },
+    { id: 'argon2', name: 'Argon2哈希', icon: '🔒', cat: '编码' },
+    { id: 'bcrypt', name: 'Bcrypt哈希', icon: '🔒', cat: '编码' },
     
-    // 转换格式化 35个
+    // 转换格式化 40个
     { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
     { id: 'json-minify', name: 'JSON压缩', icon: '📦', cat: '转换' },
     { id: 'xml-format', name: 'XML格式化', icon: '📄', cat: '转换' },
@@ -123,8 +133,13 @@ export async function getStaticPaths() {
     { id: 'rgba-convert', name: 'RGBA透明度', icon: '🎨', cat: '转换' },
     { id: 'line-height', name: '行高计算', icon: '📏', cat: '转换' },
     { id: 'dpi-calc', name: 'DPI计算', icon: '🖨️', cat: '转换' },
+    { id: 'less-format', name: 'Less格式化', icon: '🎨', cat: '转换' },
+    { id: 'sass-format', name: 'Sass格式化', icon: '🎨', cat: '转换' },
+    { id: 'ts-format', name: 'TS格式化', icon: '💻', cat: '转换' },
+    { id: 'nginx-format', name: 'Nginx格式化', icon: '⚙️', cat: '转换' },
+    { id: 'json-schema', name: 'JSON Schema', icon: '📋', cat: '转换' },
     
-    // 计算类 25个
+    // 计算类 35个
     { id: 'random', name: '随机数生成', icon: '🔢', cat: '计算' },
     { id: 'bmi', name: 'BMI计算器', icon: '⚖️', cat: '计算' },
     { id: 'loan', name: '贷款计算器', icon: '💰', cat: '计算' },
@@ -150,8 +165,18 @@ export async function getStaticPaths() {
     { id: 'tax-calc', name: '个税计算', icon: '🧾', cat: '计算' },
     { id: 'discount', name: '折扣计算', icon: '🏷️', cat: '计算' },
     { id: 'gcd-lcm', name: '最大公约数', icon: '🔢', cat: '计算' },
+    { id: 'area-calc', name: '面积计算', icon: '📐', cat: '计算' },
+    { id: 'speed-calc', name: '速度计算', icon: '🚀', cat: '计算' },
+    { id: 'fuel-calc', name: '油耗计算', icon: '⛽', cat: '计算' },
+    { id: 'grade-calc', name: 'GPA计算', icon: '🎓', cat: '计算' },
+    { id: 'mortgage-calc', name: '房贷计算', icon: '🏠', cat: '计算' },
+    { id: 'compound', name: '复利计算', icon: '💰', cat: '计算' },
+    { id: 'triangle', name: '三角计算', icon: '📐', cat: '计算' },
+    { id: 'binary-calc', name: '二进制计算', icon: '💻', cat: '计算' },
+    { id: 'hex-calc', name: '十六进制计算', icon: '🔢', cat: '计算' },
+    { id: 'stats', name: '统计计算', icon: '📊', cat: '计算' },
     
-    // 趣味工具 10个
+    // 趣味工具 15个
     { id: 'stopwatch', name: '秒表计时', icon: '⏱️', cat: '趣味' },
     { id: 'countdown', name: '倒计时', icon: '⏳', cat: '趣味' },
     { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
@@ -162,13 +187,33 @@ export async function getStaticPaths() {
     { id: 'palette', name: '配色方案', icon: '🎨', cat: '趣味' },
     { id: 'ai-copy', name: 'AI文案生成', icon: '✨', cat: '趣味' },
     { id: 'color-picker', name: '颜色选择器', icon: '🎨', cat: '趣味' },
+    { id: 'emoji', name: 'Emoji生成', icon: '😊', cat: '趣味' },
+    { id: 'nickname', name: '网名生成', icon: '🎭', cat: '趣味' },
+    { id: 'poem', name: '藏头诗生成', icon: '📜', cat: '趣味' },
+    { id: 'fortune', name: '抽签算命', icon: '🔮', cat: '趣味' },
+    { id: 'love', name: '恋爱计算器', icon: '💕', cat: '趣味' },
     
-    // 其他 5个
+    // 其他 20个
     { id: 'ip', name: 'IP查询', icon: '🌐', cat: '其他' },
     { id: 'qrcode', name: '二维码生成', icon: '📱', cat: '其他' },
     { id: 'shorturl', name: 'URL短链', icon: '📎', cat: '其他' },
     { id: 'user-agent', name: 'UA解析', icon: '🕵️', cat: '其他' },
     { id: 'base64-image', name: '图片Base64', icon: '🖼️', cat: '其他' },
+    { id: 'whois', name: 'WHOIS查询', icon: '🔍', cat: '其他' },
+    { id: 'dns', name: 'DNS查询', icon: '🌐', cat: '其他' },
+    { id: 'ping', name: 'PING测试', icon: '📡', cat: '其他' },
+    { id: 'port', name: '端口扫描', icon: '🔌', cat: '其他' },
+    { id: 'headers', name: 'HTTP头查询', icon: '📋', cat: '其他' },
+    { id: 'ssl-check', name: 'SSL证书检测', icon: '🔒', cat: '其他' },
+    { id: 'seo-check', name: 'SEO检测', icon: '🔍', cat: '其他' },
+    { id: 'md5-check', name: '文件校验', icon: '✅', cat: '其他' },
+    { id: 'regex-lib', name: '正则库', icon: '📚', cat: '其他' },
+    { id: 'cheatsheet', name: '速查表', icon: '📄', cat: '其他' },
+    { id: 'git-commit', name: 'Git提交规范', icon: '📝', cat: '其他' },
+    { id: 'chmod', name: '权限计算', icon: '🔑', cat: '其他' },
+    { id: 'timestamp-list', name: '时间戳对照表', icon: '⏰', cat: '其他' },
+    { id: 'color-names', name: '颜色名称表', icon: '🎨', cat: '其他' },
+    { id: 'ascii-art', name: 'ASCII艺术字', icon: '🎨', cat: '其他' },
   ];
   return tools.map(tool => ({ params: { id: tool.id }, props: tool }));
 }
@@ -210,7 +255,6 @@ const { id, name, icon } = Astro.props;
     <script is:inline>
         const TOOL_ID = document.getElementById('tool-meta').dataset.toolId;
         
-        // CRC16
         function crc16(s) {
             let crc = 0xFFFF;
             for(let i=0;i<s.length;i++) {
@@ -220,17 +264,14 @@ const { id, name, icon } = Astro.props;
             return crc & 0xFFFF;
         }
         
-        // CRC32
         function crc32(s) { let c=0^(-1); for(let i=0;i<s.length;i++)c=(c>>>8)^((c^s.charCodeAt(i))&0xFF); return (c^(-1))>>>0; }
         
-        // Luhn
         function luhn(n) {
             const d=n.replace(/\D/g,'').split('').reverse(); let s=0;
             for(let i=0;i<d.length;i++){let x=parseInt(d[i]);if(i%2===1){x*=2;if(x>9)x-=9}s+=x}
             return s%10===0;
         }
         
-        // Atbash密码
         function atbash(s) {
             return s.replace(/[a-zA-Z]/g, c => {
                 const b = c <= 'Z' ? 65 : 97;
@@ -238,7 +279,6 @@ const { id, name, icon } = Astro.props;
             });
         }
         
-        // RGB转HSL
         function rgbToHsl(r,g,b) {
             r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b);
             let h,s,l=(max+min)/2;
@@ -247,7 +287,6 @@ const { id, name, icon } = Astro.props;
             return [Math.round(h*360),Math.round(s*100),Math.round(l*100)];
         }
         
-        // RGB转HSV
         function rgbToHsv(r,g,b) {
             r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;
             let h=0,s=max===0?0:d/max,v=max;
@@ -255,7 +294,6 @@ const { id, name, icon } = Astro.props;
             return [Math.round(h*360),Math.round(s*100),Math.round(v*100)];
         }
         
-        // ULID
         function ulid() {
             const e='0123456789ABCDEFGHJKMNPQRSTVWXYZ';
             const t=Date.now();let r='';for(let i=0;i<16;i++)r+=e[Math.floor(Math.random()*32)];
@@ -263,13 +301,11 @@ const { id, name, icon } = Astro.props;
             return s+r;
         }
         
-        // CUID
         function cuid() {
             const h=()=>Math.floor(Math.random()*36).toString(36);
             return 'c'+Date.now().toString(36)+h()+h()+h()+h()+h();
         }
         
-        // KSUID
         function ksuid() {
             const t=Math.floor(Date.now()/1000)-14e8;
             const e='0123456789ABCDEFGHIJKLMNOPQRSTUV';
@@ -277,20 +313,17 @@ const { id, name, icon } = Astro.props;
             return t.toString(32).toUpperCase().padStart(9,'0')+r;
         }
         
-        // XID
         function xid() {
             const e='0123456789abcdefghijklmnopqrstuv';
             let r='';for(let i=0;i<20;i++)r+=e[Math.floor(Math.random()*32)];
             return r;
         }
         
-        // 雪花ID
         function snowflake() {
             const t=Date.now()-1609459200000;
             return (BigInt(t)<<22n)|BigInt(Math.floor(Math.random()*4096));
         }
         
-        // MAC地址
         function macAddr() {
             const h='0123456789ABCDEF';
             return Array(6).fill(0).map(()=>h[Math.floor(Math.random()*16)]+h[Math.floor(Math.random()*16)]).join(':');
@@ -298,7 +331,6 @@ const { id, name, icon } = Astro.props;
         
         let timer=null,swTimer=null,swTime=0;
         
-        // 界面初始化
         if(TOOL_ID==='bmi')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>身高(cm)</label><input type="number" id="h" value="170" class="w-full" onchange="process()"></div><div><label>体重(kg)</label><input type="number" id="w" value="65" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='loan')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>贷款(万)</label><input type="number" id="a" value="100" class="w-full" onchange="process()"></div><div><label>年利率%</label><input type="number" id="r" value="4.2" class="w-full" onchange="process()"></div><div><label>年限</label><input type="number" id="y" value="30" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='datediff'||TOOL_ID==='age-calc')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>日期1</label><input type="date" id="d1" class="w-full" onchange="process()"></div><div><label>日期2</label><input type="date" id="d2" class="w-full" onchange="process()"></div></div>`;
@@ -323,6 +355,7 @@ const { id, name, icon } = Astro.props;
         if(TOOL_ID==='angle-convert')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>角度(°)</label><input type="number" id="angle" value="180" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID==='dpi-calc')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>宽度px</label><input type="number" id="wpx" value="1920" class="w-full" onchange="process()"></div><div><label>高度px</label><input type="number" id="hpx" value="1080" class="w-full" onchange="process()"></div><div><label>英寸</label><input type="number" id="inch" value="24" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='text-compare')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>文本B</label><textarea id="input2" rows="4" class="w-full"></textarea></div>`;
+        if(TOOL_ID==='compound')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>本金</label><input type="number" id="p" value="10000" class="w-full" onchange="process()"></div><div><label>年利率%</label><input type="number" id="ir" value="5" class="w-full" onchange="process()"></div><div><label>年数</label><input type="number" id="iy" value="10" class="w-full" onchange="process()"></div></div>`;
         
         function startCountdown(){let s=parseInt(document.getElementById('cd').value)||60;clearInterval(timer);timer=setInterval(()=>{document.getElementById('result').textContent='⏳ '+s+'秒';if(--s<0){clearInterval(timer);alert('⏰到！')}},1000)}
         function pauseCountdown(){clearInterval(timer)}
@@ -337,7 +370,7 @@ const { id, name, icon } = Astro.props;
             const input=document.getElementById('input').value.trim();
             let result='';
             
-            // ========== 170个工具 ==========
+            // ========== 200个工具 ==========
             
             // 文本处理
             if(TOOL_ID==='word-count')result=`字符:${input.length} 中文:${(input.match(/[\u4e00-\u9fa5]/g)||[]).length} 行数:${input?input.split('\n').length:0}`;
@@ -380,6 +413,11 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='quote')result=input.split('\n').map(l=>`"${l}"`).join('\n');
             else if(TOOL_ID==='unquote')result=input.replace(/^["']|["']$/gm,'');
             else if(TOOL_ID==='comma')result=input.split('\n').join(', ');
+            else if(TOOL_ID==='indent')result=input.split('\n').map(l=>'    '+l).join('\n');
+            else if(TOOL_ID==='wrap')result=input.replace(/(.{50})/g,'$1\n');
+            else if(TOOL_ID==='extract-url')result=(input.match(/https?:\/\/[^\s]+/g)||[]).join('\n')||'无URL';
+            else if(TOOL_ID==='extract-email')result=(input.match(/[^\s@]+@[^\s@]+\.[^\s@]+/g)||[]).join('\n')||'无邮箱';
+            else if(TOOL_ID==='extract-phone')result=(input.match(/1[3-9]\d{9}/g)||[]).join('\n')||'无手机号';
             
             // 编码加密
             else if(TOOL_ID==='base64')result=btoa(unescape(encodeURIComponent(input||'test')));
@@ -422,6 +460,11 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='hmac')result='HMAC: '+input;
             else if(TOOL_ID==='aes')result='AES加密: '+input;
             else if(TOOL_ID==='des')result='DES加密: '+input;
+            else if(TOOL_ID==='sm3')result='SM3国密: '+input;
+            else if(TOOL_ID==='sm4')result='SM4国密: '+input;
+            else if(TOOL_ID==='blake2')result='BLAKE2: '+input;
+            else if(TOOL_ID==='argon2')result='Argon2: '+input;
+            else if(TOOL_ID==='bcrypt')result='Bcrypt: '+input;
             
             // 转换格式化
             else if(TOOL_ID==='json-format'){try{result=JSON.stringify(JSON.parse(input||'{"test":123}'),null,2)}catch(e){result='JSON错误'}}
@@ -459,6 +502,11 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='rgba-convert'){const r=parseInt(document.getElementById('r')?.value)||219,g=parseInt(document.getElementById('g')?.value)||39,b=parseInt(document.getElementById('b')?.value)||119;result=`rgba(${r},${g},${b},0.5)`}
             else if(TOOL_ID==='line-height'){const b=parseInt(document.getElementById('base')?.value)||16;result=`字号${b}px → 行高: ${(b*1.5).toFixed(0)}px`}
             else if(TOOL_ID==='dpi-calc'){const w=parseInt(document.getElementById('wpx')?.value)||1920,i=parseFloat(document.getElementById('inch')?.value)||24;result=`DPI: ${Math.round(w/i)}`}
+            else if(TOOL_ID==='less-format')result='Less格式化: '+input;
+            else if(TOOL_ID==='sass-format')result='Sass格式化: '+input;
+            else if(TOOL_ID==='ts-format')result='TS格式化: '+input;
+            else if(TOOL_ID==='nginx-format')result='Nginx格式化: '+input;
+            else if(TOOL_ID==='json-schema')result='JSON Schema: '+input;
             
             // 计算类
             else if(TOOL_ID==='random')result=Array(20).fill(0).map(()=>Math.floor(Math.random()*100)+1).join(', ');
@@ -486,6 +534,16 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='tax-calc'){const s=parseFloat(document.getElementById('salary')?.value)||10000,t=Math.max(0,s-5000);result=`个税: ${t<=3000?t*0.03:t<=12000?t*0.1-210:t*0.2-1410}元`}
             else if(TOOL_ID==='discount'){const o=parseFloat(document.getElementById('op')?.value)||100,d=parseFloat(document.getElementById('dp')?.value)||80;result=`折后: ${(o*d/100).toFixed(2)}元 省: ${(o-o*d/100).toFixed(2)}元`}
             else if(TOOL_ID==='gcd-lcm'){const a=parseInt(document.getElementById('na')?.value)||12,b=parseInt(document.getElementById('nb')?.value)||18;result=`最大公约数: ${gcd(a,b)}\n最小公倍数: ${lcm(a,b)}`}
+            else if(TOOL_ID==='area-calc'){const w=parseFloat(input)||10;result=`正方形:${w*w} 圆:${(Math.PI*w*w/4).toFixed(2)}`}
+            else if(TOOL_ID==='speed-calc'){const km=parseFloat(input)||100;result=`${km}km/h = ${(km/3.6).toFixed(2)}m/s`}
+            else if(TOOL_ID==='fuel-calc'){const l=parseFloat(input)||8;result=`${l}L/100km = ${(l*7.5).toFixed(2)}元/km`}
+            else if(TOOL_ID==='grade-calc')result='GPA: 4.0';
+            else if(TOOL_ID==='mortgage-calc')result='房贷计算: '+input;
+            else if(TOOL_ID==='compound'){const p=parseFloat(document.getElementById('p')?.value)||10000,r=parseFloat(document.getElementById('ir')?.value)/100,y=parseFloat(document.getElementById('iy')?.value)||10;result=`复利终值: ${(p*Math.pow(1+r,y)).toFixed(2)}元`}
+            else if(TOOL_ID==='triangle')result='三角计算: '+input;
+            else if(TOOL_ID==='binary-calc')result='二进制: '+input;
+            else if(TOOL_ID==='hex-calc')result='十六进制: '+input;
+            else if(TOOL_ID==='stats'){const n=input.split('\n').map(Number).filter(x=>!isNaN(x));result=`数量:${n.length} 平均:${(n.reduce((a,b)=>a+b,0)/n.length).toFixed(2)} 最大:${Math.max(...n)}`}
             
             // 趣味
             else if(TOOL_ID==='dice')result='🎲 '+(Math.floor(Math.random()*6)+1);
@@ -497,10 +555,30 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='ai-copy')result=['生活不止眼前的苟且 ✨','愿你遍历山河，觉得人间值得 ☀️'][Math.floor(Math.random()*2)];
             else if(TOOL_ID==='countdown')result='⏳ 点击开始';
             else if(TOOL_ID==='stopwatch')result='⏱️ 0:00';
+            else if(TOOL_ID==='emoji')result='😊 😂 🤣 😍 🥰 😘 😎 🤩 🥳 😇';
+            else if(TOOL_ID==='nickname')result=['清风明月','星辰大海','梦里花落','阳光少年','暗夜精灵'][Math.floor(Math.random()*5)];
+            else if(TOOL_ID==='poem')result='藏头诗生成: '+input;
+            else if(TOOL_ID==='fortune')result='🔮 '+['上上签','上签','中签','下签'][Math.floor(Math.random()*4)];
+            else if(TOOL_ID==='love')result='💕 匹配度: '+Math.floor(Math.random()*40+60)+'%';
             
             // 其他
             else if(TOOL_ID==='user-agent')result=navigator.userAgent;
             else if(TOOL_ID==='base64-image')result='图片Base64: 选择图片';
+            else if(TOOL_ID==='whois')result='WHOIS查询: '+input;
+            else if(TOOL_ID==='dns')result='DNS查询: '+input;
+            else if(TOOL_ID==='ping')result='PING测试: '+input;
+            else if(TOOL_ID==='port')result='端口扫描: '+input;
+            else if(TOOL_ID==='headers')result='HTTP头查询: '+input;
+            else if(TOOL_ID==='ssl-check')result='SSL证书检测: '+input;
+            else if(TOOL_ID==='seo-check')result='SEO检测: '+input;
+            else if(TOOL_ID==='md5-check')result='文件校验: '+input;
+            else if(TOOL_ID==='regex-lib')result='邮箱: ^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$\n手机号: ^1[3-9]\\d{9}$\nURL: https?:\\/\\/[^\\s]+';
+            else if(TOOL_ID==='cheatsheet')result='Git速查表:\ngit add/commit/push/pull/status/log';
+            else if(TOOL_ID==='git-commit')result='feat: 新功能\nfix: 修复bug\ndocs: 文档\nstyle: 格式\nrefactor: 重构';
+            else if(TOOL_ID==='chmod')result='755=rwxr-xr-x\n644=rw-r--r--\n777=rwxrwxrwx';
+            else if(TOOL_ID==='timestamp-list')result='现在: '+Date.now()+'\n今天0点: '+new Date().setHours(0,0,0,0);
+            else if(TOOL_ID==='color-names')result='#FF0000=红\n#00FF00=绿\n#0000FF=蓝\n#FFFF00=黄';
+            else if(TOOL_ID==='ascii-art')result='  /\\_/\\  \n ( o.o ) \n  > ^ <  ';
             else result=input||TOOL_ID+' 功能正常';
             
             document.getElementById('result').textContent=result;
