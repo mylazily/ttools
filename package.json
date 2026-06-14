@@ -1,8 +1,7 @@
 {
   "name": "ttools",
-  "version": "1.0.0",
-  "description": "70+ Free Online Tools",
-  "private": true,
+  "version": "2.0.0",
+  "description": "200个免费在线工具 - Online Tools - Deployed on Cloudflare Pages",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
@@ -10,6 +9,6 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^4.16.0"
+    "astro": "^4.0.0"
   }
 }
