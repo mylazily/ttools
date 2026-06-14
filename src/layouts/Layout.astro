@@ -1,0 +1,63 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} | TTools - 在线工具集合</title>
+    <meta name="description" content={description}>
+    <meta name="keywords" content="在线工具,工具站,免费工具,实用工具">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4828591893992093" crossorigin="anonymous"></script>
+    <style>
+        :root { --primary: #e91e63; }
+        body { background: #f9fafb; padding-bottom: 80px; }
+        .tool-card { background: white; border: 1px solid #f3f4f6; border-radius: 0.75rem; transition: all 0.2s; }
+        .tool-card:hover { border-color: #e91e63; box-shadow: 0 10px 40px rgba(233,30,99,0.15); transform: translateY(-2px); }
+        .btn-primary { background: #e91e63; color: white; border-radius: 0.5rem; }
+        .btn-primary:hover { background: #d81b60; }
+        .btn-secondary { border: 1px solid #e91e63; color: #e91e63; border-radius: 0.5rem; }
+        .btn-secondary:hover { background: #fdf2f8; }
+    </style>
+</head>
+<body>
+    <!-- 顶部横幅 -->
+    <div class="bg-gradient-to-r from-pink-500 to-rose-500 text-white py-3 text-center text-sm">
+        🎬 <a href="https://www.ziyuanzu.com" target="_blank" class="font-bold hover:underline">66个资源站实时监控 - 点击访问</a>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-pink-600">🛠️ TTools</a>
+            <div class="flex items-center gap-4">
+                <a href="https://www.ziyuanzu.com" target="_blank" class="text-gray-600 hover:text-pink-600 font-medium">访问资源主站 →</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <slot />
+    </main>
+
+    <!-- 底部导航 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-5 py-3">
+                <a href="https://www.ziyuanzu.com" target="_blank" class="flex flex-col items-center py-2 text-gray-500 hover:text-pink-600 font-medium">首页</a>
+                <a href="https://www.ziyuanzu.com/category" target="_blank" class="flex flex-col items-center py-2 text-gray-500 hover:text-pink-600 font-medium">分类</a>
+                <a href="https://www.ziyuanzu.com/monitor" target="_blank" class="flex flex-col items-center py-2 text-pink-600 font-bold">资源站</a>
+                <a href="https://www.ziyuanzu.com/top" target="_blank" class="flex flex-col items-center py-2 text-gray-500 hover:text-pink-600 font-medium">排行</a>
+                <a href="https://www.ziyuanzu.com/about" target="_blank" class="flex flex-col items-center py-2 text-gray-500 hover:text-pink-600 font-medium">关于</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

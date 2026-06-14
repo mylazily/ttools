@@ -1,0 +1,120 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const toolMap: Record<string, any> = {
+  'word-count': { name: '字数统计', icon: '📏', desc: '统计字符数、字数、行数' },
+  'text-dedup': { name: '文本去重', icon: '📋', desc: '去除空行、去除重复行' },
+  'case-convert': { name: '大小写转换', icon: '🔤', desc: '大写、小写、首字母大写' },
+  'text-reverse': { name: '文本反转', icon: '🔄', desc: '字符串倒序排列' },
+  'html-escape': { name: 'HTML转义', icon: '📝', desc: 'HTML特殊字符转义还原' },
+  'lorem': { name: 'Lorem生成', icon: '📄', desc: '生成占位文本' },
+  'ascii': { name: 'ASCII码表', icon: '🔣', desc: '查看字符ASCII编码' },
+  'binary': { name: '二进制转换', icon: '💻', desc: '文本与二进制互转' },
+  'morse': { name: '摩尔斯电码', icon: '📻', desc: '摩尔斯编码解码' },
+  'base64': { name: 'Base64编码', icon: '🔐', desc: 'Base64编码解码' },
+  'url-encode': { name: 'URL编码', icon: '🔗', desc: 'URL编码解码' },
+  'md5': { name: 'MD5加密', icon: '🔍', desc: 'MD5哈希值计算' },
+  'sha256': { name: 'SHA256加密', icon: '🔒', desc: 'SHA256安全哈希' },
+  'uuid': { name: 'UUID生成', icon: '🆔', desc: '批量生成UUID' },
+  'password': { name: '密码生成器', icon: '🔐', desc: '生成高强度密码' },
+  'json-format': { name: 'JSON格式化', icon: '📝', desc: 'JSON美化压缩验证' },
+  'base-convert': { name: '进制转换', icon: '📊', desc: '二八十十六进制互转' },
+  'unit-convert': { name: '单位换算器', icon: '🔄', desc: '温度长度重量换算' },
+  'timestamp': { name: '时间戳转换', icon: '⏰', desc: 'Unix时间戳互转' },
+  'color-picker': { name: '颜色选择器', icon: '🎨', desc: 'RGB HEX颜色转换' },
+  'random': { name: '随机数生成', icon: '🔢', desc: '指定范围随机数' },
+  'age-calc': { name: '年龄计算器', icon: '📅', desc: '精确计算年龄' },
+  'bmi': { name: 'BMI计算器', icon: '⚖️', desc: '身体质量指数计算' },
+  'percentage': { name: '百分比计算', icon: '📊', desc: '快速百分比计算' },
+  'loan': { name: '贷款计算器', icon: '💰', desc: '房贷车贷月供计算' },
+  'tip': { name: '小费计算', icon: '💵', desc: '小费AA分账计算' },
+  'ip': { name: 'IP查询', icon: '🌐', desc: '查看本机IP地址' },
+  'qrcode': { name: '二维码生成', icon: '📱', desc: '文本URL转二维码' },
+  'stopwatch': { name: '秒表计时', icon: '⏱️', desc: '精确毫秒计时' },
+  'countdown': { name: '倒计时', icon: '⏳', desc: '定时倒计时提醒' },
+  'dice': { name: '掷骰子', icon: '🎲', desc: '随机骰子点数' },
+  'coin': { name: '抛硬币', icon: '🪙', desc: '随机正反面' },
+  'lotto': { name: '彩票号码', icon: '🎫', desc: '随机生成彩票号码' },
+  'palette': { name: '配色方案', icon: '🎨', desc: '随机生成配色方案' },
+  'contrast': { name: '对比度检测', icon: '👁️', desc: 'WCAG对比度检测' },
+  'idcard': { name: '身份证验证', icon: '🪪', desc: '身份证号校验真伪' },
+  'pinyin': { name: '汉字转拼音', icon: '🀄', desc: '汉字转拼音带声调' },
+  'tradition': { name: '简繁转换', icon: '📜', desc: '简体繁体中文互转' },
+  'rmb': { name: '人民币大写', icon: '💴', desc: '金额转人民币大写' },
+  'datediff': { name: '日期差计算', icon: '📆', desc: '计算两个日期相隔天数' },
+  'emailcheck': { name: '邮箱验证', icon: '📧', desc: '邮箱格式校验' },
+  'phonecheck': { name: '手机号验证', icon: '📱', desc: '手机号格式校验' },
+  'pick': { name: '随机抽选', icon: '🎯', desc: '随机抽签选择' },
+  'regex': { name: '正则测试', icon: '🔍', desc: '正则表达式测试' },
+  'csv-json': { name: 'CSV转JSON', icon: '📋', desc: 'CSV格式转JSON' },
+  'yaml-json': { name: 'YAML转JSON', icon: '⚙️', desc: 'YAML配置转JSON' },
+  'markdown': { name: 'Markdown预览', icon: '📝', desc: '实时Markdown渲染' },
+  'hash': { name: '哈希校验', icon: '🧮', desc: 'MD5 SHA哈希计算' },
+  'uuid4': { name: 'UUID v4', icon: '🆔', desc: '标准UUID v4生成' },
+  'nanoid': { name: 'NanoID生成', icon: '🔑', desc: '短小NanoID生成' },
+  'slug': { name: 'URL Slug', icon: '🔗', desc: '生成友好URL' },
+  'pixel': { name: '像素转换', icon: '📐', desc: 'px rem单位转换' },
+  'base32': { name: 'Base32编码', icon: '🔐', desc: 'Base32编码解码' },
+  'base58': { name: 'Base58编码', icon: '🔐', desc: 'Base58比特币编码' },
+  'jsoncsv': { name: 'JSON转CSV', icon: '🔄', desc: 'JSON格式转CSV' },
+  'timefmt': { name: '时间格式化', icon: '⏰', desc: '时间多种格式显示' },
+  'unicode': { name: 'Unicode转换', icon: '🔣', desc: 'Unicode编码解码' },
+  'trim': { name: '空格清理', icon: '🧹', desc: '去除多余空格' },
+  'sort': { name: '文本排序', icon: '📊', desc: '文本升序降序排列' },
+  'shuffle': { name: '随机打乱', icon: '🎲', desc: '文本随机打乱' },
+  'unique': { name: '数组去重', icon: '✨', desc: '去除重复项' },
+  'cron': { name: 'Cron表达式', icon: '⏱️', desc: 'Cron表达式解析' },
+  'urldiff': { name: 'URL参数解析', icon: '🔗', desc: '提取URL参数' },
+  'base64img': { name: 'Base64转图片', icon: '🖼️', desc: 'Base64解码为图片' },
+  'hexrgb': { name: 'HEX/RGB转换', icon: '🎨', desc: 'HEX RGB互转' },
+  'lucky': { name: '今日运势', icon: '🍀', desc: '随机抽取今日运势' },
+  'ai-copy': { name: 'AI文案生成', icon: '✨', desc: '朋友圈小红书文案' },
+  'img-compress': { name: '图片压缩', icon: '🖼️', desc: '本地图片压缩' },
+  'img-base64': { name: '图片转Base64', icon: '🖼️', desc: '图片转Base64编码' },
+  'shorturl': { name: 'URL短链', icon: '📎', desc: '长链接缩短' },
+};
+
+const { id } = Astro.params;
+const tool = toolMap[id] || { name: '工具', icon: '🛠️', desc: '在线工具' };
+---
+
+<Layout title={`${tool.name} - 在线工具`} description={tool.desc}>
+    <div class="mb-6">
+        <a href="/" class="text-pink-600 hover:underline">← 返回首页</a>
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow-sm border">
+        <h1 class="text-3xl font-bold mb-2 text-gray-800">{tool.icon} {tool.name}</h1>
+        <p class="text-gray-600 mb-6">{tool.desc}</p>
+
+        <div class="space-y-4">
+            <textarea id="input" rows="5" placeholder="输入内容..." class="w-full p-4 border rounded-lg font-mono"></textarea>
+            
+            <div class="flex gap-3 flex-wrap">
+                <button onclick="process()" class="btn-primary px-6 py-3 font-medium">处理</button>
+                <button onclick="clearAll()" class="btn-secondary px-6 py-3 font-medium">清空</button>
+                <button onclick="copyResult()" class="btn-secondary px-6 py-3 font-medium">复制结果</button>
+            </div>
+
+            <div id="result" class="p-4 bg-gray-50 rounded-lg font-mono min-h-24 hidden"></div>
+        </div>
+    </div>
+
+    <script>
+        function process() {
+            const input = (document.getElementById('input') as HTMLTextAreaElement).value;
+            const result = document.getElementById('result')!;
+            result.textContent = input || '请输入内容';
+            result.classList.remove('hidden');
+        }
+        function clearAll() {
+            (document.getElementById('input') as HTMLTextAreaElement).value = '';
+            document.getElementById('result')!.classList.add('hidden');
+        }
+        function copyResult() {
+            const text = document.getElementById('result')!.textContent || '';
+            navigator.clipboard.writeText(text);
+            alert('已复制！');
+        }
+    </script>
+</Layout>
