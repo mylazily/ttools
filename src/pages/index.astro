@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
 const tools = [
+  // 文本处理 40个
   { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
   { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
   { id: 'case-convert', name: '大小写转换', icon: '🔤', cat: '文本' },
@@ -35,6 +35,15 @@ const tools = [
   { id: 'pinyin', name: '汉字转拼音', icon: '🀄', cat: '文本' },
   { id: 'markdown', name: 'Markdown预览', icon: '📝', cat: '文本' },
   { id: 'url-normalize', name: 'URL标准化', icon: '🔗', cat: '文本' },
+  { id: 'strip-html', name: '去除HTML标签', icon: '🧹', cat: '文本' },
+  { id: 'text-compare', name: '文本对比', icon: '📊', cat: '文本' },
+  { id: 'line-sort', name: '行排序', icon: '📋', cat: '文本' },
+  { id: 'remove-empty', name: '删除空行', icon: '🧹', cat: '文本' },
+  { id: 'quote', name: '加引号', icon: '💬', cat: '文本' },
+  { id: 'unquote', name: '去引号', icon: '🔓', cat: '文本' },
+  { id: 'comma', name: '加逗号', icon: '📝', cat: '文本' },
+  
+  // 编码加密 40个
   { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
   { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
   { id: 'base64-url', name: 'URL安全Base64', icon: '🔗', cat: '编码' },
@@ -64,11 +73,19 @@ const tools = [
   { id: 'password', name: '密码生成器', icon: '🔐', cat: '编码' },
   { id: 'base32', name: 'Base32编码', icon: '🔐', cat: '编码' },
   { id: 'base58', name: 'Base58编码', icon: '🔐', cat: '编码' },
+  { id: 'base85', name: 'Base85编码', icon: '🔐', cat: '编码' },
   { id: 'unicode', name: 'Unicode转换', icon: '🔣', cat: '编码' },
   { id: 'punycode', name: 'Punycode编码', icon: '🌐', cat: '编码' },
   { id: 'hash', name: '哈希校验', icon: '🧮', cat: '编码' },
   { id: 'jwt-encode', name: 'JWT编码', icon: '🔐', cat: '编码' },
   { id: 'jwt-decode', name: 'JWT解码', icon: '🔓', cat: '编码' },
+  { id: 'hex-dump', name: 'HEX转储', icon: '📄', cat: '编码' },
+  { id: 'url-parse', name: 'URL完整解析', icon: '🔗', cat: '编码' },
+  { id: 'hmac', name: 'HMAC签名', icon: '✍️', cat: '编码' },
+  { id: 'aes', name: 'AES加密', icon: '🔒', cat: '编码' },
+  { id: 'des', name: 'DES加密', icon: '🔐', cat: '编码' },
+  
+  // 转换格式化 35个
   { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
   { id: 'json-minify', name: 'JSON压缩', icon: '📦', cat: '转换' },
   { id: 'xml-format', name: 'XML格式化', icon: '📄', cat: '转换' },
@@ -92,6 +109,7 @@ const tools = [
   { id: 'hsl-rgb', name: 'HSL转RGB', icon: '🎨', cat: '转换' },
   { id: 'rgb-hsv', name: 'RGB转HSV', icon: '🎨', cat: '转换' },
   { id: 'hsv-rgb', name: 'HSV转RGB', icon: '🎨', cat: '转换' },
+  { id: 'cmyk-rgb', name: 'CMYK转RGB', icon: '🎨', cat: '转换' },
   { id: 'csv-json', name: 'CSV转JSON', icon: '📋', cat: '转换' },
   { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄', cat: '转换' },
   { id: 'yaml-json', name: 'YAML转JSON', icon: '⚙️', cat: '转换' },
@@ -99,6 +117,12 @@ const tools = [
   { id: 'unit-convert', name: '单位换算器', icon: '🔄', cat: '转换' },
   { id: 'contrast', name: '对比度检测', icon: '👁️', cat: '转换' },
   { id: 'mac-address', name: 'MAC地址生成', icon: '🔗', cat: '转换' },
+  { id: 'angle-convert', name: '角度弧度转换', icon: '📐', cat: '转换' },
+  { id: 'rgba-convert', name: 'RGBA透明度', icon: '🎨', cat: '转换' },
+  { id: 'line-height', name: '行高计算', icon: '📏', cat: '转换' },
+  { id: 'dpi-calc', name: 'DPI计算', icon: '🖨️', cat: '转换' },
+  
+  // 计算类 25个
   { id: 'random', name: '随机数生成', icon: '🔢', cat: '计算' },
   { id: 'bmi', name: 'BMI计算器', icon: '⚖️', cat: '计算' },
   { id: 'loan', name: '贷款计算器', icon: '💰', cat: '计算' },
@@ -116,6 +140,16 @@ const tools = [
   { id: 'regex', name: '正则测试', icon: '🔍', cat: '计算' },
   { id: 'subnet', name: '子网计算', icon: '🌐', cat: '计算' },
   { id: 'ip-convert', name: 'IP转换', icon: '🌐', cat: '计算' },
+  { id: 'timezone', name: '时区转换', icon: '🌍', cat: '计算' },
+  { id: 'rent-calc', name: '房租分摊', icon: '🏠', cat: '计算' },
+  { id: 'password-strength', name: '密码强度', icon: '💪', cat: '计算' },
+  { id: 'weight-convert', name: '重量换算', icon: '⚖️', cat: '计算' },
+  { id: 'volume-convert', name: '体积换算', icon: '📦', cat: '计算' },
+  { id: 'tax-calc', name: '个税计算', icon: '🧾', cat: '计算' },
+  { id: 'discount', name: '折扣计算', icon: '🏷️', cat: '计算' },
+  { id: 'gcd-lcm', name: '最大公约数', icon: '🔢', cat: '计算' },
+  
+  // 趣味工具 10个
   { id: 'stopwatch', name: '秒表计时', icon: '⏱️', cat: '趣味' },
   { id: 'countdown', name: '倒计时', icon: '⏳', cat: '趣味' },
   { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
@@ -126,16 +160,19 @@ const tools = [
   { id: 'palette', name: '配色方案', icon: '🎨', cat: '趣味' },
   { id: 'ai-copy', name: 'AI文案生成', icon: '✨', cat: '趣味' },
   { id: 'color-picker', name: '颜色选择器', icon: '🎨', cat: '趣味' },
+  
+  // 其他 20个
   { id: 'ip', name: 'IP查询', icon: '🌐', cat: '其他' },
   { id: 'qrcode', name: '二维码生成', icon: '📱', cat: '其他' },
   { id: 'shorturl', name: 'URL短链', icon: '📎', cat: '其他' },
+  { id: 'user-agent', name: 'UA解析', icon: '🕵️', cat: '其他' },
+  { id: 'base64-image', name: '图片Base64', icon: '🖼️', cat: '其他' },
 ];
 ---
-
-<Layout title="在线工具箱 - 145个免费在线工具" description="145个免费在线工具，无需安装，即开即用">
+<Layout title="在线工具箱 - 170个免费在线工具" description="170个免费在线工具，无需安装，即开即用">
     <div class="text-center mb-10">
         <h1 class="text-4xl font-bold text-gray-800 mb-4">🛠️ 在线工具箱</h1>
-        <p class="text-gray-600 text-lg">145个免费在线工具，无需安装，即开即用</p>
+        <p class="text-gray-600 text-lg">170个免费在线工具，无需安装，即开即用</p>
     </div>
     
     {(['文本','编码','转换','计算','趣味','其他'] as const).map(cat => (

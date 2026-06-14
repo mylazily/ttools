@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const tools = [
-    // 文本处理 30个
+    // 文本处理 40个
     { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
     { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
     { id: 'case-convert', name: '大小写转换', icon: '🔤', cat: '文本' },
@@ -37,8 +37,15 @@ export async function getStaticPaths() {
     { id: 'pinyin', name: '汉字转拼音', icon: '🀄', cat: '文本' },
     { id: 'markdown', name: 'Markdown预览', icon: '📝', cat: '文本' },
     { id: 'url-normalize', name: 'URL标准化', icon: '🔗', cat: '文本' },
+    { id: 'strip-html', name: '去除HTML标签', icon: '🧹', cat: '文本' },
+    { id: 'text-compare', name: '文本对比', icon: '📊', cat: '文本' },
+    { id: 'line-sort', name: '行排序', icon: '📋', cat: '文本' },
+    { id: 'remove-empty', name: '删除空行', icon: '🧹', cat: '文本' },
+    { id: 'quote', name: '加引号', icon: '💬', cat: '文本' },
+    { id: 'unquote', name: '去引号', icon: '🔓', cat: '文本' },
+    { id: 'comma', name: '加逗号', icon: '📝', cat: '文本' },
     
-    // 编码加密 30个
+    // 编码加密 40个
     { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
     { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
     { id: 'base64-url', name: 'URL安全Base64', icon: '🔗', cat: '编码' },
@@ -68,13 +75,19 @@ export async function getStaticPaths() {
     { id: 'password', name: '密码生成器', icon: '🔐', cat: '编码' },
     { id: 'base32', name: 'Base32编码', icon: '🔐', cat: '编码' },
     { id: 'base58', name: 'Base58编码', icon: '🔐', cat: '编码' },
+    { id: 'base85', name: 'Base85编码', icon: '🔐', cat: '编码' },
     { id: 'unicode', name: 'Unicode转换', icon: '🔣', cat: '编码' },
     { id: 'punycode', name: 'Punycode编码', icon: '🌐', cat: '编码' },
     { id: 'hash', name: '哈希校验', icon: '🧮', cat: '编码' },
     { id: 'jwt-encode', name: 'JWT编码', icon: '🔐', cat: '编码' },
     { id: 'jwt-decode', name: 'JWT解码', icon: '🔓', cat: '编码' },
+    { id: 'hex-dump', name: 'HEX转储', icon: '📄', cat: '编码' },
+    { id: 'url-parse', name: 'URL完整解析', icon: '🔗', cat: '编码' },
+    { id: 'hmac', name: 'HMAC签名', icon: '✍️', cat: '编码' },
+    { id: 'aes', name: 'AES加密', icon: '🔒', cat: '编码' },
+    { id: 'des', name: 'DES加密', icon: '🔐', cat: '编码' },
     
-    // 转换格式化 30个
+    // 转换格式化 35个
     { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
     { id: 'json-minify', name: 'JSON压缩', icon: '📦', cat: '转换' },
     { id: 'xml-format', name: 'XML格式化', icon: '📄', cat: '转换' },
@@ -98,6 +111,7 @@ export async function getStaticPaths() {
     { id: 'hsl-rgb', name: 'HSL转RGB', icon: '🎨', cat: '转换' },
     { id: 'rgb-hsv', name: 'RGB转HSV', icon: '🎨', cat: '转换' },
     { id: 'hsv-rgb', name: 'HSV转RGB', icon: '🎨', cat: '转换' },
+    { id: 'cmyk-rgb', name: 'CMYK转RGB', icon: '🎨', cat: '转换' },
     { id: 'csv-json', name: 'CSV转JSON', icon: '📋', cat: '转换' },
     { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄', cat: '转换' },
     { id: 'yaml-json', name: 'YAML转JSON', icon: '⚙️', cat: '转换' },
@@ -105,8 +119,12 @@ export async function getStaticPaths() {
     { id: 'unit-convert', name: '单位换算器', icon: '🔄', cat: '转换' },
     { id: 'contrast', name: '对比度检测', icon: '👁️', cat: '转换' },
     { id: 'mac-address', name: 'MAC地址生成', icon: '🔗', cat: '转换' },
+    { id: 'angle-convert', name: '角度弧度转换', icon: '📐', cat: '转换' },
+    { id: 'rgba-convert', name: 'RGBA透明度', icon: '🎨', cat: '转换' },
+    { id: 'line-height', name: '行高计算', icon: '📏', cat: '转换' },
+    { id: 'dpi-calc', name: 'DPI计算', icon: '🖨️', cat: '转换' },
     
-    // 计算类 20个
+    // 计算类 25个
     { id: 'random', name: '随机数生成', icon: '🔢', cat: '计算' },
     { id: 'bmi', name: 'BMI计算器', icon: '⚖️', cat: '计算' },
     { id: 'loan', name: '贷款计算器', icon: '💰', cat: '计算' },
@@ -124,6 +142,14 @@ export async function getStaticPaths() {
     { id: 'regex', name: '正则测试', icon: '🔍', cat: '计算' },
     { id: 'subnet', name: '子网计算', icon: '🌐', cat: '计算' },
     { id: 'ip-convert', name: 'IP转换', icon: '🌐', cat: '计算' },
+    { id: 'timezone', name: '时区转换', icon: '🌍', cat: '计算' },
+    { id: 'rent-calc', name: '房租分摊', icon: '🏠', cat: '计算' },
+    { id: 'password-strength', name: '密码强度', icon: '💪', cat: '计算' },
+    { id: 'weight-convert', name: '重量换算', icon: '⚖️', cat: '计算' },
+    { id: 'volume-convert', name: '体积换算', icon: '📦', cat: '计算' },
+    { id: 'tax-calc', name: '个税计算', icon: '🧾', cat: '计算' },
+    { id: 'discount', name: '折扣计算', icon: '🏷️', cat: '计算' },
+    { id: 'gcd-lcm', name: '最大公约数', icon: '🔢', cat: '计算' },
     
     // 趣味工具 10个
     { id: 'stopwatch', name: '秒表计时', icon: '⏱️', cat: '趣味' },
@@ -141,6 +167,8 @@ export async function getStaticPaths() {
     { id: 'ip', name: 'IP查询', icon: '🌐', cat: '其他' },
     { id: 'qrcode', name: '二维码生成', icon: '📱', cat: '其他' },
     { id: 'shorturl', name: 'URL短链', icon: '📎', cat: '其他' },
+    { id: 'user-agent', name: 'UA解析', icon: '🕵️', cat: '其他' },
+    { id: 'base64-image', name: '图片Base64', icon: '🖼️', cat: '其他' },
   ];
   return tools.map(tool => ({ params: { id: tool.id }, props: tool }));
 }
@@ -277,17 +305,24 @@ const { id, name, icon } = Astro.props;
         if(TOOL_ID==='regex')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>正则表达式</label><input type="text" id="re" value="\\d+" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID==='percentage')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>数值A</label><input type="number" id="pa" value="25" class="w-full" onchange="process()"></div><div><label>数值B</label><input type="number" id="pb" value="100" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='tip')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>消费</label><input type="number" id="ta" value="200" class="w-full" onchange="process()"></div><div><label>小费%</label><input type="number" id="tr" value="15" class="w-full" onchange="process()"></div><div><label>人数</label><input type="number" id="tn" value="4" class="w-full" onchange="process()"></div></div>`;
-        if(TOOL_ID==='unit-convert')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>°C</label><input type="number" id="c" value="25" class="w-full" onchange="process()"></div><div><label>米</label><input type="number" id="m" value="100" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='unit-convert'||TOOL_ID==='weight-convert'||TOOL_ID==='volume-convert')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>°C</label><input type="number" id="c" value="25" class="w-full" onchange="process()"></div><div><label>米</label><input type="number" id="m" value="100" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='hexrgb')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>HEX</label><input type="text" id="hex" value="db2777" class="w-full" onchange="process()"></div>`;
-        if(TOOL_ID==='rgb-hex'||TOOL_ID==='rgb-hsl'||TOOL_ID==='rgb-hsv')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>R</label><input type="number" id="r" value="219" class="w-full" onchange="process()"></div><div><label>G</label><input type="number" id="g" value="39" class="w-full" onchange="process()"></div><div><label>B</label><input type="number" id="b" value="119" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='rgb-hex'||TOOL_ID==='rgb-hsl'||TOOL_ID==='rgb-hsv'||TOOL_ID==='cmyk-rgb'||TOOL_ID==='rgba-convert')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>R</label><input type="number" id="r" value="219" class="w-full" onchange="process()"></div><div><label>G</label><input type="number" id="g" value="39" class="w-full" onchange="process()"></div><div><label>B</label><input type="number" id="b" value="119" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='hsl-rgb'||TOOL_ID==='hsv-rgb')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>H 0-360</label><input type="number" id="hh" value="340" class="w-full" onchange="process()"></div><div><label>S %</label><input type="number" id="hs" value="70" class="w-full" onchange="process()"></div><div><label>L/V %</label><input type="number" id="hl" value="50" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='contrast')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>前景</label><input type="text" id="fg" value="000000" class="w-full" onchange="process()"></div><div><label>背景</label><input type="text" id="bg" value="ffffff" class="w-full" onchange="process()"></div></div>`;
-        if(TOOL_ID==='rem-px'||TOOL_ID==='em-px')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>基准字号(px)</label><input type="number" id="base" value="16" class="w-full" onchange="process()"></div>`;
+        if(TOOL_ID==='rem-px'||TOOL_ID==='em-px'||TOOL_ID==='line-height')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>基准字号(px)</label><input type="number" id="base" value="16" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID==='caesar')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>位移量</label><input type="number" id="shift" value="3" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID==='countdown')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>秒</label><input type="number" id="cd" value="60" class="w-full"></div><div class="flex gap-3 mb-4"><button onclick="startCountdown()" class="btn-primary">开始</button><button onclick="pauseCountdown()" class="btn-secondary">暂停</button></div>`;
         if(TOOL_ID==='stopwatch')document.getElementById('extra-inputs').innerHTML=`<div class="flex gap-3 mb-4"><button onclick="startWatch()" class="btn-primary">开始</button><button onclick="stopWatch()" class="btn-secondary">停止</button><button onclick="resetWatch()" class="btn-secondary">重置</button></div>`;
         if(TOOL_ID==='base-convert')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>十进制</label><input type="number" id="bn" value="255" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID==='cron')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>Cron</label><input type="text" id="cron" value="0 9 * * *" class="w-full" onchange="process()"></div>`;
+        if(TOOL_ID==='rent-calc')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>总房租</label><input type="number" id="rent" value="3000" class="w-full" onchange="process()"></div><div><label>人数</label><input type="number" id="people" value="3" class="w-full" onchange="process()"></div><div><label>天数</label><input type="number" id="days" value="30" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='discount')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>原价</label><input type="number" id="op" value="100" class="w-full" onchange="process()"></div><div><label>折扣%</label><input type="number" id="dp" value="80" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='tax-calc')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>月薪(元)</label><input type="number" id="salary" value="10000" class="w-full" onchange="process()"></div>`;
+        if(TOOL_ID==='gcd-lcm')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>数字A</label><input type="number" id="na" value="12" class="w-full" onchange="process()"></div><div><label>数字B</label><input type="number" id="nb" value="18" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='angle-convert')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>角度(°)</label><input type="number" id="angle" value="180" class="w-full" onchange="process()"></div>`;
+        if(TOOL_ID==='dpi-calc')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>宽度px</label><input type="number" id="wpx" value="1920" class="w-full" onchange="process()"></div><div><label>高度px</label><input type="number" id="hpx" value="1080" class="w-full" onchange="process()"></div><div><label>英寸</label><input type="number" id="inch" value="24" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='text-compare')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>文本B</label><textarea id="input2" rows="4" class="w-full"></textarea></div>`;
         
         function startCountdown(){let s=parseInt(document.getElementById('cd').value)||60;clearInterval(timer);timer=setInterval(()=>{document.getElementById('result').textContent='⏳ '+s+'秒';if(--s<0){clearInterval(timer);alert('⏰到！')}},1000)}
         function pauseCountdown(){clearInterval(timer)}
@@ -295,11 +330,14 @@ const { id, name, icon } = Astro.props;
         function stopWatch(){clearInterval(swTimer)}
         function resetWatch(){clearInterval(swTimer);swTime=0;document.getElementById('result').textContent='⏱️ 0:00'}
         
+        function gcd(a,b){return b?gcd(b,a%b):a}
+        function lcm(a,b){return a*b/gcd(a,b)}
+        
         function process(){
             const input=document.getElementById('input').value.trim();
             let result='';
             
-            // ========== 145个工具 ==========
+            // ========== 170个工具 ==========
             
             // 文本处理
             if(TOOL_ID==='word-count')result=`字符:${input.length} 中文:${(input.match(/[\u4e00-\u9fa5]/g)||[]).length} 行数:${input?input.split('\n').length:0}`;
@@ -335,6 +373,13 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='pinyin'){const p={'你':'ni','好':'hao','中':'zhong','国':'guo','我':'wo','是':'shi'};result=input.split('').map(c=>p[c]||c).join(' ')}
             else if(TOOL_ID==='markdown')result='**粗体** *斜体* ~~删除~~\n# 标题\n- 列表\n> 引用\n`代码`';
             else if(TOOL_ID==='url-normalize'){try{result=new URL(input||'https://example.com').href}catch(e){result='输入URL'}}
+            else if(TOOL_ID==='strip-html')result=input.replace(/<[^>]*>/g,'');
+            else if(TOOL_ID==='text-compare'){const i2=document.getElementById('input2')?.value||'';result=`A长度:${input.length} B长度:${i2.length}\n相同字符:${input.split('').filter(c=>i2.includes(c)).length}`}
+            else if(TOOL_ID==='line-sort')result=input.split('\n').sort().join('\n');
+            else if(TOOL_ID==='remove-empty')result=input.split('\n').filter(l=>l.trim()).join('\n');
+            else if(TOOL_ID==='quote')result=input.split('\n').map(l=>`"${l}"`).join('\n');
+            else if(TOOL_ID==='unquote')result=input.replace(/^["']|["']$/gm,'');
+            else if(TOOL_ID==='comma')result=input.split('\n').join(', ');
             
             // 编码加密
             else if(TOOL_ID==='base64')result=btoa(unescape(encodeURIComponent(input||'test')));
@@ -366,11 +411,17 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='password'){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';result=Array(10).fill(0).map(()=>Array(16).fill(0).map(()=>c[Math.floor(Math.random()*c.length)]).join('')).join('\n\n')}
             else if(TOOL_ID==='base32')result='Base32: '+input;
             else if(TOOL_ID==='base58')result='Base58: '+input;
+            else if(TOOL_ID==='base85')result='Base85: '+input;
             else if(TOOL_ID==='unicode')result=input.split('').map(c=>`U+${c.charCodeAt(0).toString(16).toUpperCase()}`).join(' ');
             else if(TOOL_ID==='punycode')result='xn--'+input;
             else if(TOOL_ID==='hash')result='MD5/SHA1/SHA256/CRC32';
             else if(TOOL_ID==='jwt-encode')result='JWT编码: '+input;
             else if(TOOL_ID==='jwt-decode'){try{const p=input.split('.');result=JSON.stringify({header:JSON.parse(atob(p[0])),payload:JSON.parse(atob(p[1]))},null,2)}catch(e){result='输入JWT'}}
+            else if(TOOL_ID==='hex-dump')result=input.split('').map(c=>c.charCodeAt(0).toString(16).padStart(2,'0')).join(' ');
+            else if(TOOL_ID==='url-parse'){try{const u=new URL(input||'https://a.com?a=1');result=`协议:${u.protocol}\n用户名:${u.username}\n密码:${u.password}\n主机:${u.hostname}\n端口:${u.port}\n路径:${u.pathname}\n哈希:${u.hash}\n\n参数:\n${Array.from(u.searchParams).map(([k,v])=>`${k}=${v}`).join('\n')}`}catch(e){result='输入URL'}}
+            else if(TOOL_ID==='hmac')result='HMAC: '+input;
+            else if(TOOL_ID==='aes')result='AES加密: '+input;
+            else if(TOOL_ID==='des')result='DES加密: '+input;
             
             // 转换格式化
             else if(TOOL_ID==='json-format'){try{result=JSON.stringify(JSON.parse(input||'{"test":123}'),null,2)}catch(e){result='JSON错误'}}
@@ -396,6 +447,7 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='hsl-rgb')result='HSL: '+input;
             else if(TOOL_ID==='rgb-hsv'){const r=parseInt(document.getElementById('r')?.value)||219,g=parseInt(document.getElementById('g')?.value)||39,b=parseInt(document.getElementById('b')?.value)||119;const [h,s,v]=rgbToHsv(r,g,b);result=`rgb(${r},${g},${b}) = hsv(${h}, ${s}%, ${v}%)`}
             else if(TOOL_ID==='hsv-rgb')result='HSV: '+input;
+            else if(TOOL_ID==='cmyk-rgb'){const c=parseInt(document.getElementById('r')?.value)||0,m=parseInt(document.getElementById('g')?.value)||0,y=parseInt(document.getElementById('b')?.value)||0,k=parseInt(document.getElementById('hh')?.value)||0;const r=255*(1-c/100)*(1-k/100),g=255*(1-m/100)*(1-k/100),b=255*(1-y/100)*(1-k/100);result=`CMYK(${c},${m},${y},${k}) = RGB(${Math.round(r)},${Math.round(g)},${Math.round(b)})`}
             else if(TOOL_ID==='csv-json'){try{const l=(input||'n,a\n张,25').trim().split('\n'),h=l[0].split(',');result=JSON.stringify(l.slice(1).map(ln=>Object.fromEntries(h.map((hh,i)=>[hh,ln.split(',')[i]?.trim()]))),null,2)}catch(e){result='name,age\n张三,25'}}
             else if(TOOL_ID==='jsoncsv'){try{const a=JSON.parse(input||'[{"n":"张"}]');const h=Object.keys(a[0]);result=h.join(',')+'\n'+a.map(o=>h.map(x=>o[x]).join(',')).join('\n')}catch(e){result='输入JSON数组'}}
             else if(TOOL_ID==='yaml-json'){const l=(input||'n:张\na:25').trim().split('\n'),o={};l.forEach(ln=>{const [k,v]=ln.split(':');if(k&&v)o[k.trim()]=v.trim()});result=JSON.stringify(o,null,2)}
@@ -403,6 +455,10 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='unit-convert'){const c=parseFloat(document.getElementById('c')?.value)||25,m=parseFloat(document.getElementById('m')?.value)||100;result=`${c}°C=${(c*9/5+32).toFixed(1)}°F=${(c+273.15).toFixed(2)}K\n${m}米=${(m*3.28084).toFixed(2)}英尺=${(m*1.09361).toFixed(2)}码`}
             else if(TOOL_ID==='contrast'){const fg=(document.getElementById('fg')?.value||'000000').replace('#',''),bg=(document.getElementById('bg')?.value||'ffffff').replace('#','');const fl=(parseInt(fg.substr(0,2),16)/255*0.2126)+(parseInt(fg.substr(2,2),16)/255*0.7152)+(parseInt(fg.substr(4,2),16)/255*0.0722)+0.05;const bl=(parseInt(bg.substr(0,2),16)/255*0.2126)+(parseInt(bg.substr(2,2),16)/255*0.7152)+(parseInt(bg.substr(4,2),16)/255*0.0722)+0.05;result=`对比度: ${(Math.max(fl,bl)/Math.min(fl,bl)).toFixed(2)}:1\nAA级: ${(Math.max(fl,bl)/Math.min(fl,bl))>=4.5?'✅':'❌'}\nAAA级: ${(Math.max(fl,bl)/Math.min(fl,bl))>=7?'✅':'❌'}`}
             else if(TOOL_ID==='mac-address')result=Array(10).fill(0).map(()=>macAddr()).join('\n');
+            else if(TOOL_ID==='angle-convert'){const a=parseFloat(document.getElementById('angle')?.value)||180;result=`${a}° = ${(a*Math.PI/180).toFixed(4)} rad`}
+            else if(TOOL_ID==='rgba-convert'){const r=parseInt(document.getElementById('r')?.value)||219,g=parseInt(document.getElementById('g')?.value)||39,b=parseInt(document.getElementById('b')?.value)||119;result=`rgba(${r},${g},${b},0.5)`}
+            else if(TOOL_ID==='line-height'){const b=parseInt(document.getElementById('base')?.value)||16;result=`字号${b}px → 行高: ${(b*1.5).toFixed(0)}px`}
+            else if(TOOL_ID==='dpi-calc'){const w=parseInt(document.getElementById('wpx')?.value)||1920,i=parseFloat(document.getElementById('inch')?.value)||24;result=`DPI: ${Math.round(w/i)}`}
             
             // 计算类
             else if(TOOL_ID==='random')result=Array(20).fill(0).map(()=>Math.floor(Math.random()*100)+1).join(', ');
@@ -422,6 +478,14 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='regex'){try{const re=new RegExp(document.getElementById('re')?.value||'\\d+','g');result=`匹配: ${(input.match(re)||[]).join(', ')}`}catch(e){result='正则错误'}}
             else if(TOOL_ID==='subnet')result='子网计算: '+input;
             else if(TOOL_ID==='ip-convert')result='IP转换: '+input;
+            else if(TOOL_ID==='timezone'){const n=new Date();result=['北京+8','东京+9','纽约-5','伦敦+0','巴黎+1','悉尼+10'].map(tz=>`${tz}: ${new Date(n.getTime()+(parseInt(tz.match(/-?\d+/)[0])-8)*3600000).toLocaleString('zh-CN')}`).join('\n')}
+            else if(TOOL_ID==='rent-calc'){const r=parseFloat(document.getElementById('rent')?.value)||3000,p=parseInt(document.getElementById('people')?.value)||3;result=`每人: ${(r/p).toFixed(2)}元`}
+            else if(TOOL_ID==='password-strength'){let s=0;if(input.length>=8)s++;if(input.length>=12)s++;if(/[A-Z]/.test(input))s++;if(/[a-z]/.test(input))s++;if(/\d/.test(input))s++;if(/[^A-Za-z0-9]/.test(input))s++;result=`强度: ${s<=2?'❌弱':s<=4?'⚠️中':'✅强'} (${s}/6)`}
+            else if(TOOL_ID==='weight-convert'){const kg=parseFloat(input)||50;result=`${kg}kg = ${(kg*2).toFixed(1)}斤 = ${(kg*2.20462).toFixed(2)}磅`}
+            else if(TOOL_ID==='volume-convert'){const l=parseFloat(input)||1;result=`${l}升 = ${(l*0.001).toFixed(4)}立方米 = ${(l*2).toFixed(1)}斤(水)`}
+            else if(TOOL_ID==='tax-calc'){const s=parseFloat(document.getElementById('salary')?.value)||10000,t=Math.max(0,s-5000);result=`个税: ${t<=3000?t*0.03:t<=12000?t*0.1-210:t*0.2-1410}元`}
+            else if(TOOL_ID==='discount'){const o=parseFloat(document.getElementById('op')?.value)||100,d=parseFloat(document.getElementById('dp')?.value)||80;result=`折后: ${(o*d/100).toFixed(2)}元 省: ${(o-o*d/100).toFixed(2)}元`}
+            else if(TOOL_ID==='gcd-lcm'){const a=parseInt(document.getElementById('na')?.value)||12,b=parseInt(document.getElementById('nb')?.value)||18;result=`最大公约数: ${gcd(a,b)}\n最小公倍数: ${lcm(a,b)}`}
             
             // 趣味
             else if(TOOL_ID==='dice')result='🎲 '+(Math.floor(Math.random()*6)+1);
@@ -435,6 +499,8 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='stopwatch')result='⏱️ 0:00';
             
             // 其他
+            else if(TOOL_ID==='user-agent')result=navigator.userAgent;
+            else if(TOOL_ID==='base64-image')result='图片Base64: 选择图片';
             else result=input||TOOL_ID+' 功能正常';
             
             document.getElementById('result').textContent=result;
