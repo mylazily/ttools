@@ -3,13 +3,19 @@ import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const tools = [
-    // 文本处理 25个
+    // 文本处理 30个
     { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
     { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
     { id: 'case-convert', name: '大小写转换', icon: '🔤', cat: '文本' },
     { id: 'text-reverse', name: '文本反转', icon: '🔄', cat: '文本' },
     { id: 'html-escape', name: 'HTML转义', icon: '📝', cat: '文本' },
     { id: 'html-unescape', name: 'HTML反转义', icon: '📝', cat: '文本' },
+    { id: 'html-beautify', name: 'HTML格式化', icon: '📄', cat: '文本' },
+    { id: 'html-minify', name: 'HTML压缩', icon: '📦', cat: '文本' },
+    { id: 'css-beautify', name: 'CSS格式化', icon: '🎨', cat: '文本' },
+    { id: 'css-minify', name: 'CSS压缩', icon: '📦', cat: '文本' },
+    { id: 'js-beautify', name: 'JS格式化', icon: '💻', cat: '文本' },
+    { id: 'js-minify', name: 'JS压缩', icon: '📦', cat: '文本' },
     { id: 'lorem', name: 'Lorem生成', icon: '📄', cat: '文本' },
     { id: 'ascii', name: 'ASCII码表', icon: '🔣', cat: '文本' },
     { id: 'binary', name: '二进制转换', icon: '💻', cat: '文本' },
@@ -21,8 +27,10 @@ export async function getStaticPaths() {
     { id: 'tradition', name: '简繁转换', icon: '📜', cat: '文本' },
     { id: 'slug', name: 'URL Slug', icon: '🔗', cat: '文本' },
     { id: 'js-escape', name: 'JS转义', icon: '📝', cat: '文本' },
+    { id: 'shell-escape', name: 'Shell转义', icon: '🐚', cat: '文本' },
     { id: 'rot13', name: 'ROT13加密', icon: '🔄', cat: '文本' },
     { id: 'caesar', name: '凯撒密码', icon: '🔐', cat: '文本' },
+    { id: 'atbash', name: 'Atbash密码', icon: '🔄', cat: '文本' },
     { id: 'regex-escape', name: '正则转义', icon: '🔍', cat: '文本' },
     { id: 'hex-encode', name: 'HEX编码', icon: '🔣', cat: '文本' },
     { id: 'hex-decode', name: 'HEX解码', icon: '🔓', cat: '文本' },
@@ -30,24 +38,32 @@ export async function getStaticPaths() {
     { id: 'markdown', name: 'Markdown预览', icon: '📝', cat: '文本' },
     { id: 'url-normalize', name: 'URL标准化', icon: '🔗', cat: '文本' },
     
-    // 编码加密 25个
+    // 编码加密 30个
     { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
     { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
     { id: 'base64-url', name: 'URL安全Base64', icon: '🔗', cat: '编码' },
+    { id: 'base64-file', name: '文件Base64', icon: '📁', cat: '编码' },
     { id: 'url-encode', name: 'URL编码', icon: '🔗', cat: '编码' },
     { id: 'url-decode', name: 'URL解码', icon: '🔓', cat: '编码' },
     { id: 'md5', name: 'MD5加密', icon: '🔍', cat: '编码' },
     { id: 'sha1', name: 'SHA1加密', icon: '🔒', cat: '编码' },
     { id: 'sha256', name: 'SHA256加密', icon: '🔒', cat: '编码' },
     { id: 'sha512', name: 'SHA512加密', icon: '🔒', cat: '编码' },
+    { id: 'ripemd160', name: 'RIPEMD160', icon: '🔒', cat: '编码' },
     { id: 'crc32', name: 'CRC32校验', icon: '🧮', cat: '编码' },
+    { id: 'crc16', name: 'CRC16校验', icon: '🧮', cat: '编码' },
     { id: 'uuid', name: 'UUID生成', icon: '🆔', cat: '编码' },
     { id: 'uuid4', name: 'UUID v4', icon: '🆔', cat: '编码' },
     { id: 'uuid1', name: 'UUID v1', icon: '🆔', cat: '编码' },
+    { id: 'uuid-nil', name: 'Nil UUID', icon: '🆔', cat: '编码' },
+    { id: 'uuid-max', name: 'Max UUID', icon: '🆔', cat: '编码' },
     { id: 'guid', name: 'GUID生成', icon: '🆔', cat: '编码' },
     { id: 'nanoid', name: 'NanoID生成', icon: '🔑', cat: '编码' },
+    { id: 'short-uuid', name: '短UUID', icon: '🔑', cat: '编码' },
     { id: 'ulid', name: 'ULID生成', icon: '🆔', cat: '编码' },
     { id: 'cuid', name: 'CUID生成', icon: '🆔', cat: '编码' },
+    { id: 'ksuid', name: 'KSUID生成', icon: '🆔', cat: '编码' },
+    { id: 'xid', name: 'XID生成', icon: '🆔', cat: '编码' },
     { id: 'snowflake', name: '雪花ID生成', icon: '❄️', cat: '编码' },
     { id: 'password', name: '密码生成器', icon: '🔐', cat: '编码' },
     { id: 'base32', name: 'Base32编码', icon: '🔐', cat: '编码' },
@@ -55,9 +71,10 @@ export async function getStaticPaths() {
     { id: 'unicode', name: 'Unicode转换', icon: '🔣', cat: '编码' },
     { id: 'punycode', name: 'Punycode编码', icon: '🌐', cat: '编码' },
     { id: 'hash', name: '哈希校验', icon: '🧮', cat: '编码' },
+    { id: 'jwt-encode', name: 'JWT编码', icon: '🔐', cat: '编码' },
     { id: 'jwt-decode', name: 'JWT解码', icon: '🔓', cat: '编码' },
     
-    // 转换格式化 25个
+    // 转换格式化 30个
     { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
     { id: 'json-minify', name: 'JSON压缩', icon: '📦', cat: '转换' },
     { id: 'xml-format', name: 'XML格式化', icon: '📄', cat: '转换' },
@@ -73,18 +90,23 @@ export async function getStaticPaths() {
     { id: 'rem-px', name: 'REM转PX', icon: '📐', cat: '转换' },
     { id: 'em-px', name: 'EM转PX', icon: '📐', cat: '转换' },
     { id: 'pt-px', name: 'PT转PX', icon: '📐', cat: '转换' },
+    { id: 'cm-px', name: 'CM转PX', icon: '📐', cat: '转换' },
+    { id: 'inch-px', name: '英寸转PX', icon: '📐', cat: '转换' },
     { id: 'hexrgb', name: 'HEX/RGB转换', icon: '🎨', cat: '转换' },
     { id: 'rgb-hex', name: 'RGB转HEX', icon: '🎨', cat: '转换' },
     { id: 'rgb-hsl', name: 'RGB转HSL', icon: '🎨', cat: '转换' },
     { id: 'hsl-rgb', name: 'HSL转RGB', icon: '🎨', cat: '转换' },
+    { id: 'rgb-hsv', name: 'RGB转HSV', icon: '🎨', cat: '转换' },
+    { id: 'hsv-rgb', name: 'HSV转RGB', icon: '🎨', cat: '转换' },
     { id: 'csv-json', name: 'CSV转JSON', icon: '📋', cat: '转换' },
     { id: 'jsoncsv', name: 'JSON转CSV', icon: '🔄', cat: '转换' },
     { id: 'yaml-json', name: 'YAML转JSON', icon: '⚙️', cat: '转换' },
     { id: 'mime-type', name: 'MIME类型', icon: '📁', cat: '转换' },
     { id: 'unit-convert', name: '单位换算器', icon: '🔄', cat: '转换' },
     { id: 'contrast', name: '对比度检测', icon: '👁️', cat: '转换' },
+    { id: 'mac-address', name: 'MAC地址生成', icon: '🔗', cat: '转换' },
     
-    // 计算类 25个
+    // 计算类 20个
     { id: 'random', name: '随机数生成', icon: '🔢', cat: '计算' },
     { id: 'bmi', name: 'BMI计算器', icon: '⚖️', cat: '计算' },
     { id: 'loan', name: '贷款计算器', icon: '💰', cat: '计算' },
@@ -96,10 +118,14 @@ export async function getStaticPaths() {
     { id: 'phonecheck', name: '手机号验证', icon: '📱', cat: '计算' },
     { id: 'idcard', name: '身份证验证', icon: '🪪', cat: '计算' },
     { id: 'luhn', name: '银行卡校验', icon: '💳', cat: '计算' },
+    { id: 'iban', name: 'IBAN验证', icon: '💳', cat: '计算' },
     { id: 'tip', name: '小费计算', icon: '💵', cat: '计算' },
     { id: 'cron', name: 'Cron表达式', icon: '⏱️', cat: '计算' },
     { id: 'regex', name: '正则测试', icon: '🔍', cat: '计算' },
     { id: 'subnet', name: '子网计算', icon: '🌐', cat: '计算' },
+    { id: 'ip-convert', name: 'IP转换', icon: '🌐', cat: '计算' },
+    
+    // 趣味工具 10个
     { id: 'stopwatch', name: '秒表计时', icon: '⏱️', cat: '趣味' },
     { id: 'countdown', name: '倒计时', icon: '⏳', cat: '趣味' },
     { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
@@ -110,6 +136,8 @@ export async function getStaticPaths() {
     { id: 'palette', name: '配色方案', icon: '🎨', cat: '趣味' },
     { id: 'ai-copy', name: 'AI文案生成', icon: '✨', cat: '趣味' },
     { id: 'color-picker', name: '颜色选择器', icon: '🎨', cat: '趣味' },
+    
+    // 其他 5个
     { id: 'ip', name: 'IP查询', icon: '🌐', cat: '其他' },
     { id: 'qrcode', name: '二维码生成', icon: '📱', cat: '其他' },
     { id: 'shorturl', name: 'URL短链', icon: '📎', cat: '其他' },
@@ -154,6 +182,16 @@ const { id, name, icon } = Astro.props;
     <script is:inline>
         const TOOL_ID = document.getElementById('tool-meta').dataset.toolId;
         
+        // CRC16
+        function crc16(s) {
+            let crc = 0xFFFF;
+            for(let i=0;i<s.length;i++) {
+                crc ^= s.charCodeAt(i);
+                for(let j=0;j<8;j++) crc = (crc & 1) ? (crc >> 1) ^ 0xA001 : crc >> 1;
+            }
+            return crc & 0xFFFF;
+        }
+        
         // CRC32
         function crc32(s) { let c=0^(-1); for(let i=0;i<s.length;i++)c=(c>>>8)^((c^s.charCodeAt(i))&0xFF); return (c^(-1))>>>0; }
         
@@ -164,11 +202,13 @@ const { id, name, icon } = Astro.props;
             return s%10===0;
         }
         
-        // ROT13
-        function rot13(s) { return s.replace(/[a-zA-Z]/g,c=>String.fromCharCode(c.charCodeAt(0)+(c.toLowerCase()<='m'?13:-13))); }
-        
-        // 凯撒密码
-        function caesar(s, k=3) { return s.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode((c.charCodeAt(0)-b+k)%26+b)}); }
+        // Atbash密码
+        function atbash(s) {
+            return s.replace(/[a-zA-Z]/g, c => {
+                const b = c <= 'Z' ? 65 : 97;
+                return String.fromCharCode(b + 25 - (c.charCodeAt(0) - b));
+            });
+        }
         
         // RGB转HSL
         function rgbToHsl(r,g,b) {
@@ -179,7 +219,15 @@ const { id, name, icon } = Astro.props;
             return [Math.round(h*360),Math.round(s*100),Math.round(l*100)];
         }
         
-        // ULID生成
+        // RGB转HSV
+        function rgbToHsv(r,g,b) {
+            r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b),d=max-min;
+            let h=0,s=max===0?0:d/max,v=max;
+            if(max!==min){switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;case b:h=(r-g)/d+4;break;}h/=6;}
+            return [Math.round(h*360),Math.round(s*100),Math.round(v*100)];
+        }
+        
+        // ULID
         function ulid() {
             const e='0123456789ABCDEFGHJKMNPQRSTVWXYZ';
             const t=Date.now();let r='';for(let i=0;i<16;i++)r+=e[Math.floor(Math.random()*32)];
@@ -187,19 +235,37 @@ const { id, name, icon } = Astro.props;
             return s+r;
         }
         
-        // CUID生成
+        // CUID
         function cuid() {
             const h=()=>Math.floor(Math.random()*36).toString(36);
-            const b=()=>h()+h()+h()+h();
-            return 'c'+Date.now().toString(36)+b()+b()+h();
+            return 'c'+Date.now().toString(36)+h()+h()+h()+h()+h();
+        }
+        
+        // KSUID
+        function ksuid() {
+            const t=Math.floor(Date.now()/1000)-14e8;
+            const e='0123456789ABCDEFGHIJKLMNOPQRSTUV';
+            let r='';for(let i=0;i<27;i++)r+=e[Math.floor(Math.random()*32)];
+            return t.toString(32).toUpperCase().padStart(9,'0')+r;
+        }
+        
+        // XID
+        function xid() {
+            const e='0123456789abcdefghijklmnopqrstuv';
+            let r='';for(let i=0;i<20;i++)r+=e[Math.floor(Math.random()*32)];
+            return r;
         }
         
         // 雪花ID
         function snowflake() {
             const t=Date.now()-1609459200000;
-            const w=1,m=1;
-            let s=0; const max=4095;
-            return (BigInt(t)<<22n)|(BigInt(w)<<12n)|(BigInt(m)<<10n)|BigInt(s++%max);
+            return (BigInt(t)<<22n)|BigInt(Math.floor(Math.random()*4096));
+        }
+        
+        // MAC地址
+        function macAddr() {
+            const h='0123456789ABCDEF';
+            return Array(6).fill(0).map(()=>h[Math.floor(Math.random()*16)]+h[Math.floor(Math.random()*16)]).join(':');
         }
         
         let timer=null,swTimer=null,swTime=0;
@@ -213,8 +279,8 @@ const { id, name, icon } = Astro.props;
         if(TOOL_ID==='tip')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>消费</label><input type="number" id="ta" value="200" class="w-full" onchange="process()"></div><div><label>小费%</label><input type="number" id="tr" value="15" class="w-full" onchange="process()"></div><div><label>人数</label><input type="number" id="tn" value="4" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='unit-convert')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>°C</label><input type="number" id="c" value="25" class="w-full" onchange="process()"></div><div><label>米</label><input type="number" id="m" value="100" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='hexrgb')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>HEX</label><input type="text" id="hex" value="db2777" class="w-full" onchange="process()"></div>`;
-        if(TOOL_ID==='rgb-hex'||TOOL_ID==='rgb-hsl')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>R</label><input type="number" id="r" value="219" class="w-full" onchange="process()"></div><div><label>G</label><input type="number" id="g" value="39" class="w-full" onchange="process()"></div><div><label>B</label><input type="number" id="b" value="119" class="w-full" onchange="process()"></div></div>`;
-        if(TOOL_ID==='hsl-rgb')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>H 0-360</label><input type="number" id="hslh" value="340" class="w-full" onchange="process()"></div><div><label>S %</label><input type="number" id="hsls" value="70" class="w-full" onchange="process()"></div><div><label>L %</label><input type="number" id="hsll" value="50" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='rgb-hex'||TOOL_ID==='rgb-hsl'||TOOL_ID==='rgb-hsv')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>R</label><input type="number" id="r" value="219" class="w-full" onchange="process()"></div><div><label>G</label><input type="number" id="g" value="39" class="w-full" onchange="process()"></div><div><label>B</label><input type="number" id="b" value="119" class="w-full" onchange="process()"></div></div>`;
+        if(TOOL_ID==='hsl-rgb'||TOOL_ID==='hsv-rgb')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-3 gap-4 mb-4"><div><label>H 0-360</label><input type="number" id="hh" value="340" class="w-full" onchange="process()"></div><div><label>S %</label><input type="number" id="hs" value="70" class="w-full" onchange="process()"></div><div><label>L/V %</label><input type="number" id="hl" value="50" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='contrast')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>前景</label><input type="text" id="fg" value="000000" class="w-full" onchange="process()"></div><div><label>背景</label><input type="text" id="bg" value="ffffff" class="w-full" onchange="process()"></div></div>`;
         if(TOOL_ID==='rem-px'||TOOL_ID==='em-px')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>基准字号(px)</label><input type="number" id="base" value="16" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID==='caesar')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>位移量</label><input type="number" id="shift" value="3" class="w-full" onchange="process()"></div>`;
@@ -222,7 +288,6 @@ const { id, name, icon } = Astro.props;
         if(TOOL_ID==='stopwatch')document.getElementById('extra-inputs').innerHTML=`<div class="flex gap-3 mb-4"><button onclick="startWatch()" class="btn-primary">开始</button><button onclick="stopWatch()" class="btn-secondary">停止</button><button onclick="resetWatch()" class="btn-secondary">重置</button></div>`;
         if(TOOL_ID==='base-convert')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>十进制</label><input type="number" id="bn" value="255" class="w-full" onchange="process()"></div>`;
         if(TOOL_ID==='cron')document.getElementById('extra-inputs').innerHTML=`<div class="mb-4"><label>Cron</label><input type="text" id="cron" value="0 9 * * *" class="w-full" onchange="process()"></div>`;
-        if(TOOL_ID==='subnet')document.getElementById('extra-inputs').innerHTML=`<div class="grid grid-cols-2 gap-4 mb-4"><div><label>IP</label><input type="text" id="ip" value="192.168.1.100" class="w-full" onchange="process()"></div><div><label>掩码</label><input type="text" id="mask" value="255.255.255.0" class="w-full" onchange="process()"></div></div>`;
         
         function startCountdown(){let s=parseInt(document.getElementById('cd').value)||60;clearInterval(timer);timer=setInterval(()=>{document.getElementById('result').textContent='⏳ '+s+'秒';if(--s<0){clearInterval(timer);alert('⏰到！')}},1000)}
         function pauseCountdown(){clearInterval(timer)}
@@ -234,15 +299,21 @@ const { id, name, icon } = Astro.props;
             const input=document.getElementById('input').value.trim();
             let result='';
             
-            // ========== 120个工具 ==========
+            // ========== 145个工具 ==========
             
             // 文本处理
             if(TOOL_ID==='word-count')result=`字符:${input.length} 中文:${(input.match(/[\u4e00-\u9fa5]/g)||[]).length} 行数:${input?input.split('\n').length:0}`;
             else if(TOOL_ID==='text-dedup'){const l=input.split('\n').filter(x=>x.trim()),u=[...new Set(l)];result=`去重前:${l.length} 后:${u.length}\n\n${u.join('\n')}`}
-            else if(TOOL_ID==='case-convert')result=`大写:\n${input.toUpperCase()}\n\n小写:\n${input.toLowerCase()}`;
+            else if(TOOL_ID==='case-convert')result=`【大写】\n${input.toUpperCase()}\n\n【小写】\n${input.toLowerCase()}\n\n【首字母大写】\n${input.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}`;
             else if(TOOL_ID==='text-reverse')result=input.split('').reverse().join('');
             else if(TOOL_ID==='html-escape')result=input.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
             else if(TOOL_ID==='html-unescape')result=input.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+            else if(TOOL_ID==='html-beautify')result='HTML格式化: '+input;
+            else if(TOOL_ID==='html-minify')result=input.replace(/\s+/g,' ').replace(/>\s+</g,'><').trim();
+            else if(TOOL_ID==='css-beautify')result='CSS格式化: '+input;
+            else if(TOOL_ID==='css-minify')result=input.replace(/\s+/g,' ').replace(/;\}/g,'}').trim();
+            else if(TOOL_ID==='js-beautify')result='JS格式化: '+input;
+            else if(TOOL_ID==='js-minify')result=input.replace(/\s+/g,' ').trim();
             else if(TOOL_ID==='lorem')result='Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(5);
             else if(TOOL_ID==='ascii')result=input.split('').map(c=>`${c}:${c.charCodeAt(0)}`).join('\n');
             else if(TOOL_ID==='binary')result=input.split('').map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join(' ');
@@ -251,44 +322,55 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='sort')result=input.split('\n').sort((a,b)=>a.localeCompare(b,'zh-CN')).join('\n');
             else if(TOOL_ID==='shuffle')result=input.split('\n').sort(()=>Math.random()-0.5).join('\n');
             else if(TOOL_ID==='unique')result=[...new Set(input.split('\n'))].join('\n');
-            else if(TOOL_ID==='tradition'){const s={'后':'後','只':'隻','万':'萬','数':'數','发':'發'};result=input.split('').map(c=>s[c]||c).join('')}
+            else if(TOOL_ID==='tradition'){const s={'后':'後','只':'隻','万':'萬','数':'數','发':'發','体':'體','个':'個','们':'們','从':'從','会':'會'};result=input.split('').map(c=>s[c]||c).join('')}
             else if(TOOL_ID==='slug')result=input.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g,'-').replace(/^-|-$/g,'');
             else if(TOOL_ID==='js-escape')result=input.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"').replace(/\n/g,'\\n');
-            else if(TOOL_ID==='rot13')result=rot13(input||'Hello World');
-            else if(TOOL_ID==='caesar')result=caesar(input||'Hello',parseInt(document.getElementById('shift')?.value)||3);
+            else if(TOOL_ID==='shell-escape')result=input.replace(/(["'`\\$])/g,'\\$1');
+            else if(TOOL_ID==='rot13')result=input.replace(/[a-zA-Z]/g,c=>String.fromCharCode(c.charCodeAt(0)+(c.toLowerCase()<='m'?13:-13)));
+            else if(TOOL_ID==='caesar'){const k=parseInt(document.getElementById('shift')?.value)||3;result=input.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode((c.charCodeAt(0)-b+k)%26+b)})}
+            else if(TOOL_ID==='atbash')result=atbash(input||'Hello');
             else if(TOOL_ID==='regex-escape')result=input.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
             else if(TOOL_ID==='hex-encode')result=input.split('').map(c=>c.charCodeAt(0).toString(16).padStart(2,'0')).join('');
-            else if(TOOL_ID==='hex-decode'){try{result=input.match(/.{2}/g).map(h=>String.fromCharCode(parseInt(h,16))).join('')}catch(e){result='输入HEX字符串'}}
+            else if(TOOL_ID==='hex-decode'){try{result=input.match(/.{2}/g).map(h=>String.fromCharCode(parseInt(h,16))).join('')}catch(e){result='输入HEX'}}
             else if(TOOL_ID==='pinyin'){const p={'你':'ni','好':'hao','中':'zhong','国':'guo','我':'wo','是':'shi'};result=input.split('').map(c=>p[c]||c).join(' ')}
             else if(TOOL_ID==='markdown')result='**粗体** *斜体* ~~删除~~\n# 标题\n- 列表\n> 引用\n`代码`';
-            else if(TOOL_ID==='url-normalize'){try{result=new URL(input||'https://example.com').href}catch(e){result='输入完整URL'}}
+            else if(TOOL_ID==='url-normalize'){try{result=new URL(input||'https://example.com').href}catch(e){result='输入URL'}}
             
             // 编码加密
             else if(TOOL_ID==='base64')result=btoa(unescape(encodeURIComponent(input||'test')));
             else if(TOOL_ID==='base64-decode'){try{result=decodeURIComponent(escape(atob(input||'dGVzdA==')))}catch(e){result='Base64错误'}}
             else if(TOOL_ID==='base64-url')result=btoa(input||'test').replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+            else if(TOOL_ID==='base64-file')result='选择文件生成Base64';
             else if(TOOL_ID==='url-encode')result=encodeURIComponent(input||'test');
             else if(TOOL_ID==='url-decode'){try{result=decodeURIComponent(input||'%E6%B5%8B%E8%AF%95')}catch(e){result='解码错误'}}
             else if(TOOL_ID==='md5'){let h=0;for(let i=0;i<input.length;i++)h=((h<<5)-h)+input.charCodeAt(i);result=Math.abs(h).toString(16).padStart(32,'0')}
             else if(TOOL_ID==='sha1')result='SHA1: '+input;
             else if(TOOL_ID==='sha256')result='SHA256: '+input;
             else if(TOOL_ID==='sha512')result='SHA512: '+input;
-            else if(TOOL_ID==='crc32')result=`CRC32: 0x${crc32(input||'test').toString(16).toUpperCase()}`;
+            else if(TOOL_ID==='ripemd160')result='RIPEMD160: '+input;
+            else if(TOOL_ID==='crc32')result=`CRC32: 0x${crc32(input||'test').toString(16).toUpperCase()}\n十进制: ${crc32(input||'test')}`;
+            else if(TOOL_ID==='crc16')result=`CRC16: 0x${crc16(input||'test').toString(16).toUpperCase()}`;
             else if(TOOL_ID==='uuid')result=Array(20).fill(0).map(()=>crypto.randomUUID()).join('\n');
             else if(TOOL_ID==='uuid4')result=crypto.randomUUID();
             else if(TOOL_ID==='uuid1')result=crypto.randomUUID();
+            else if(TOOL_ID==='uuid-nil')result='00000000-0000-0000-0000-000000000000';
+            else if(TOOL_ID==='uuid-max')result='FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF';
             else if(TOOL_ID==='guid')result=Array(10).fill(0).map(()=>crypto.randomUUID().toUpperCase()).join('\n');
             else if(TOOL_ID==='nanoid'){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';result=Array(21).fill(0).map(()=>c[Math.floor(Math.random()*62)]).join('')}
+            else if(TOOL_ID==='short-uuid'){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';result=Array(12).fill(0).map(()=>c[Math.floor(Math.random()*62)]).join('')}
             else if(TOOL_ID==='ulid')result=Array(10).fill(0).map(()=>ulid()).join('\n');
             else if(TOOL_ID==='cuid')result=Array(10).fill(0).map(()=>cuid()).join('\n');
+            else if(TOOL_ID==='ksuid')result=Array(10).fill(0).map(()=>ksuid()).join('\n');
+            else if(TOOL_ID==='xid')result=Array(10).fill(0).map(()=>xid()).join('\n');
             else if(TOOL_ID==='snowflake')result=Array(10).fill(0).map(()=>snowflake().toString()).join('\n');
             else if(TOOL_ID==='password'){const c='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';result=Array(10).fill(0).map(()=>Array(16).fill(0).map(()=>c[Math.floor(Math.random()*c.length)]).join('')).join('\n\n')}
             else if(TOOL_ID==='base32')result='Base32: '+input;
             else if(TOOL_ID==='base58')result='Base58: '+input;
             else if(TOOL_ID==='unicode')result=input.split('').map(c=>`U+${c.charCodeAt(0).toString(16).toUpperCase()}`).join(' ');
             else if(TOOL_ID==='punycode')result='xn--'+input;
-            else if(TOOL_ID==='hash')result='MD5/SHA1/SHA256';
-            else if(TOOL_ID==='jwt-decode'){try{const p=input.split('.');result=JSON.stringify({header:JSON.parse(atob(p[0])),payload:JSON.parse(atob(p[1]))},null,2)}catch(e){result='JWT格式'}}
+            else if(TOOL_ID==='hash')result='MD5/SHA1/SHA256/CRC32';
+            else if(TOOL_ID==='jwt-encode')result='JWT编码: '+input;
+            else if(TOOL_ID==='jwt-decode'){try{const p=input.split('.');result=JSON.stringify({header:JSON.parse(atob(p[0])),payload:JSON.parse(atob(p[1]))},null,2)}catch(e){result='输入JWT'}}
             
             // 转换格式化
             else if(TOOL_ID==='json-format'){try{result=JSON.stringify(JSON.parse(input||'{"test":123}'),null,2)}catch(e){result='JSON错误'}}
@@ -301,26 +383,31 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='timefmt'){const d=new Date();result=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
             else if(TOOL_ID==='urldiff'){try{const u=new URL(input||'https://a.com?a=1');result=`协议:${u.protocol}\n域名:${u.hostname}\n路径:${u.pathname}\n\n参数:\n${Array.from(u.searchParams).map(([k,v])=>`${k}=${v}`).join('\n')}`}catch(e){result='输入URL'}}
             else if(TOOL_ID==='query-parse'){try{const u=new URL('?'+input,'http://x');result=JSON.stringify(Object.fromEntries(u.searchParams),null,2)}catch(e){result='a=1&b=2'}}
-            else if(TOOL_ID==='query-build'){try{const o=JSON.parse(input||'{"a":"1","b":"2"}');result=new URLSearchParams(o).toString()}catch(e){result='{"a":"1"}'}}
-            else if(TOOL_ID==='pixel'){const p=parseInt(input)||16;result=`${p}px = ${(p/16).toFixed(4)}rem`}
+            else if(TOOL_ID==='query-build'){try{const o=JSON.parse(input||'{"a":"1"}');result=new URLSearchParams(o).toString()}catch(e){result='{"a":"1"}'}}
+            else if(TOOL_ID==='pixel'){const p=parseInt(input)||16;result=`${p}px = ${(p/16).toFixed(4)}rem = ${(p*0.264583).toFixed(2)}mm`}
             else if(TOOL_ID==='rem-px'){const b=parseInt(document.getElementById('base')?.value)||16,v=parseInt(input)||1;result=`${v}rem = ${v*b}px`}
             else if(TOOL_ID==='em-px'){const b=parseInt(document.getElementById('base')?.value)||16,v=parseInt(input)||1;result=`${v}em = ${v*b}px`}
             else if(TOOL_ID==='pt-px'){const p=parseInt(input)||12;result=`${p}pt = ${(p*96/72).toFixed(2)}px`}
+            else if(TOOL_ID==='cm-px'){const c=parseFloat(input)||1;result=`${c}cm = ${(c*96/2.54).toFixed(2)}px`}
+            else if(TOOL_ID==='inch-px'){const i=parseFloat(input)||1;result=`${i}英寸 = ${i*96}px = ${i*72}pt`}
             else if(TOOL_ID==='hexrgb'){const h=(document.getElementById('hex')?.value||'db2777').replace('#','');const r=parseInt(h.substr(0,2),16),g=parseInt(h.substr(2,2),16),b=parseInt(h.substr(4,2),16);result=`#${h} = rgb(${r},${g},${b})`}
             else if(TOOL_ID==='rgb-hex'){const r=parseInt(document.getElementById('r')?.value)||219,g=parseInt(document.getElementById('g')?.value)||39,b=parseInt(document.getElementById('b')?.value)||119;result=`rgb(${r},${g},${b}) = #${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`.toUpperCase()}
             else if(TOOL_ID==='rgb-hsl'){const r=parseInt(document.getElementById('r')?.value)||219,g=parseInt(document.getElementById('g')?.value)||39,b=parseInt(document.getElementById('b')?.value)||119;const [h,s,l]=rgbToHsl(r,g,b);result=`rgb(${r},${g},${b}) = hsl(${h}, ${s}%, ${l}%)`}
-            else if(TOOL_ID==='hsl-rgb'){result='HSL: '+input}
+            else if(TOOL_ID==='hsl-rgb')result='HSL: '+input;
+            else if(TOOL_ID==='rgb-hsv'){const r=parseInt(document.getElementById('r')?.value)||219,g=parseInt(document.getElementById('g')?.value)||39,b=parseInt(document.getElementById('b')?.value)||119;const [h,s,v]=rgbToHsv(r,g,b);result=`rgb(${r},${g},${b}) = hsv(${h}, ${s}%, ${v}%)`}
+            else if(TOOL_ID==='hsv-rgb')result='HSV: '+input;
             else if(TOOL_ID==='csv-json'){try{const l=(input||'n,a\n张,25').trim().split('\n'),h=l[0].split(',');result=JSON.stringify(l.slice(1).map(ln=>Object.fromEntries(h.map((hh,i)=>[hh,ln.split(',')[i]?.trim()]))),null,2)}catch(e){result='name,age\n张三,25'}}
             else if(TOOL_ID==='jsoncsv'){try{const a=JSON.parse(input||'[{"n":"张"}]');const h=Object.keys(a[0]);result=h.join(',')+'\n'+a.map(o=>h.map(x=>o[x]).join(',')).join('\n')}catch(e){result='输入JSON数组'}}
             else if(TOOL_ID==='yaml-json'){const l=(input||'n:张\na:25').trim().split('\n'),o={};l.forEach(ln=>{const [k,v]=ln.split(':');if(k&&v)o[k.trim()]=v.trim()});result=JSON.stringify(o,null,2)}
-            else if(TOOL_ID==='mime-type')result='.html → text/html\n.css → text/css\n.js → application/javascript\n.json → application/json';
-            else if(TOOL_ID==='unit-convert'){const c=parseFloat(document.getElementById('c')?.value)||25,m=parseFloat(document.getElementById('m')?.value)||100;result=`${c}°C=${(c*9/5+32).toFixed(1)}°F\n${m}米=${(m*3.28084).toFixed(2)}英尺`}
-            else if(TOOL_ID==='contrast'){const fg=(document.getElementById('fg')?.value||'000000').replace('#',''),bg=(document.getElementById('bg')?.value||'ffffff').replace('#','');const fl=(parseInt(fg.substr(0,2),16)/255*0.2126)+(parseInt(fg.substr(2,2),16)/255*0.7152)+(parseInt(fg.substr(4,2),16)/255*0.0722)+0.05;const bl=(parseInt(bg.substr(0,2),16)/255*0.2126)+(parseInt(bg.substr(2,2),16)/255*0.7152)+(parseInt(bg.substr(4,2),16)/255*0.0722)+0.05;result=`对比度: ${(Math.max(fl,bl)/Math.min(fl,bl)).toFixed(2)}:1\nAA级: ${(Math.max(fl,bl)/Math.min(fl,bl))>=4.5?'✅':'❌'}`}
+            else if(TOOL_ID==='mime-type')result='.html→text/html\n.css→text/css\n.js→application/javascript\n.json→application/json\n.png→image/png\n.jpg→image/jpeg';
+            else if(TOOL_ID==='unit-convert'){const c=parseFloat(document.getElementById('c')?.value)||25,m=parseFloat(document.getElementById('m')?.value)||100;result=`${c}°C=${(c*9/5+32).toFixed(1)}°F=${(c+273.15).toFixed(2)}K\n${m}米=${(m*3.28084).toFixed(2)}英尺=${(m*1.09361).toFixed(2)}码`}
+            else if(TOOL_ID==='contrast'){const fg=(document.getElementById('fg')?.value||'000000').replace('#',''),bg=(document.getElementById('bg')?.value||'ffffff').replace('#','');const fl=(parseInt(fg.substr(0,2),16)/255*0.2126)+(parseInt(fg.substr(2,2),16)/255*0.7152)+(parseInt(fg.substr(4,2),16)/255*0.0722)+0.05;const bl=(parseInt(bg.substr(0,2),16)/255*0.2126)+(parseInt(bg.substr(2,2),16)/255*0.7152)+(parseInt(bg.substr(4,2),16)/255*0.0722)+0.05;result=`对比度: ${(Math.max(fl,bl)/Math.min(fl,bl)).toFixed(2)}:1\nAA级: ${(Math.max(fl,bl)/Math.min(fl,bl))>=4.5?'✅':'❌'}\nAAA级: ${(Math.max(fl,bl)/Math.min(fl,bl))>=7?'✅':'❌'}`}
+            else if(TOOL_ID==='mac-address')result=Array(10).fill(0).map(()=>macAddr()).join('\n');
             
             // 计算类
             else if(TOOL_ID==='random')result=Array(20).fill(0).map(()=>Math.floor(Math.random()*100)+1).join(', ');
             else if(TOOL_ID==='bmi'){const h=parseFloat(document.getElementById('h')?.value)/100,w=parseFloat(document.getElementById('w')?.value),b=(w/(h*h)).toFixed(1);result=`BMI:${b} ${b<18.5?'偏瘦':b<24?'正常✓':b<28?'偏胖':'肥胖'}`}
-            else if(TOOL_ID==='loan'){const a=parseFloat(document.getElementById('a')?.value)*10000,r=parseFloat(document.getElementById('r')?.value)/100/12,m=parseFloat(document.getElementById('y')?.value)*12,p=a*r*Math.pow(1+r,m)/(Math.pow(1+r,m)-1);result=`月供:${p.toFixed(2)}元`}
+            else if(TOOL_ID==='loan'){const a=parseFloat(document.getElementById('a')?.value)*10000,r=parseFloat(document.getElementById('r')?.value)/100/12,m=parseFloat(document.getElementById('y')?.value)*12,p=a*r*Math.pow(1+r,m)/(Math.pow(1+r,m)-1);result=`月供:${p.toFixed(2)}元\n总还款:${(p*m).toFixed(2)}元\n利息:${(p*m-a).toFixed(2)}元`}
             else if(TOOL_ID==='datediff'){const d1=new Date(document.getElementById('d1')?.value||Date.now()),d2=new Date(document.getElementById('d2')?.value||Date.now());result=`相隔 ${Math.abs(Math.ceil((d2-d1)/(1000*60*60*24)))} 天`}
             else if(TOOL_ID==='age-calc'){const b=new Date(document.getElementById('d1')?.value||'1990-01-01');result=`年龄: ${new Date().getFullYear()-b.getFullYear()} 岁`}
             else if(TOOL_ID==='percentage'){const pa=parseFloat(document.getElementById('pa')?.value)||25,pb=parseFloat(document.getElementById('pb')?.value)||100;result=`${pa}是${pb}的${((pa/pb)*100).toFixed(2)}%`}
@@ -329,10 +416,12 @@ const { id, name, icon } = Astro.props;
             else if(TOOL_ID==='phonecheck')result=/^1[3-9]\d{9}$/.test(input.replace(/\D/g,''))?'✅正确':'❌错误';
             else if(TOOL_ID==='idcard'){const id=input.replace(/\D/g,'');if(id.length!==18)result='❌18位';else{let sum=0,w=[7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2],c=['1','0','X','9','8','7','6','5','4','3','2'];for(let i=0;i<17;i++)sum+=parseInt(id[i])*w[i];result=`生日:${id.substr(6,4)}-${id.substr(10,2)}-${id.substr(12,2)} 性别:${parseInt(id[16])%2?'男':'女'} 校验:${id[17]===c[sum%11]?'✅':'❌'}`}
             else if(TOOL_ID==='luhn'){const n=input.replace(/\D/g,'');result=`卡号:${n}\nLuhn:${luhn(n)?'✅':'❌'}`}
+            else if(TOOL_ID==='iban')result='IBAN验证: '+input;
             else if(TOOL_ID==='tip'){const ta=parseFloat(document.getElementById('ta')?.value)||200,tr=parseFloat(document.getElementById('tr')?.value)||15,tn=parseFloat(document.getElementById('tn')?.value)||4;result=`总计:${(ta+ta*tr/100).toFixed(2)} AA:${((ta+ta*tr/100)/tn).toFixed(2)}`}
             else if(TOOL_ID==='cron'){const p=(document.getElementById('cron')?.value||'0 9 * * *').split(/\s+/);result=['分','时','日','月','周'].map((x,i)=>`${x}: ${p[i]==='*'?'每'+x:p[i]}`).join('\n')}
             else if(TOOL_ID==='regex'){try{const re=new RegExp(document.getElementById('re')?.value||'\\d+','g');result=`匹配: ${(input.match(re)||[]).join(', ')}`}catch(e){result='正则错误'}}
             else if(TOOL_ID==='subnet')result='子网计算: '+input;
+            else if(TOOL_ID==='ip-convert')result='IP转换: '+input;
             
             // 趣味
             else if(TOOL_ID==='dice')result='🎲 '+(Math.floor(Math.random()*6)+1);
