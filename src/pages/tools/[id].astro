@@ -113,11 +113,42 @@ const { id, name, icon, desc } = Astro.props;
     <script is:inline>
         const toolId = "{id}";
         
+        // 摩尔斯电码表
+        const morseCode = {
+            'A':'.-','B':'-...','C':'-.-.','D':'-..','E':'.','F':'..-.','G':'--.','H':'....',
+            'I':'..','J':'.---','K':'-.-','L':'.-..','M':'--','N':'-.','O':'---','P':'.--.',
+            'Q':'--.-','R':'.-.','S':'...','T':'-','U':'..-','V':'...-','W':'.--','X':'-..-',
+            'Y':'-.--','Z':'--..','0':'-----','1':'.----','2':'..---','3':'...--','4':'....-',
+            '5':'.....','6':'-....','7':'--...','8':'---..','9':'----.',' ':'/'
+        };
+        const morseReverse = Object.fromEntries(Object.entries(morseCode).map(([k,v])=>[v,k]));
+        
+        // 人民币大写
+        function rmbUpper(num) {
+            const digits = ['零','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+            const units = ['','拾','佰','仟','万','拾','佰','仟','亿'];
+            let n = Math.round(parseFloat(num) * 100);
+            let int = Math.floor(n / 100);
+            let dec = n % 100;
+            let result = '';
+            let str = int.toString();
+            for(let i=0;i<str.length;i++) {
+                let d = parseInt(str[i]);
+                let u = str.length - i - 1;
+                result += digits[d] + (d ? units[u] : '');
+            }
+            result = result.replace(/零+/g,'零').replace(/零$/,'') + '元';
+            if(dec) result += digits[Math.floor(dec/10)] + '角' + digits[dec%10] + '分';
+            else result += '整';
+            return result;
+        }
+        
         function process() {
             const input = document.getElementById('input').value;
             let result = '';
             
             switch(toolId) {
+                // ===== 文本处理类 =====
                 case 'word-count':
                     const chars = input.length;
                     const charsNoSpace = input.replace(/\s/g, '').length;
@@ -127,13 +158,11 @@ const { id, name, icon, desc } = Astro.props;
                     break;
                     
                 case 'text-dedup':
-                    const linesArr = input.split('\n');
-                    const unique = [...new Set(linesArr.filter(l => l.trim()))];
-                    result = unique.join('\n');
+                    result = [...new Set(input.split('\n').filter(l => l.trim()))].join('\n');
                     break;
                     
                 case 'case-convert':
-                    result = `大写: ${input.toUpperCase()}\n\n小写: ${input.toLowerCase()}\n\n首字母大写: ${input.replace(/\b\w/g, c => c.toUpperCase())}`;
+                    result = `【大写】\n${input.toUpperCase()}\n\n【小写】\n${input.toLowerCase()}\n\n【首字母大写】\n${input.replace(/\b\w/g, c => c.toUpperCase())}`;
                     break;
                     
                 case 'text-reverse':
@@ -143,71 +172,23 @@ const { id, name, icon, desc } = Astro.props;
                 case 'html-escape':
                     const encoded = input.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
                     const decoded = input.replace(/&amp;|&lt;|&gt;|&quot;|&#39;/g, c => ({'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'"}[c]));
-                    result = `编码:\n${encoded}\n\n解码:\n${decoded}`;
+                    result = `【编码】\n${encoded}\n\n【解码】\n${decoded}`;
                     break;
                     
                 case 'lorem':
-                    const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ';
-                    result = lorem.repeat(5);
+                    result = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '.repeat(5);
                     break;
                     
-                case 'base64':
-                    try {
-                        const encoded64 = btoa(unescape(encodeURIComponent(input)));
-                        const decoded64 = input ? decodeURIComponent(escape(atob(input))) : '';
-                        result = `编码:\n${encoded64}\n\n解码:\n${decoded64}`;
-                    } catch(e) { result = '输入无效'; }
+                case 'ascii':
+                    result = input.split('').map(c => `${c}: ${c.charCodeAt(0)} (0x${c.charCodeAt(0).toString(16).toUpperCase()})`).join('\n');
                     break;
                     
-                case 'url-encode':
-                    result = `编码: ${encodeURIComponent(input)}\n\n解码: ${decodeURIComponent(input)}`;
+                case 'binary':
+                    result = input.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
                     break;
                     
-                case 'uuid':
-                    result = Array(10).fill(0).map(() => crypto.randomUUID()).join('\n');
-                    break;
-                    
-                case 'password':
-                    const charsPwd = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-                    result = Array(5).fill(0).map(() => 
-                        Array(16).fill(0).map(() => charsPwd[Math.floor(Math.random() * charsPwd.length)]).join('')
-                    ).join('\n\n');
-                    break;
-                    
-                case 'json-format':
-                    try {
-                        result = JSON.stringify(JSON.parse(input || '{}'), null, 2);
-                    } catch(e) { result = 'JSON格式错误: ' + e.message; }
-                    break;
-                    
-                case 'timestamp':
-                    const now = Date.now();
-                    const nowSec = Math.floor(now / 1000);
-                    result = `当前时间戳（毫秒）: ${now}\n当前时间戳（秒）: ${nowSec}\n\n转换结果:\n${new Date(parseInt(input) || now).toLocaleString('zh-CN')}`;
-                    break;
-                    
-                case 'random':
-                    const min = 1, max = 100;
-                    result = Array(10).fill(0).map(() => Math.floor(Math.random() * (max - min + 1)) + min).join(', ');
-                    break;
-                    
-                case 'dice':
-                    result = '🎲 ' + (Math.floor(Math.random() * 6) + 1);
-                    break;
-                    
-                case 'coin':
-                    result = Math.random() > 0.5 ? '🪙 正面' : '🪙 反面';
-                    break;
-                    
-                case 'lotto':
-                    const red = [];
-                    while(red.length < 6) {
-                        const n = Math.floor(Math.random() * 33) + 1;
-                        if(!red.includes(n)) red.push(n);
-                    }
-                    red.sort((a,b) => a-b);
-                    const blue = Math.floor(Math.random() * 16) + 1;
-                    result = `红球: ${red.join(', ')}  |  蓝球: ${blue}`;
+                case 'morse':
+                    result = input.toUpperCase().split('').map(c => morseCode[c] || c).join(' ');
                     break;
                     
                 case 'trim':
@@ -226,9 +207,34 @@ const { id, name, icon, desc } = Astro.props;
                     result = [...new Set(input.split('\n'))].join('\n');
                     break;
                     
-                case 'pick':
-                    const items = input.split('\n').filter(i => i.trim());
-                    result = items.length ? '🎯 ' + items[Math.floor(Math.random() * items.length)] : '请输入选项（每行一个）';
+                case 'tradition':
+                    const s2t = {'简':'簡','体':'體','转':'轉','换':'轉'};
+                    result = input.split('').map(c => s2t[c] || c).join('');
+                    break;
+                    
+                // ===== 编码加密类 =====
+                case 'base64':
+                    try {
+                        const b64e = btoa(unescape(encodeURIComponent(input)));
+                        const b64d = input ? decodeURIComponent(escape(atob(input))) : '';
+                        result = `【编码】\n${b64e}\n\n【解码】\n${b64d}`;
+                    } catch(e) { result = '输入无效'; }
+                    break;
+                    
+                case 'url-encode':
+                    result = `【编码】\n${encodeURIComponent(input)}\n\n【解码】\n${decodeURIComponent(input)}`;
+                    break;
+                    
+                case 'md5':
+                    result = 'MD5功能需要CryptoJS支持\n\n输入: ' + input;
+                    break;
+                    
+                case 'sha256':
+                    result = 'SHA256功能需要CryptoJS支持\n\n输入: ' + input;
+                    break;
+                    
+                case 'uuid':
+                    result = Array(10).fill(0).map(() => crypto.randomUUID()).join('\n');
                     break;
                     
                 case 'uuid4':
@@ -237,16 +243,145 @@ const { id, name, icon, desc } = Astro.props;
                     
                 case 'nanoid':
                     const nanoChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                    result = Array(21).fill(0).map(() => nanoChars[Math.floor(Math.random() * nanoChars.length)]).join('');
+                    result = Array(21).fill(0).map(() => nanoChars[Math.floor(Math.random()*62)]).join('');
                     break;
                     
-                case 'binary':
-                    const toBin = input.split('').map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
-                    result = `转二进制:\n${toBin}`;
+                case 'password':
+                    const pwdChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+                    result = Array(5).fill(0).map(() => Array(16).fill(0).map(() => pwdChars[Math.floor(Math.random()*pwdChars.length)]).join('')).join('\n\n');
+                    break;
+                    
+                case 'base32':
+                    result = 'Base32: ' + input + ' (编码中)';
+                    break;
+                    
+                case 'base58':
+                    result = 'Base58: ' + input + ' (编码中)';
+                    break;
+                    
+                case 'unicode':
+                    result = input.split('').map(c => `U+${c.charCodeAt(0).toString(16).toUpperCase().padStart(4,'0')}`).join(' ');
+                    break;
+                    
+                // ===== 转换格式化 =====
+                case 'json-format':
+                    try {
+                        result = JSON.stringify(JSON.parse(input || '{}'), null, 2);
+                    } catch(e) { result = 'JSON格式错误: ' + e.message; }
+                    break;
+                    
+                case 'base-convert':
+                    const n = parseInt(input) || 0;
+                    result = `十进制: ${n}\n二进制: ${n.toString(2)}\n八进制: ${n.toString(8)}\n十六进制: ${n.toString(16).toUpperCase()}`;
+                    break;
+                    
+                case 'timestamp':
+                    const now = Date.now();
+                    result = `当前毫秒: ${now}\n当前秒: ${Math.floor(now/1000)}\n\n转换: ${new Date(parseInt(input) || now).toLocaleString('zh-CN')}`;
+                    break;
+                    
+                case 'timefmt':
+                    const d = new Date();
+                    result = `YYYY-MM-DD: ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}\nYYYY/MM/DD: ${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}\n完整时间: ${d.toLocaleString('zh-CN')}`;
+                    break;
+                    
+                case 'urldiff':
+                    try {
+                        const u = new URL(input || 'https://example.com?a=1&b=2');
+                        result = Array.from(u.searchParams).map(([k,v]) => `${k} = ${v}`).join('\n');
+                    } catch(e) { result = '请输入完整URL'; }
+                    break;
+                    
+                case 'hexrgb':
+                    result = `HEX: #db2777\nRGB: rgb(219, 39, 119)`;
+                    break;
+                    
+                // ===== 计算类 =====
+                case 'random':
+                    result = Array(10).fill(0).map(() => Math.floor(Math.random()*100)+1).join(', ');
+                    break;
+                    
+                case 'percentage':
+                    result = '百分比计算器\n\nA是B的百分之几 = A ÷ B × 100%';
+                    break;
+                    
+                case 'bmi':
+                    result = 'BMI = 体重(kg) ÷ 身高(m)²\n\n<18.5偏瘦 | 18.5-24正常 | >24偏胖';
+                    break;
+                    
+                case 'age-calc':
+                    result = '请输入出生日期: YYYY-MM-DD';
+                    break;
+                    
+                case 'datediff':
+                    result = '日期差计算器\n\n输入两个日期计算相隔天数';
+                    break;
+                    
+                case 'loan':
+                    result = '贷款计算器\n\n月供 = 本金 × 月利率 × (1+月利率)^期数 ÷ [(1+月利率)^期数-1]';
+                    break;
+                    
+                case 'idcard':
+                    result = '身份证验证\n\n18位身份证号码校验';
+                    break;
+                    
+                case 'emailcheck':
+                    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    result = emailRe.test(input) ? '✅ 邮箱格式正确' : '❌ 邮箱格式错误';
+                    break;
+                    
+                case 'phonecheck':
+                    const phoneRe = /^1[3-9]\d{9}$/;
+                    result = phoneRe.test(input.replace(/\D/g,'')) ? '✅ 手机号格式正确' : '❌ 手机号格式错误';
+                    break;
+                    
+                case 'rmb':
+                    result = rmbUpper(input || '12345.67');
+                    break;
+                    
+                case 'ip':
+                    result = '正在获取IP...\n\n请访问: https://api.ipify.org';
+                    break;
+                    
+                // ===== 趣味工具 =====
+                case 'dice':
+                    result = '🎲 ' + (Math.floor(Math.random()*6)+1);
+                    break;
+                    
+                case 'coin':
+                    result = Math.random()>0.5 ? '🪙 正面' : '🪙 反面';
+                    break;
+                    
+                case 'lotto':
+                    const red = [];
+                    while(red.length<6) {
+                        const n = Math.floor(Math.random()*33)+1;
+                        if(!red.includes(n)) red.push(n);
+                    }
+                    red.sort((a,b)=>a-b);
+                    result = `红球: ${red.join(', ')}  |  蓝球: ${Math.floor(Math.random()*16)+1}`;
+                    break;
+                    
+                case 'pick':
+                    const items = input.split('\n').filter(i=>i.trim());
+                    result = items.length ? '🎯 ' + items[Math.floor(Math.random()*items.length)] : '每行输入一个选项';
+                    break;
+                    
+                case 'lucky':
+                    const fortunes = ['大吉','吉','中吉','小吉','平','末吉'];
+                    result = '🍀 今日运势: ' + fortunes[Math.floor(Math.random()*fortunes.length)];
+                    break;
+                    
+                case 'stopwatch':
+                    result = '⏱️ 秒表功能开发中...';
+                    break;
+                    
+                case 'countdown':
+                    result = '⏳ 倒计时功能开发中...';
                     break;
                     
                 default:
-                    result = '✅ 工具功能开发中...\n\n输入内容:\n' + input;
+                    result = '✅ ' + input || '工具功能开发中...';
             }
             
             document.getElementById('result').textContent = result;
@@ -254,7 +389,7 @@ const { id, name, icon, desc } = Astro.props;
         
         function copyResult() {
             navigator.clipboard.writeText(document.getElementById('result').textContent);
-            alert('已复制到剪贴板！');
+            alert('已复制！');
         }
         
         function clearAll() {
