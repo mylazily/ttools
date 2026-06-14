@@ -1,6 +1,81 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
+export function getStaticPaths() {
+  return [
+    { params: { id: 'word-count' } },
+    { params: { id: 'text-dedup' } },
+    { params: { id: 'case-convert' } },
+    { params: { id: 'text-reverse' } },
+    { params: { id: 'html-escape' } },
+    { params: { id: 'lorem' } },
+    { params: { id: 'ascii' } },
+    { params: { id: 'binary' } },
+    { params: { id: 'morse' } },
+    { params: { id: 'base64' } },
+    { params: { id: 'url-encode' } },
+    { params: { id: 'md5' } },
+    { params: { id: 'sha256' } },
+    { params: { id: 'uuid' } },
+    { params: { id: 'password' } },
+    { params: { id: 'json-format' } },
+    { params: { id: 'base-convert' } },
+    { params: { id: 'unit-convert' } },
+    { params: { id: 'timestamp' } },
+    { params: { id: 'color-picker' } },
+    { params: { id: 'random' } },
+    { params: { id: 'age-calc' } },
+    { params: { id: 'bmi' } },
+    { params: { id: 'percentage' } },
+    { params: { id: 'loan' } },
+    { params: { id: 'tip' } },
+    { params: { id: 'ip' } },
+    { params: { id: 'qrcode' } },
+    { params: { id: 'stopwatch' } },
+    { params: { id: 'countdown' } },
+    { params: { id: 'dice' } },
+    { params: { id: 'coin' } },
+    { params: { id: 'lotto' } },
+    { params: { id: 'palette' } },
+    { params: { id: 'contrast' } },
+    { params: { id: 'idcard' } },
+    { params: { id: 'pinyin' } },
+    { params: { id: 'tradition' } },
+    { params: { id: 'rmb' } },
+    { params: { id: 'datediff' } },
+    { params: { id: 'emailcheck' } },
+    { params: { id: 'phonecheck' } },
+    { params: { id: 'pick' } },
+    { params: { id: 'regex' } },
+    { params: { id: 'csv-json' } },
+    { params: { id: 'yaml-json' } },
+    { params: { id: 'markdown' } },
+    { params: { id: 'hash' } },
+    { params: { id: 'uuid4' } },
+    { params: { id: 'nanoid' } },
+    { params: { id: 'slug' } },
+    { params: { id: 'pixel' } },
+    { params: { id: 'base32' } },
+    { params: { id: 'base58' } },
+    { params: { id: 'jsoncsv' } },
+    { params: { id: 'timefmt' } },
+    { params: { id: 'unicode' } },
+    { params: { id: 'trim' } },
+    { params: { id: 'sort' } },
+    { params: { id: 'shuffle' } },
+    { params: { id: 'unique' } },
+    { params: { id: 'cron' } },
+    { params: { id: 'urldiff' } },
+    { params: { id: 'base64img' } },
+    { params: { id: 'hexrgb' } },
+    { params: { id: 'lucky' } },
+    { params: { id: 'ai-copy' } },
+    { params: { id: 'img-compress' } },
+    { params: { id: 'img-base64' } },
+    { params: { id: 'shorturl' } },
+  ];
+}
+
 const toolMap: Record<string, any> = {
   'word-count': { name: '字数统计', icon: '📏', desc: '统计字符数、字数、行数' },
   'text-dedup': { name: '文本去重', icon: '📋', desc: '去除空行、去除重复行' },
@@ -91,9 +166,9 @@ const tool = toolMap[id] || { name: '工具', icon: '🛠️', desc: '在线工�
             <textarea id="input" rows="5" placeholder="输入内容..." class="w-full p-4 border rounded-lg font-mono"></textarea>
             
             <div class="flex gap-3 flex-wrap">
-                <button onclick="process()" class="btn-primary px-6 py-3 font-medium">处理</button>
-                <button onclick="clearAll()" class="btn-secondary px-6 py-3 font-medium">清空</button>
-                <button onclick="copyResult()" class="btn-secondary px-6 py-3 font-medium">复制结果</button>
+                <button onclick="process()" class="px-6 py-3 font-medium bg-pink-600 text-white rounded-lg hover:bg-pink-700">处理</button>
+                <button onclick="clearAll()" class="px-6 py-3 font-medium border border-pink-600 text-pink-600 rounded-lg hover:bg-pink-50">清空</button>
+                <button onclick="copyResult()" class="px-6 py-3 font-medium border border-pink-600 text-pink-600 rounded-lg hover:bg-pink-50">复制结果</button>
             </div>
 
             <div id="result" class="p-4 bg-gray-50 rounded-lg font-mono min-h-24 hidden"></div>
