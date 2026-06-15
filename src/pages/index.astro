@@ -24,10 +24,10 @@ const cats = ['文本', '编码', '转换', '计算', '趣味', '其他'];
 ---
 
 <Layout title="🛠️ 在线工具箱" description="免费在线工具">
-    <div style="text-align:center;margin-bottom:32px;">
-        <div style="font-size:56px;margin-bottom:12px;">🛠️</div>
-        <h1 style="font-size:28px;font-weight:800;margin-bottom:8px;background:linear-gradient(90deg,#ec4899,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">在线工具箱</h1>
-        <p style="color:#666;font-size:15px;">免费在线工具 · 无需安装 · 即开即用</p>
+    <div class="hero">
+        <div class="hero-icon">🛠️</div>
+        <h1 class="hero-title">在线工具箱</h1>
+        <p class="hero-desc">免费在线工具 · 无需安装 · 即开即用</p>
     </div>
     
     <input type="text" id="search" placeholder="🔍 搜索工具..." class="search" oninput="filterTools()">
@@ -53,7 +53,7 @@ const cats = ['文本', '编码', '转换', '计算', '趣味', '其他'];
         </div>
     ))}
     
-    <script>
+    <script is:inline>
         function filterTools() {
             const q = document.getElementById('search').value.toLowerCase();
             document.querySelectorAll('.tool-card').forEach(card => {
