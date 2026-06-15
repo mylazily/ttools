@@ -1,64 +1,62 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const tools = [
-    { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
-    { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
-    { id: 'case-convert', name: '大小写', icon: '🔤', cat: '文本' },
-    { id: 'html-escape', name: 'HTML转义', icon: '📝', cat: '文本' },
-    { id: 'trim', name: '空格清理', icon: '🧹', cat: '文本' },
-    { id: 'base64', name: 'Base64', icon: '🔐', cat: '编码' },
-    { id: 'md5', name: 'MD5', icon: '🔍', cat: '编码' },
-    { id: 'uuid', name: 'UUID', icon: '🆔', cat: '编码' },
-    { id: 'password', name: '密码生成', icon: '🔐', cat: '编码' },
-    { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
-    { id: 'timestamp', name: '时间戳', icon: '⏰', cat: '转换' },
-    { id: 'bmi', name: 'BMI计算', icon: '⚖️', cat: '计算' },
-    { id: 'loan', name: '贷款计算', icon: '💰', cat: '计算' },
-    { id: 'idcard', name: '身份证', icon: '🪪', cat: '计算' },
-    { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
-    { id: 'qrcode', name: '二维码', icon: '📱', cat: '其他' },
-];
-
-const cats = ['文本', '编码', '转换', '计算', '趣味', '其他'];
 ---
 
 <Layout title="🛠️ 在线工具箱" description="免费在线工具">
-    <div class="hero">
-        <div class="hero-icon">🛠️</div>
-        <h1 class="hero-title">在线工具箱</h1>
-        <p class="hero-desc">免费在线工具 · 无需安装 · 即开即用</p>
+    <div style="text-align:center;margin-bottom:30px;">
+        <div style="font-size:50px;margin-bottom:10px;">🛠️</div>
+        <h1 style="font-size:24px;font-weight:bold;color:#ec4899;margin-bottom:5px;">在线工具箱</h1>
+        <p style="color:#666;font-size:14px;">免费在线工具 · 无需安装 · 即开即用</p>
     </div>
     
-    <input type="text" id="search" placeholder="🔍 搜索工具..." class="search" oninput="filterTools()">
+    <!-- 用HTML Table布局！绝对不会错位！ -->
+    <table width="100%" cellpadding="6" cellspacing="0" style="margin-bottom:30px;">
+        <tr>
+            <td><a href="/tools/word-count" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">📏</div>
+                <div style="font-size:12px;color:#333;">字数统计</div>
+            </a></td>
+            <td><a href="/tools/text-dedup" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">📋</div>
+                <div style="font-size:12px;color:#333;">文本去重</div>
+            </a></td>
+            <td><a href="/tools/base64" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">🔐</div>
+                <div style="font-size:12px;color:#333;">Base64</div>
+            </a></td>
+        </tr>
+        <tr>
+            <td><a href="/tools/md5" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">🔍</div>
+                <div style="font-size:12px;color:#333;">MD5</div>
+            </a></td>
+            <td><a href="/tools/json-format" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">📝</div>
+                <div style="font-size:12px;color:#333;">JSON</div>
+            </a></td>
+            <td><a href="/tools/timestamp" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">⏰</div>
+                <div style="font-size:12px;color:#333;">时间戳</div>
+            </a></td>
+        </tr>
+    </table>
     
-    <div class="stats">
-        <div class="stat"><div class="stat-num">{tools.length}</div><div class="stat-label">总计</div></div>
-        {cats.map(cat => (
-            <div class="stat"><div class="stat-num">{tools.filter(t => t.cat === cat).length}</div><div class="stat-label">{cat}</div></div>
-        ))}
-    </div>
+    <h2 style="font-size:16px;font-weight:bold;color:#333;margin:30px 0 15px;padding-bottom:8px;border-bottom:2px solid #fce7f3;">常用工具</h2>
     
-    {cats.map(cat => (
-        <div id={cat}>
-            <h2 class="section-title">{cat}工具</h2>
-            <div class="tools-grid">
-                {tools.filter(t => t.cat === cat).map(tool => (
-                    <a href={`/tools/${tool.id}`} class="tool-card">
-                        <div class="tool-icon">{tool.icon}</div>
-                        <div class="tool-name">{tool.name}</div>
-                    </a>
-                ))}
-            </div>
-        </div>
-    ))}
-    
-    <script is:inline>
-        function filterTools() {
-            const q = document.getElementById('search').value.toLowerCase();
-            document.querySelectorAll('.tool-card').forEach(card => {
-                card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
-            });
-        }
-    </script>
+    <table width="100%" cellpadding="6" cellspacing="0">
+        <tr>
+            <td><a href="/tools/password" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">🔐</div>
+                <div style="font-size:12px;color:#333;">密码生成</div>
+            </a></td>
+            <td><a href="/tools/uuid" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">🆔</div>
+                <div style="font-size:12px;color:#333;">UUID</div>
+            </a></td>
+            <td><a href="/tools/bmi" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
+                <div style="font-size:24px;margin-bottom:6px;">⚖️</div>
+                <div style="font-size:12px;color:#333;">BMI计算</div>
+            </a></td>
+        </tr>
+    </table>
 </Layout>
