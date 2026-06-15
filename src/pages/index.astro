@@ -1,62 +1,130 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BottomNav from '../components/BottomNav.astro';
+import SearchBox from '../components/SearchBox.astro';
+import ToolCard from '../components/ToolCard.astro';
+import { tools, categories } from '../data/tools';
+
+export const prerender = true;
+
+const siteName = '在线工具箱';
+const pageTitle = `${siteName} - 200+免费在线工具`;
+const pageDesc = '免费在线工具箱，提供文本处理、编码加密、JSON格式化、Base64、MD5、UUID生成等200+实用工具，无需安装，即开即用。';
+const keywords = '在线工具,免费工具,文本处理,编码加密,JSON格式化,Base64,MD5,UUID,密码生成,时间戳转换,BMI计算';
+const canonical = 'https://ziyuanzu.com/';
+
+// 按分类分组工具
+const toolsByCategory = categories.map(cat => ({
+  ...cat,
+  tools: tools.filter(t => t.category === cat.id),
+}));
+
+// 热门工具（每个分类取前3个）
+const hotTools = categories.flatMap(cat => 
+  tools.filter(t => t.category === cat.id).slice(0, 2)
+).slice(0, 6);
 ---
 
-<Layout title="🛠️ 在线工具箱" description="免费在线工具">
-    <div style="text-align:center;margin-bottom:30px;">
-        <div style="font-size:50px;margin-bottom:10px;">🛠️</div>
-        <h1 style="font-size:24px;font-weight:bold;color:#ec4899;margin-bottom:5px;">在线工具箱</h1>
-        <p style="color:#666;font-size:14px;">免费在线工具 · 无需安装 · 即开即用</p>
+<Layout
+  title={siteName}
+  description={pageDesc}
+  keywords={keywords}
+  canonical={canonical}
+>
+  <!-- Hero 区域 -->
+  <div class="text-center py-8 mb-4">
+    <div class="text-5xl mb-3">🛠️</div>
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">在线工具箱</h1>
+    <p class="text-sm text-gray-500">免费在线工具 · 无需安装 · 即开即用</p>
+    <div class="mt-4 text-xs text-pink-600 bg-pink-50 inline-block px-3 py-1 rounded-full">
+      已收录 {tools.length} 个工具
     </div>
-    
-    <!-- 用HTML Table布局！绝对不会错位！ -->
-    <table width="100%" cellpadding="6" cellspacing="0" style="margin-bottom:30px;">
-        <tr>
-            <td><a href="/tools/word-count" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">📏</div>
-                <div style="font-size:12px;color:#333;">字数统计</div>
-            </a></td>
-            <td><a href="/tools/text-dedup" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">📋</div>
-                <div style="font-size:12px;color:#333;">文本去重</div>
-            </a></td>
-            <td><a href="/tools/base64" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">🔐</div>
-                <div style="font-size:12px;color:#333;">Base64</div>
-            </a></td>
-        </tr>
-        <tr>
-            <td><a href="/tools/md5" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">🔍</div>
-                <div style="font-size:12px;color:#333;">MD5</div>
-            </a></td>
-            <td><a href="/tools/json-format" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">📝</div>
-                <div style="font-size:12px;color:#333;">JSON</div>
-            </a></td>
-            <td><a href="/tools/timestamp" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">⏰</div>
-                <div style="font-size:12px;color:#333;">时间戳</div>
-            </a></td>
-        </tr>
-    </table>
-    
-    <h2 style="font-size:16px;font-weight:bold;color:#333;margin:30px 0 15px;padding-bottom:8px;border-bottom:2px solid #fce7f3;">常用工具</h2>
-    
-    <table width="100%" cellpadding="6" cellspacing="0">
-        <tr>
-            <td><a href="/tools/password" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">🔐</div>
-                <div style="font-size:12px;color:#333;">密码生成</div>
-            </a></td>
-            <td><a href="/tools/uuid" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">🆔</div>
-                <div style="font-size:12px;color:#333;">UUID</div>
-            </a></td>
-            <td><a href="/tools/bmi" style="display:block;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:18px 8px;text-align:center;text-decoration:none;">
-                <div style="font-size:24px;margin-bottom:6px;">⚖️</div>
-                <div style="font-size:12px;color:#333;">BMI计算</div>
-            </a></td>
-        </tr>
-    </table>
+  </div>
+
+  <!-- 搜索框 -->
+  <div class="mb-6">
+    <SearchBox />
+  </div>
+
+  <!-- 热门工具 -->
+  <section class="mb-6" data-category-section data-category="hot">
+    <h2 class="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
+      <span class="w-1 h-4 bg-pink-500 rounded-full"></span>
+      热门工具
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+      {hotTools.map(tool => (
+        <ToolCard
+          id={tool.id}
+          icon={tool.icon}
+          name={tool.name.zh}
+          desc={tool.desc.zh}
+          category="hot"
+          keywords={tool.keywords}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- 分类工具列表 -->
+  {toolsByCategory.map(cat => (
+    cat.tools.length > 0 && (
+      <section id={cat.id} class="mb-6" data-category-section data-category={cat.id}>
+        <h2 class="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
+          <span class="w-1 h-4 bg-pink-500 rounded-full"></span>
+          <span>{cat.icon}</span>
+          <span>{cat.name.zh}</span>
+          <span class="text-xs text-gray-400 font-normal">({cat.tools.length})</span>
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+          {cat.tools.map(tool => (
+            <ToolCard
+              id={tool.id}
+              icon={tool.icon}
+              name={tool.name.zh}
+              desc={tool.desc.zh}
+              category={cat.id}
+              keywords={tool.keywords}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  ))}
+
+  <!-- 无搜索结果提示 -->
+  <div id="no-results" class="hidden text-center py-20">
+    <div class="text-4xl mb-4">🔍</div>
+    <p class="text-gray-500 mb-2">未找到匹配的工具</p>
+    <p class="text-xs text-gray-400">试试其他关键词</p>
+  </div>
+
+  <BottomNav slot="bottom-nav" />
 </Layout>
+
+<script is:inline>
+  (function() {
+    // 监听搜索无结果的情况
+    var input = document.getElementById('search-input');
+    var noResults = document.getElementById('no-results');
+    
+    if (input && noResults) {
+      input.addEventListener('input', function() {
+        var k = input.value.trim();
+        if (!k) {
+          noResults.classList.add('hidden');
+          return;
+        }
+        
+        setTimeout(function() {
+          var visibleCards = document.querySelectorAll('[data-tool-card]:not([style*="display: none"])');
+          if (visibleCards.length === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }, 50);
+      });
+    }
+  })();
+</script>

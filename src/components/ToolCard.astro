@@ -1,0 +1,32 @@
+---
+interface Props {
+  id: string;
+  icon: string;
+  name: string;
+  desc: string;
+  category: string;
+  keywords: string[];
+}
+
+const { id, icon, name, desc, category, keywords } = Astro.props;
+---
+
+<a 
+  href={`/tools/${id}`} 
+  class="block group bg-white border border-gray-100 rounded-xl p-4 transition-all duration-200 hover:shadow-md hover:border-pink-200 hover:scale-[1.02]"
+  data-tool-card
+  data-name={name}
+  data-desc={desc}
+  data-keywords={keywords.join(',')}
+  data-category={category}
+>
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 flex items-center justify-center bg-pink-50 rounded-lg text-xl shrink-0 group-hover:bg-pink-100 transition-colors">
+      {icon}
+    </div>
+    <div class="min-w-0">
+      <h3 class="text-sm font-medium text-gray-800 line-clamp-1 group-hover:text-pink-700 transition-colors">{name}</h3>
+      <p class="text-xs text-gray-500 line-clamp-1 mt-0.5">{desc}</p>
+    </div>
+  </div>
+</a>

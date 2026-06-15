@@ -1,48 +1,201 @@
 ---
+import '../styles/global.css';
+
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonical?: string;
+  noindex?: boolean;
 }
-const { title, description } = Astro.props;
+
+const {
+  title,
+  description = '免费在线工具箱 - 200+实用工具',
+  keywords = '在线工具,免费工具,文本处理,编码加密,JSON格式化,Base64,MD5,UUID',
+  canonical,
+  noindex = false,
+} = Astro.props;
+
+const siteName = '在线工具箱';
+const siteUrl = 'https://ziyuanzu.com';
+const finalTitle = title ? `${title} - ${siteName}` : `${siteName} - 200+免费在线工具`;
+const finalCanonical = canonical || (Astro.url ? `${siteUrl}${Astro.url.pathname}` : siteUrl);
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <style>
-        body { margin: 0; padding: 0 0 70px 0; background: #f5f5f5; font-family: system-ui, sans-serif; }
-        .header { background: linear-gradient(90deg, #ec4899, #f43f5e); color: white; padding: 10px; text-align: center; font-size: 14px; }
-        .header a { color: white; text-decoration: underline; }
-        .nav { background: white; padding: 15px; border-bottom: 1px solid #eee; }
-        .nav-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .main { max-width: 1000px; margin: 0 auto; padding: 20px 15px; }
-        .bottom { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #eee; padding: 10px 0; }
-        .bottom-inner { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-around; }
-        .bottom a { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #666; font-size: 11px; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ec4899" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+
+    <!-- robots -->
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    )}
+
+    <link rel="canonical" href={finalCanonical} />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content={siteName} />
+
+    <!-- OG -->
+    <meta property="og:title" content={finalTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={finalCanonical} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content={`${siteUrl}/favicon.svg`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={finalTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- SEO -->
+    <meta name="googlebot" content="index, follow" />
+    <meta name="baiduspider" content="index, follow" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <title>{finalTitle}</title>
+
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="https://ziyuanzu.com" />
+    <link rel="preconnect" href="https://ziyuanzu.com" crossorigin />
+
+    <!-- 页面自定义 head 内容 -->
+    <slot name="head" />
+
+    <!-- 关键CSS内联（首屏渲染必需） -->
+    <style is:inline>
+      *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:currentColor}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;-webkit-tap-highlight-color:transparent}
+      body{margin:0;line-height:inherit;background-color:#f9fafb;color:#1f2937;min-height:100vh;overscroll-behavior:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif}
+      h1,h2,h3,h4,h5,h6,p{margin:0}
+      a{color:inherit;text-decoration:inherit}
+      button{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0;background:transparent;cursor:pointer}
+      img{display:block;vertical-align:middle;max-width:100%;height:auto}
+
+      .flex{display:flex}.grid{display:grid}.block{display:block}.hidden{display:none}.inline-block{display:inline-block}.inline-flex{display:inline-flex}
+      .flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}
+      .flex-1{flex:1}.flex-shrink-0{flex-shrink:0}
+      .grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+      @media(min-width:40rem){.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+      @media(min-width:48rem){.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.md\:grid-cols-6{grid-template-columns:repeat(6,minmax(0,1fr))}}
+      @media(min-width:64rem){.lg\:grid-cols-6{grid-template-columns:repeat(6,minmax(0,1fr))}.lg\:grid-cols-8{grid-template-columns:repeat(8,minmax(0,1fr))}}
+
+      .gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}
+      .p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}
+      .px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}
+      .py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.py-20{padding-top:5rem;padding-bottom:5rem}
+      .pt-2{padding-top:.5rem}.pt-4{padding-top:1rem}.pb-16{padding-bottom:4rem}.pb-20{padding-bottom:5rem}
+      .mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}
+      .mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}
+      .mx-auto{margin-left:auto;margin-right:auto}
+      .mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}
+
+      .w-full{width:100%}.w-4{width:1rem}.w-6{width:1.5rem}.w-8{width:2rem}.w-10{width:2.5rem}.w-12{width:3rem}
+      .h-4{height:1rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-10{height:2.5rem}.h-12{height:3rem}.h-14{height:3.5rem}
+      .min-h-screen{min-height:100vh}
+      .max-w-screen-xl{max-width:1280px}
+
+      .bg-white{background-color:#fff}.bg-gray-50{background-color:#f9fafb}.bg-gray-100{background-color:#f3f4f6}.bg-gray-200{background-color:#e5e7eb}
+      .bg-pink-50{background-color:#fdf2f8}.bg-pink-500{background-color:#ec4899}.bg-pink-600{background-color:#db2777}
+      .bg-black\\/70{background-color:rgba(0,0,0,.7)}
+      .bg-white\\/95{background-color:rgba(255,255,255,.95)}
+
+      .text-white{color:#fff}
+      .text-gray-300{color:#d1d5db}.text-gray-400{color:#9ca3af}.text-gray-500{color:#6b7280}.text-gray-600{color:#4b5563}.text-gray-700{color:#374151}.text-gray-800{color:#1f2937}
+      .text-pink-500{color:#ec4899}.text-pink-600{color:#db2777}.text-pink-700{color:#be185d}
+
+      .border{border-width:1px}.border-t{border-top-width:1px}.border-b{border-bottom-width:1px}
+      .border-gray-100{border-color:#f3f4f6}.border-gray-200{border-color:#e5e7eb}.border-pink-200{border-color:#fbcfe8}
+      .rounded{border-radius:.25rem}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}
+
+      .text-center{text-align:center}
+      .text-xs{font-size:.75rem;line-height:1rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}
+      .font-medium{font-weight:500}.font-semibold{font-weight:600}.font-bold{font-weight:700}
+      .leading-tight{line-height:1.25}
+
+      .relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}.sticky{position:sticky}
+      .top-0{top:0}.bottom-0{bottom:0}.left-0{left:0}.right-0{right:0}.top-1\\/2{top:50%}
+      .z-40{z-index:40}.z-50{z-index:50}
+
+      .overflow-hidden{overflow:hidden}
+      .shrink-0{flex-shrink:0}
+      .min-w-0{min-width:0}
+
+      .transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}
+      .transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}
+      .duration-200{transition-duration:.2s}
+      .hover\\:scale-105:hover{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+      .hover\\:shadow-md:hover{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}
+      .hover\\:border-pink-200:hover{border-color:#fbcfe8}
+      .hover\\:text-pink-700:hover{color:#be185d}
+      .hover\\:bg-pink-100:hover{background-color:#fce7f3}
+      .group:hover .group-hover\\:text-pink-700{color:#be185d}
+      .group:hover .group-hover\\:bg-pink-100{background-color:#fce7f3}
+      .group:hover .group-hover\\:scale-105{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+
+      .backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}
+      .-translate-y-1\\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
     </style>
-</head>
-<body>
-    <div class="header">🎁 资源主站：<a href="https://www.ziyuanzu.com">www.ziyuanzu.com</a></div>
-    <div class="nav">
-        <div class="nav-inner">
-            <a href="/" style="font-size:18px;font-weight:bold;color:#333;text-decoration:none;">🛠️ 在线工具箱</a>
-            <a href="https://www.ziyuanzu.com" style="color:#ec4899;text-decoration:none;font-size:14px;">→ 资源主站</a>
-        </div>
-    </div>
-    <div class="main">
-        <slot />
-    </div>
-    <div class="bottom">
-        <div class="bottom-inner">
-            <a href="/"><span style="font-size:18px;">🏠</span>首页</a>
-            <a href="/"><span style="font-size:18px;">📝</span>文本</a>
-            <a href="/"><span style="font-size:18px;">🔐</span>编码</a>
-            <a href="/"><span style="font-size:18px;">🧮</span>计算</a>
-            <a href="https://www.ziyuanzu.com"><span style="font-size:18px;">📦</span>资源</a>
-        </div>
-    </div>
-</body>
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": siteName,
+      "url": siteUrl,
+      "description": "免费在线工具箱，提供200+实用工具",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${siteUrl}/search?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }).replace(/</g, '\\u003c')} />
+  </head>
+  <body>
+    <!-- 顶部导航 -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+      <div class="max-w-screen-xl mx-auto px-3 h-12 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-lg font-bold text-gray-800 hover:text-pink-700 transition-colors">
+          <span class="text-xl">🛠️</span>
+          <span>在线工具箱</span>
+        </a>
+        <a href="https://www.ziyuanzu.com" class="text-sm text-pink-600 hover:text-pink-700 transition-colors">
+          资源主站 →
+        </a>
+      </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="max-w-screen-xl mx-auto px-3 pt-2 pb-20">
+      <slot />
+    </main>
+
+    <!-- 底部导航 -->
+    <slot name="bottom-nav" />
+
+    <!-- 页脚 -->
+    <footer class="border-t border-gray-100 bg-white py-4 mb-12">
+      <div class="max-w-screen-xl mx-auto px-3 text-center text-xs text-gray-400">
+        <p>免费在线工具箱 · 无需安装 · 即开即用</p>
+        <p class="mt-1">资源主站：<a href="https://www.ziyuanzu.com" class="text-pink-600 hover:text-pink-700">www.ziyuanzu.com</a></p>
+      </div>
+    </footer>
+  </body>
 </html>

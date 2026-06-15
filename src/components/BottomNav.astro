@@ -1,0 +1,27 @@
+---
+const items = [
+  { label: '首页', href: '/' },
+  { label: '文本', href: '/#text' },
+  { label: '编码', href: '/#encoding' },
+  { label: '计算', href: '/#calculator' },
+  { label: '更多', href: '/#more' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-gray-100 safe-bottom">
+  <div class="max-w-screen-xl mx-auto flex items-center justify-around h-12">
+    {items.map(item => {
+      const isActive = currentPath === item.href || (item.href === '/' && currentPath === '/');
+      return (
+        <a 
+          href={item.href} 
+          class={`text-sm font-medium transition-colors ${isActive ? 'text-pink-700' : 'text-gray-500 hover:text-pink-700'}`}
+        >
+          {item.label}
+        </a>
+      );
+    })}
+  </div>
+</nav>
