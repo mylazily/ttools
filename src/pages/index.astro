@@ -10,13 +10,13 @@ const tools = [
     { id: 'base64', name: 'Base64', icon: '🔐', cat: '编码' },
     { id: 'md5', name: 'MD5', icon: '🔍', cat: '编码' },
     { id: 'uuid', name: 'UUID', icon: '🆔', cat: '编码' },
-    { id: 'password', name: '密码', icon: '🔐', cat: '编码' },
-    { id: 'json-format', name: 'JSON', icon: '📝', cat: '转换' },
+    { id: 'password', name: '密码生成', icon: '🔐', cat: '编码' },
+    { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
     { id: 'timestamp', name: '时间戳', icon: '⏰', cat: '转换' },
-    { id: 'bmi', name: 'BMI', icon: '⚖️', cat: '计算' },
-    { id: 'loan', name: '贷款', icon: '💰', cat: '计算' },
+    { id: 'bmi', name: 'BMI计算', icon: '⚖️', cat: '计算' },
+    { id: 'loan', name: '贷款计算', icon: '💰', cat: '计算' },
     { id: 'idcard', name: '身份证', icon: '🪪', cat: '计算' },
-    { id: 'dice', name: '骰子', icon: '🎲', cat: '趣味' },
+    { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
     { id: 'qrcode', name: '二维码', icon: '📱', cat: '其他' },
 ];
 
@@ -25,32 +25,29 @@ const cats = ['文本', '编码', '转换', '计算', '趣味', '其他'];
 
 <Layout title="🛠️ 在线工具箱" description="免费在线工具">
     <div style="text-align:center;margin-bottom:32px;">
-        <div style="font-size:48px;margin-bottom:12px;">🛠️</div>
-        <h1 style="font-size:24px;font-weight:bold;color:#db2777;margin-bottom:8px;">在线工具箱</h1>
-        <p style="color:#666;margin-bottom:20px;">免费在线工具 · 无需安装 · 即开即用</p>
-        <div style="max-width:500px;margin:0 auto;">
-            <input type="text" id="search" placeholder="🔍 搜索工具..." class="search-box" oninput="filterTools()">
-        </div>
+        <div style="font-size:56px;margin-bottom:12px;">🛠️</div>
+        <h1 style="font-size:28px;font-weight:800;margin-bottom:8px;background:linear-gradient(90deg,#ec4899,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">在线工具箱</h1>
+        <p style="color:#666;font-size:15px;">免费在线工具 · 无需安装 · 即开即用</p>
     </div>
     
-    <div class="stat-row">
-        <div class="stat-card"><div style="font-size:20px;font-weight:bold;color:#db2777;">{tools.length}</div><div style="font-size:12px;color:#666;">总计</div></div>
+    <input type="text" id="search" placeholder="🔍 搜索工具..." class="search" oninput="filterTools()">
+    
+    <div class="stats">
+        <div class="stat"><div class="stat-num">{tools.length}</div><div class="stat-label">总计</div></div>
         {cats.map(cat => (
-            <div class="stat-card"><div style="font-size:18px;font-weight:bold;color:#333;">{tools.filter(t => t.cat === cat).length}</div><div style="font-size:12px;color:#666;">{cat}</div></div>
+            <div class="stat"><div class="stat-num">{tools.filter(t => t.cat === cat).length}</div><div class="stat-label">{cat}</div></div>
         ))}
     </div>
     
     {cats.map(cat => (
-        <div id={cat} style="margin-bottom:32px;">
-            <h2 style="font-size:16px;font-weight:bold;color:#333;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #fce7f3;">{cat}工具</h2>
-            <div class="clearfix">
+        <div id={cat}>
+            <h2 class="section-title">{cat}工具</h2>
+            <div class="tools-grid">
                 {tools.filter(t => t.cat === cat).map(tool => (
-                    <div class="tool-item">
-                        <a href={`/tools/${tool.id}`} class="tool-card">
-                            <div style="font-size:20px;margin-bottom:4px;">{tool.icon}</div>
-                            <div style="font-size:12px;color:#333;">{tool.name}</div>
-                        </a>
-                    </div>
+                    <a href={`/tools/${tool.id}`} class="tool-card">
+                        <div class="tool-icon">{tool.icon}</div>
+                        <div class="tool-name">{tool.name}</div>
+                    </a>
                 ))}
             </div>
         </div>
@@ -59,8 +56,8 @@ const cats = ['文本', '编码', '转换', '计算', '趣味', '其他'];
     <script>
         function filterTools() {
             const q = document.getElementById('search').value.toLowerCase();
-            document.querySelectorAll('.tool-card').forEach(a => {
-                a.parentElement.style.display = a.textContent.toLowerCase().includes(q) ? '' : 'none';
+            document.querySelectorAll('.tool-card').forEach(card => {
+                card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
             });
         }
     </script>
