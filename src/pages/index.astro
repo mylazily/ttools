@@ -4,141 +4,67 @@ import Layout from '../layouts/Layout.astro';
 const tools = [
     { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
     { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
-    { id: 'case-convert', name: '大小写转换', icon: '🔤', cat: '文本' },
+    { id: 'case-convert', name: '大小写', icon: '🔤', cat: '文本' },
     { id: 'text-reverse', name: '文本反转', icon: '🔄', cat: '文本' },
     { id: 'html-escape', name: 'HTML转义', icon: '📝', cat: '文本' },
-    { id: 'html-unescape', name: 'HTML反转义', icon: '📝', cat: '文本' },
     { id: 'html-beautify', name: 'HTML格式化', icon: '📄', cat: '文本' },
-    { id: 'html-minify', name: 'HTML压缩', icon: '📦', cat: '文本' },
     { id: 'css-beautify', name: 'CSS格式化', icon: '🎨', cat: '文本' },
-    { id: 'css-minify', name: 'CSS压缩', icon: '📦', cat: '文本' },
     { id: 'js-beautify', name: 'JS格式化', icon: '💻', cat: '文本' },
-    { id: 'js-minify', name: 'JS压缩', icon: '📦', cat: '文本' },
-    { id: 'lorem', name: 'Lorem生成', icon: '📄', cat: '文本' },
-    { id: 'ascii', name: 'ASCII码表', icon: '🔣', cat: '文本' },
-    { id: 'binary', name: '二进制转换', icon: '💻', cat: '文本' },
-    { id: 'morse', name: '摩尔斯电码', icon: '📻', cat: '文本' },
     { id: 'trim', name: '空格清理', icon: '🧹', cat: '文本' },
     { id: 'sort', name: '文本排序', icon: '📊', cat: '文本' },
-    { id: 'shuffle', name: '随机打乱', icon: '🎲', cat: '文本' },
-    { id: 'unique', name: '数组去重', icon: '✨', cat: '文本' },
-    { id: 'tradition', name: '简繁转换', icon: '📜', cat: '文本' },
-    { id: 'slug', name: 'URL Slug', icon: '🔗', cat: '文本' },
-    { id: 'js-escape', name: 'JS转义', icon: '📝', cat: '文本' },
-    { id: 'shell-escape', name: 'Shell转义', icon: '🐚', cat: '文本' },
-    { id: 'rot13', name: 'ROT13加密', icon: '🔄', cat: '文本' },
-    { id: 'caesar', name: '凯撒密码', icon: '🔐', cat: '文本' },
-    { id: 'atbash', name: 'Atbash密码', icon: '🔄', cat: '文本' },
-    { id: 'regex-escape', name: '正则转义', icon: '🔍', cat: '文本' },
-    { id: 'hex-encode', name: 'HEX编码', icon: '🔣', cat: '文本' },
-    { id: 'hex-decode', name: 'HEX解码', icon: '🔓', cat: '文本' },
-    { id: 'pinyin', name: '汉字转拼音', icon: '🀄', cat: '文本' },
-    { id: 'markdown', name: 'Markdown预览', icon: '📝', cat: '文本' },
-    { id: 'url-normalize', name: 'URL标准化', icon: '🔗', cat: '文本' },
-    { id: 'strip-html', name: '去除HTML标签', icon: '🧹', cat: '文本' },
-    { id: 'text-compare', name: '文本对比', icon: '📊', cat: '文本' },
-    { id: 'line-sort', name: '行排序', icon: '📋', cat: '文本' },
-    { id: 'remove-empty', name: '删除空行', icon: '🧹', cat: '文本' },
-    { id: 'quote', name: '加引号', icon: '💬', cat: '文本' },
-    { id: 'unquote', name: '去引号', icon: '🔓', cat: '文本' },
-    { id: 'comma', name: '加逗号', icon: '📝', cat: '文本' },
-    { id: 'indent', name: '缩进格式化', icon: '📝', cat: '文本' },
-    { id: 'wrap', name: '自动换行', icon: '📄', cat: '文本' },
-    { id: 'extract-url', name: '提取URL', icon: '🔗', cat: '文本' },
-    { id: 'extract-email', name: '提取邮箱', icon: '📧', cat: '文本' },
-    { id: 'extract-phone', name: '提取手机号', icon: '📱', cat: '文本' },
     { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
     { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
-    { id: 'base64-url', name: 'URL安全Base64', icon: '🔗', cat: '编码' },
     { id: 'url-encode', name: 'URL编码', icon: '🔗', cat: '编码' },
-    { id: 'url-decode', name: 'URL解码', icon: '🔓', cat: '编码' },
     { id: 'md5', name: 'MD5加密', icon: '🔍', cat: '编码' },
-    { id: 'sha1', name: 'SHA1加密', icon: '🔒', cat: '编码' },
-    { id: 'sha256', name: 'SHA256加密', icon: '🔒', cat: '编码' },
-    { id: 'sha512', name: 'SHA512加密', icon: '🔒', cat: '编码' },
-    { id: 'crc32', name: 'CRC32校验', icon: '🧮', cat: '编码' },
+    { id: 'sha256', name: 'SHA256', icon: '🔒', cat: '编码' },
     { id: 'uuid', name: 'UUID生成', icon: '🆔', cat: '编码' },
-    { id: 'guid', name: 'GUID生成', icon: '🆔', cat: '编码' },
-    { id: 'nanoid', name: 'NanoID生成', icon: '🔑', cat: '编码' },
-    { id: 'ulid', name: 'ULID生成', icon: '🆔', cat: '编码' },
-    { id: 'snowflake', name: '雪花ID生成', icon: '❄️', cat: '编码' },
-    { id: 'password', name: '密码生成器', icon: '🔐', cat: '编码' },
+    { id: 'password', name: '密码生成', icon: '🔐', cat: '编码' },
     { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
-    { id: 'json-minify', name: 'JSON压缩', icon: '📦', cat: '转换' },
-    { id: 'base-convert', name: '进制转换', icon: '📊', cat: '转换' },
     { id: 'timestamp', name: '时间戳转换', icon: '⏰', cat: '转换' },
-    { id: 'pixel', name: '像素转换', icon: '📐', cat: '转换' },
-    { id: 'hexrgb', name: 'HEX/RGB转换', icon: '🎨', cat: '转换' },
-    { id: 'random', name: '随机数生成', icon: '🔢', cat: '计算' },
+    { id: 'hexrgb', name: 'HEX/RGB', icon: '🎨', cat: '转换' },
     { id: 'bmi', name: 'BMI计算器', icon: '⚖️', cat: '计算' },
-    { id: 'loan', name: '贷款计算器', icon: '💰', cat: '计算' },
-    { id: 'datediff', name: '日期差计算', icon: '📆', cat: '计算' },
-    { id: 'percentage', name: '百分比计算', icon: '📊', cat: '计算' },
-    { id: 'rmb', name: '人民币大写', icon: '💴', cat: '计算' },
-    { id: 'emailcheck', name: '邮箱验证', icon: '📧', cat: '计算' },
-    { id: 'phonecheck', name: '手机号验证', icon: '📱', cat: '计算' },
+    { id: 'loan', name: '贷款计算', icon: '💰', cat: '计算' },
+    { id: 'datediff', name: '日期差', icon: '📆', cat: '计算' },
     { id: 'idcard', name: '身份证验证', icon: '🪪', cat: '计算' },
-    { id: 'luhn', name: '银行卡校验', icon: '💳', cat: '计算' },
     { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
     { id: 'coin', name: '抛硬币', icon: '🪙', cat: '趣味' },
     { id: 'lotto', name: '彩票号码', icon: '🎫', cat: '趣味' },
-    { id: 'pick', name: '随机抽选', icon: '🎯', cat: '趣味' },
-    { id: 'lucky', name: '今日运势', icon: '🍀', cat: '趣味' },
-    { id: 'qrcode', name: '二维码生成', icon: '📱', cat: '其他' },
+    { id: 'qrcode', name: '二维码', icon: '📱', cat: '其他' },
     { id: 'ip', name: 'IP查询', icon: '🌐', cat: '其他' },
-    { id: 'user-agent', name: 'UA解析', icon: '🕵️', cat: '其他' },
 ];
 
-const hotTools = tools.slice(0, 15);
 const cats = ['文本', '编码', '转换', '计算', '趣味', '其他'];
-const counts = cats.map(c => tools.filter(t => t.cat === c).length);
 ---
 
 <Layout title="🛠️ 在线工具箱" description="免费在线工具">
-    <div class="text-center mb-10">
-        <div class="text-6xl mb-4">🛠️</div>
-        <h1 class="text-3xl font-bold mb-3 bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">
-            在线工具箱
-        </h1>
-        <p class="text-gray-600 mb-6">免费在线工具 · 无需安装 · 即开即用</p>
+    <div class="text-center mb-8">
+        <div class="text-5xl mb-3">🛠️</div>
+        <h1 class="text-2xl font-bold mb-2 text-pink-600">在线工具箱</h1>
+        <p class="text-gray-600 text-sm mb-5">免费在线工具 · 无需安装 · 即开即用</p>
         <div class="max-w-lg mx-auto">
-            <input type="text" id="search" placeholder="🔍 搜索工具..." class="search-box w-full" oninput="filterTools()">
+            <input type="text" id="search" placeholder="🔍 搜索工具..." class="search-box" oninput="filterTools()">
         </div>
     </div>
     
     <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 mb-8">
         <div class="stat-card">
-            <div class="text-2xl font-bold text-pink-600">{tools.length}</div>
+            <div class="text-xl font-bold text-pink-600">{tools.length}</div>
             <div class="text-xs text-gray-500">总计</div>
         </div>
-        {cats.map((cat, i) => (
+        {cats.map(cat => (
             <div class="stat-card">
-                <div class="text-xl font-bold text-gray-700">{counts[i]}</div>
+                <div class="text-lg font-bold text-gray-700">{tools.filter(t => t.cat === cat).length}</div>
                 <div class="text-xs text-gray-500">{cat}</div>
             </div>
         ))}
     </div>
     
-    <div class="mb-8">
-        <h2 class="text-lg font-bold text-gray-700 mb-4">🔥 热门工具</h2>
-        <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
-            {hotTools.map(tool => (
-                <a href={`/tools/${tool.id}`} class="tool-card">
-                    <div class="text-xl mb-1">{tool.icon}</div>
-                    <div class="text-xs font-medium text-gray-700">{tool.name}</div>
-                </a>
-            ))}
-        </div>
-    </div>
-    
     {cats.map(cat => (
         <div id={cat} class="mb-8">
-            <h2 class="text-lg font-bold text-gray-700 mb-4 pb-2 border-b border-pink-200">
-                {cat}工具
-            </h2>
-            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 tool-grid" data-cat={cat}>
+            <h2 class="text-base font-bold text-gray-700 mb-4 pb-2 border-b border-pink-200">{cat}工具</h2>
+            <div class="tool-grid">
                 {tools.filter(t => t.cat === cat).map(tool => (
-                    <a href={`/tools/${tool.id}`} class="tool-card" data-name={tool.name.toLowerCase()}>
+                    <a href={`/tools/${tool.id}`} class="tool-card" data-name={tool.name}>
                         <div class="text-xl mb-1">{tool.icon}</div>
                         <div class="text-xs font-medium text-gray-700">{tool.name}</div>
                     </a>
@@ -149,9 +75,9 @@ const counts = cats.map(c => tools.filter(t => t.cat === c).length);
     
     <script is:inline>
         function filterTools() {
-            const q = document.getElementById('search').value.toLowerCase().trim();
-            document.querySelectorAll('.tool-grid > a').forEach(a => {
-                a.style.display = a.dataset.name.includes(q) ? '' : 'none';
+            const q = document.getElementById('search').value.toLowerCase();
+            document.querySelectorAll('.tool-card').forEach(a => {
+                a.style.display = a.dataset.name.toLowerCase().includes(q) ? '' : 'none';
             });
         }
     </script>
