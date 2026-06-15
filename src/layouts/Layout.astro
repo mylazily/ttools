@@ -12,47 +12,45 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style is:global>
+    <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #f9fafb; font-family: system-ui, sans-serif; padding-bottom: 80px; }
-        .card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .tool-card { 
-            display: flex !important; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            background: white; 
-            border-radius: 12px; 
-            padding: 16px 8px; 
-            border: 1px solid #e5e7eb; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
-            transition: all 0.2s; 
-            text-align: center; 
-            text-decoration: none;
-            height: 90px !important;
-            width: 100% !important;
+        .clearfix::after { content: ""; display: table; clear: both; }
+        
+        /* 最简单的卡片布局 - float绝对不会错位 */
+        .tool-item {
+            float: left;
+            width: 33.33%;
+            padding: 6px;
         }
-        .tool-card:hover { box-shadow: 0 4px 12px rgba(219, 39, 119, 0.15); border-color: #f472b6; transform: translateY(-2px); }
-        .btn-primary { background: #db2777; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-weight: 500; }
-        .btn-primary:hover { background: #be185d; }
-        .btn-secondary { border: 1px solid #db2777; color: #db2777; padding: 12px 24px; border-radius: 8px; background: white; cursor: pointer; font-weight: 500; }
-        .btn-secondary:hover { background: #fdf2f8; }
-        textarea, input { width: 100%; padding: 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: monospace; font-size: 14px; outline: none; }
-        textarea:focus, input:focus { border-color: #db2777; box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1); }
-        .result-box { background: #f9fafb; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 14px; white-space: pre-wrap; word-break: break-all; min-height: 60px; border: 1px solid #e5e7eb; }
+        @media (min-width: 640px) { .tool-item { width: 25%; } }
+        @media (min-width: 768px) { .tool-item { width: 16.666%; } }
+        
+        .tool-card {
+            display: block;
+            background: white;
+            border-radius: 12px;
+            padding: 16px 8px;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+            text-decoration: none;
+            height: 85px;
+        }
+        .tool-card:hover { border-color: #f472b6; box-shadow: 0 4px 12px rgba(219,39,119,0.15); }
+        
+        .card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #e5e7eb; }
+        .btn-primary { background: #db2777; color: white; padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; }
+        .btn-secondary { border: 1px solid #db2777; color: #db2777; padding: 12px 24px; border-radius: 8px; background: white; cursor: pointer; }
+        textarea, input { width: 100%; padding: 16px; border: 1px solid #d1d5db; border-radius: 8px; font-family: monospace; }
+        .result-box { background: #f9fafb; padding: 16px; border-radius: 8px; font-family: monospace; min-height: 60px; border: 1px solid #e5e7eb; }
         .top-banner { background: linear-gradient(135deg, #db2777, #ec4899); color: white; padding: 8px; text-align: center; font-size: 14px; }
-        .top-banner a { color: white; text-decoration: underline; font-weight: 500; }
-        .nav-bar { background: white; border-bottom: 1px solid #e5e7eb; padding: 16px 0; position: sticky; top: 0; z-index: 50; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 12px 0; z-index: 50; }
-        .bottom-nav a { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #6b7280; font-size: 12px; }
-        .bottom-nav a:hover, .bottom-nav a.active { color: #db2777; }
-        .search-box { background: white; border: 1px solid #d1d5db; border-radius: 12px; padding: 14px 20px; font-size: 16px; width: 100%; }
-        .search-box:focus { border-color: #db2777; box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1); }
-        .stat-card { background: white; border-radius: 12px; padding: 14px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.08); height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .tool-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        @media (min-width: 640px) { .tool-grid { grid-template-columns: repeat(4, 1fr); } }
-        @media (min-width: 768px) { .tool-grid { grid-template-columns: repeat(6, 1fr); } }
+        .top-banner a { color: white; text-decoration: underline; }
+        .nav-bar { background: white; border-bottom: 1px solid #e5e7eb; padding: 16px 0; }
+        .main { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 12px 0; }
+        .search-box { width: 100%; padding: 14px 20px; border: 1px solid #d1d5db; border-radius: 12px; font-size: 16px; }
+        .stat-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+        .stat-card { flex: 1; min-width: 80px; background: white; border-radius: 12px; padding: 14px; text-align: center; border: 1px solid #e5e7eb; }
     </style>
 </head>
 <body>
@@ -60,21 +58,23 @@ const { title, description } = Astro.props;
         🎁 海量精品资源，尽在 <a href="https://www.ziyuanzu.com" target="_blank">资源主站 www.ziyuanzu.com</a>
     </div>
     <div class="nav-bar">
-        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
-            <a href="/" class="text-xl font-bold text-gray-800">🛠️ 在线工具箱</a>
-            <a href="https://www.ziyuanzu.com" target="_blank" class="text-pink-600 text-sm font-medium">→ 访问资源主站</a>
+        <div class="main" style="padding:0 16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <a href="/" style="font-size:20px;font-weight:bold;color:#333;text-decoration:none;">🛠️ 在线工具箱</a>
+                <a href="https://www.ziyuanzu.com" style="color:#db2777;text-decoration:none;font-size:14px;">→ 资源主站</a>
+            </div>
         </div>
     </div>
-    <main class="max-w-6xl mx-auto px-4 py-6">
+    <div class="main">
         <slot />
-    </main>
+    </div>
     <div class="bottom-nav">
-        <div class="max-w-md mx-auto grid grid-cols-5 gap-1 px-4">
-            <a href="/" class="active"><span class="text-lg">🏠</span><span>首页</span></a>
-            <a href="/#文本"><span class="text-lg">📝</span><span>文本</span></a>
-            <a href="/#编码"><span class="text-lg">🔐</span><span>编码</span></a>
-            <a href="/#计算"><span class="text-lg">🧮</span><span>计算</span></a>
-            <a href="https://www.ziyuanzu.com"><span class="text-lg">📦</span><span>资源</span></a>
+        <div style="max-width:500px;margin:0 auto;display:flex;justify-content:space-around;padding:0 16px;">
+            <a href="/" style="display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#666;font-size:12px;"><span style="font-size:20px;">🏠</span>首页</a>
+            <a href="/#文本" style="display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#666;font-size:12px;"><span style="font-size:20px;">📝</span>文本</a>
+            <a href="/#编码" style="display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#666;font-size:12px;"><span style="font-size:20px;">🔐</span>编码</a>
+            <a href="/#计算" style="display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#666;font-size:12px;"><span style="font-size:20px;">🧮</span>计算</a>
+            <a href="https://www.ziyuanzu.com" style="display:flex;flex-direction:column;align-items:center;text-decoration:none;color:#666;font-size:12px;"><span style="font-size:20px;">📦</span>资源</a>
         </div>
     </div>
 </body>

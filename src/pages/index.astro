@@ -5,79 +5,62 @@ const tools = [
     { id: 'word-count', name: '字数统计', icon: '📏', cat: '文本' },
     { id: 'text-dedup', name: '文本去重', icon: '📋', cat: '文本' },
     { id: 'case-convert', name: '大小写', icon: '🔤', cat: '文本' },
-    { id: 'text-reverse', name: '文本反转', icon: '🔄', cat: '文本' },
     { id: 'html-escape', name: 'HTML转义', icon: '📝', cat: '文本' },
-    { id: 'html-beautify', name: 'HTML格式化', icon: '📄', cat: '文本' },
-    { id: 'css-beautify', name: 'CSS格式化', icon: '🎨', cat: '文本' },
-    { id: 'js-beautify', name: 'JS格式化', icon: '💻', cat: '文本' },
     { id: 'trim', name: '空格清理', icon: '🧹', cat: '文本' },
-    { id: 'sort', name: '文本排序', icon: '📊', cat: '文本' },
-    { id: 'base64', name: 'Base64编码', icon: '🔐', cat: '编码' },
-    { id: 'base64-decode', name: 'Base64解码', icon: '🔓', cat: '编码' },
-    { id: 'url-encode', name: 'URL编码', icon: '🔗', cat: '编码' },
-    { id: 'md5', name: 'MD5加密', icon: '🔍', cat: '编码' },
-    { id: 'sha256', name: 'SHA256', icon: '🔒', cat: '编码' },
-    { id: 'uuid', name: 'UUID生成', icon: '🆔', cat: '编码' },
-    { id: 'password', name: '密码生成', icon: '🔐', cat: '编码' },
-    { id: 'json-format', name: 'JSON格式化', icon: '📝', cat: '转换' },
-    { id: 'timestamp', name: '时间戳转换', icon: '⏰', cat: '转换' },
-    { id: 'hexrgb', name: 'HEX/RGB', icon: '🎨', cat: '转换' },
-    { id: 'bmi', name: 'BMI计算器', icon: '⚖️', cat: '计算' },
-    { id: 'loan', name: '贷款计算', icon: '💰', cat: '计算' },
-    { id: 'datediff', name: '日期差', icon: '📆', cat: '计算' },
-    { id: 'idcard', name: '身份证验证', icon: '🪪', cat: '计算' },
-    { id: 'dice', name: '掷骰子', icon: '🎲', cat: '趣味' },
-    { id: 'coin', name: '抛硬币', icon: '🪙', cat: '趣味' },
-    { id: 'lotto', name: '彩票号码', icon: '🎫', cat: '趣味' },
+    { id: 'base64', name: 'Base64', icon: '🔐', cat: '编码' },
+    { id: 'md5', name: 'MD5', icon: '🔍', cat: '编码' },
+    { id: 'uuid', name: 'UUID', icon: '🆔', cat: '编码' },
+    { id: 'password', name: '密码', icon: '🔐', cat: '编码' },
+    { id: 'json-format', name: 'JSON', icon: '📝', cat: '转换' },
+    { id: 'timestamp', name: '时间戳', icon: '⏰', cat: '转换' },
+    { id: 'bmi', name: 'BMI', icon: '⚖️', cat: '计算' },
+    { id: 'loan', name: '贷款', icon: '💰', cat: '计算' },
+    { id: 'idcard', name: '身份证', icon: '🪪', cat: '计算' },
+    { id: 'dice', name: '骰子', icon: '🎲', cat: '趣味' },
     { id: 'qrcode', name: '二维码', icon: '📱', cat: '其他' },
-    { id: 'ip', name: 'IP查询', icon: '🌐', cat: '其他' },
 ];
 
 const cats = ['文本', '编码', '转换', '计算', '趣味', '其他'];
 ---
 
 <Layout title="🛠️ 在线工具箱" description="免费在线工具">
-    <div class="text-center mb-8">
-        <div class="text-5xl mb-3">🛠️</div>
-        <h1 class="text-2xl font-bold mb-2 text-pink-600">在线工具箱</h1>
-        <p class="text-gray-600 text-sm mb-5">免费在线工具 · 无需安装 · 即开即用</p>
-        <div class="max-w-lg mx-auto">
+    <div style="text-align:center;margin-bottom:32px;">
+        <div style="font-size:48px;margin-bottom:12px;">🛠️</div>
+        <h1 style="font-size:24px;font-weight:bold;color:#db2777;margin-bottom:8px;">在线工具箱</h1>
+        <p style="color:#666;margin-bottom:20px;">免费在线工具 · 无需安装 · 即开即用</p>
+        <div style="max-width:500px;margin:0 auto;">
             <input type="text" id="search" placeholder="🔍 搜索工具..." class="search-box" oninput="filterTools()">
         </div>
     </div>
     
-    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 mb-8">
-        <div class="stat-card">
-            <div class="text-xl font-bold text-pink-600">{tools.length}</div>
-            <div class="text-xs text-gray-500">总计</div>
-        </div>
+    <div class="stat-row">
+        <div class="stat-card"><div style="font-size:20px;font-weight:bold;color:#db2777;">{tools.length}</div><div style="font-size:12px;color:#666;">总计</div></div>
         {cats.map(cat => (
-            <div class="stat-card">
-                <div class="text-lg font-bold text-gray-700">{tools.filter(t => t.cat === cat).length}</div>
-                <div class="text-xs text-gray-500">{cat}</div>
-            </div>
+            <div class="stat-card"><div style="font-size:18px;font-weight:bold;color:#333;">{tools.filter(t => t.cat === cat).length}</div><div style="font-size:12px;color:#666;">{cat}</div></div>
         ))}
     </div>
     
     {cats.map(cat => (
-        <div id={cat} class="mb-8">
-            <h2 class="text-base font-bold text-gray-700 mb-4 pb-2 border-b border-pink-200">{cat}工具</h2>
-            <div class="tool-grid">
+        <div id={cat} style="margin-bottom:32px;">
+            <h2 style="font-size:16px;font-weight:bold;color:#333;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #fce7f3;">{cat}工具</h2>
+            <div class="clearfix">
                 {tools.filter(t => t.cat === cat).map(tool => (
-                    <a href={`/tools/${tool.id}`} class="tool-card" data-name={tool.name}>
-                        <div class="text-xl mb-1">{tool.icon}</div>
-                        <div class="text-xs font-medium text-gray-700">{tool.name}</div>
-                    </a>
+                    <div class="tool-item">
+                        <a href={`/tools/${tool.id}`} class="tool-card">
+                            <div style="font-size:20px;margin-bottom:4px;">{tool.icon}</div>
+                            <div style="font-size:12px;color:#333;">{tool.name}</div>
+                        </a>
+                    </div>
                 ))}
             </div>
         </div>
     ))}
     
-    <script is:inline>
+    <script>
         function filterTools() {
             const q = document.getElementById('search').value.toLowerCase();
             document.querySelectorAll('.tool-card').forEach(a => {
-                a.style.display = a.dataset.name.toLowerCase().includes(q) ? '' : 'none';
+                a.parentElement.style.display = a.textContent.toLowerCase().includes(q) ? '' : 'none';
             });
         }
     </script>
