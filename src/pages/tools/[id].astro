@@ -1,22 +1,27 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
+export function getStaticPaths() {
+    const tools = ['word-count', 'text-dedup', 'case-convert', 'base64', 'md5', 'json-format', 'timestamp', 'bmi', 'password', 'uuid'];
+    return tools.map(id => ({ params: { id } }));
+}
+
 const { id } = Astro.params;
 
-const tools: Record<string, any> = {
-    'word-count': { name: '字数统计', icon: '📏', cat: '文本' },
-    'text-dedup': { name: '文本去重', icon: '📋', cat: '文本' },
-    'case-convert': { name: '大小写转换', icon: '🔤', cat: '文本' },
-    'base64': { name: 'Base64编码', icon: '🔐', cat: '编码' },
-    'md5': { name: 'MD5加密', icon: '🔍', cat: '编码' },
-    'json-format': { name: 'JSON格式化', icon: '📝', cat: '转换' },
-    'timestamp': { name: '时间戳转换', icon: '⏰', cat: '转换' },
-    'bmi': { name: 'BMI计算器', icon: '⚖️', cat: '计算' },
-    'password': { name: '密码生成器', icon: '🔐', cat: '编码' },
-    'uuid': { name: 'UUID生成', icon: '🆔', cat: '编码' },
+const toolNames: Record<string, any> = {
+    'word-count': { name: '字数统计', icon: '📏' },
+    'text-dedup': { name: '文本去重', icon: '📋' },
+    'case-convert': { name: '大小写转换', icon: '🔤' },
+    'base64': { name: 'Base64编码', icon: '🔐' },
+    'md5': { name: 'MD5加密', icon: '🔍' },
+    'json-format': { name: 'JSON格式化', icon: '📝' },
+    'timestamp': { name: '时间戳转换', icon: '⏰' },
+    'bmi': { name: 'BMI计算器', icon: '⚖️' },
+    'password': { name: '密码生成器', icon: '🔐' },
+    'uuid': { name: 'UUID生成', icon: '🆔' },
 };
 
-const tool = tools[id] || { name: '工具', icon: '🛠️', cat: '其他' };
+const tool = toolNames[id] || { name: '工具', icon: '🛠️' };
 ---
 
 <Layout title={`${tool.name} - 在线工具箱`} description={tool.name}>
