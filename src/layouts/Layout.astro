@@ -169,18 +169,10 @@ const finalCanonical = canonical || (Astro.url ? `${siteUrl}${Astro.url.pathname
     }).replace(/</g, '\\u003c')} />
   </head>
   <body>
-    <!-- 顶部导航 -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-      <div class="max-w-screen-xl mx-auto px-3 h-12 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2 text-lg font-bold text-gray-800 hover:text-pink-700 transition-colors">
-          <span class="text-xl">🛠️</span>
-          <span>在线工具箱</span>
-        </a>
-        <a href="https://www.ziyuanzu.com" class="text-sm text-pink-600 hover:text-pink-700 transition-colors">
-          资源主站 →
-        </a>
-      </div>
-    </header>
+    <!-- 顶部横幅 -->
+    <a href="https://www.ziyuanzu.com" class="block sticky top-0 z-40 bg-pink-500 text-center py-1.5 text-xs text-white hover:bg-pink-600 transition-colors">
+      🎁 资源主站：www.ziyuanzu.com
+    </a>
 
     <!-- 主内容 -->
     <main class="max-w-screen-xl mx-auto px-3 pt-2 pb-20">
